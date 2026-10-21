@@ -225,7 +225,7 @@ export const projects: Project[] = [
     categories: ['code'],
     tags: ['TypeScript', 'Fastify', 'Preact', 'AI'],
     image: '/assets/projects/stepwhiz.webp',
-    gallery: ['/assets/work/stepwhiz-1-2x.webp', '/assets/work/stepwhiz-2-2x.webp', '/assets/work/stepwhiz-3-2x.webp', '/assets/work/stepwhiz-4-2x.webp'],
+    gallery: ['/assets/work/stepwhiz-1-2x.webp', '/assets/work/stepwhiz-2-2x.webp', '/assets/work/stepwhiz-3-2x.webp', '/assets/work/stepwhiz-4-2x.webp', '/assets/work/stepwhiz-store-2x.webp'],
     demo: { label: 'Live demo', href: 'https://stepwhiz.onrender.com/app/' },
   },
   {
@@ -354,7 +354,7 @@ export const projects: Project[] = [
       { src: '/assets/videos/laurier-helmet-shuffle-m.mp4', poster: '/assets/work/laurier-helmet-shuffle-m-poster.webp', title: 'Helmet Shuffle jumbotron game' },
       { src: '/assets/videos/laurier-senior-day-tribute-m.mp4', poster: '/assets/work/laurier-senior-day-tribute-m-poster.webp', title: 'Senior Day tribute' },
     ],
-    gallery: ['/assets/work/laurier-senior-day-v2.webp', '/assets/work/laurier-countdown-1-m.webp', '/assets/work/laurier-countdown-2-m.webp', '/assets/work/laurier-countdown-3-m.webp', '/assets/work/laurier-endzone-v2.webp', '/assets/work/laurier-bhm-m.webp', '/assets/work/laurier-crest-m.webp', '/assets/work/laurier-broadcast-v2.webp'],
+    gallery: ['/assets/work/laurier-clash-hero.webp', '/assets/work/laurier-senior-day-v2.webp', '/assets/work/laurier-helmets-duo.webp', '/assets/work/laurier-countdown-1-m.webp', '/assets/work/laurier-clash-close.webp', '/assets/work/laurier-countdown-2-m.webp', '/assets/work/laurier-media-day.webp', '/assets/work/laurier-countdown-3-m.webp', '/assets/work/laurier-endzone-v2.webp', '/assets/videos/laurier-bhm-loop.mp4', '/assets/work/laurier-helmets-heritage.webp', '/assets/work/laurier-crest-m.webp', '/assets/work/laurier-broadcast-v2.webp'],
     layout: 'grid',
   },
   {
@@ -418,7 +418,7 @@ export const projects: Project[] = [
     categories: ['photo'],
     tags: ['Sony A6100', 'Lookbook', 'Product'],
     image: '/assets/projects/koldhearted-q.webp',
-    gallery: ['/assets/work/koldhearted-g1.webp', '/assets/work/koldhearted-g2.webp', '/assets/work/koldhearted-g3.webp', '/assets/work/koldhearted-g4-q.webp', '/assets/work/koldhearted-g5.webp', '/assets/work/koldhearted-g6.webp'],
+    gallery: ['/assets/work/koldhearted-g1.webp', '/assets/work/koldhearted-g2.webp', '/assets/work/koldhearted-g7.webp', '/assets/work/koldhearted-g3.webp', '/assets/work/koldhearted-g4-q.webp', '/assets/work/koldhearted-g5.webp', '/assets/work/koldhearted-g6.webp'],
     layout: 'grid',
   },
   {
@@ -432,7 +432,7 @@ export const projects: Project[] = [
     categories: ['photo'],
     tags: ['Product', 'Studio', 'Music'],
     image: '/assets/projects/plaques-q.webp',
-    gallery: ['/assets/work/plaques-1.webp', '/assets/work/plaques-2.webp', '/assets/work/plaques-3.webp', '/assets/work/plaques-4.webp', '/assets/work/plaques-5.webp'],
+    gallery: ['/assets/work/plaques-1.webp', '/assets/work/plaques-2.webp', '/assets/work/plaques-3.webp', '/assets/work/plaques-4.webp', '/assets/work/plaques-5.webp', '/assets/work/plaques-6.webp'],
     layout: 'grid',
   },
   {

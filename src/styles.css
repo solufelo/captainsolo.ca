@@ -2322,7 +2322,8 @@ p {
   gap: clamp(14px, 2vw, 28px);
   padding-inline: clamp(8px, 2vw, 28px);
 }
-.case-media img {
+.case-media img,
+.case-media > video {
   width: 100%;
   height: auto;
   border-radius: 6px;
@@ -2360,7 +2361,8 @@ p {
   border-radius: 6px;
   background: #000;
 }
-.case-media[data-layout='grid'] img {
+.case-media[data-layout='grid'] img,
+.case-media[data-layout='grid'] > video {
   break-inside: avoid;
   margin-bottom: clamp(14px, 2vw, 28px);
 }
@@ -2956,17 +2958,17 @@ html:not(.intro) .hero .viewfinder video {
 }
 
 /* ---------- Case galleries: each image opens like a window as it scrolls in ---------- */
-.js .case-media img[data-reveal] {
+.js .case-media :is(img, video)[data-reveal] {
   opacity: 1;
   transform: none;
   clip-path: inset(6% round 6px);
   transition: clip-path 1s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
-.js .case-media img[data-reveal].is-in {
+.js .case-media :is(img, video)[data-reveal].is-in {
   clip-path: inset(0 round 6px);
 }
 @media (prefers-reduced-motion: reduce) {
-  html:not(.motion-on) .case-media img[data-reveal] {
+  html:not(.motion-on) .case-media :is(img, video)[data-reveal] {
     clip-path: none;
   }
 }

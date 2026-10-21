@@ -20,6 +20,19 @@ function Loop({ src, poster }: { src: string; poster: string }) {
   )
 }
 
+/** A silent loop that sits in the gallery like a still: plays while on screen, never for reduced motion. Its poster is the .webp beside it. */
+function GalleryLoop({ src, label }: { src: string; label: string }) {
+  const ref = useRef<HTMLVideoElement>(null)
+  useEffect(() => {
+    const v = ref.current
+    if (!v || reducedMotion()) return
+    const io = new IntersectionObserver(([e]) => (e.isIntersecting ? v.play().catch(() => {}) : v.pause()))
+    io.observe(v)
+    return () => io.disconnect()
+  }, [])
+  return <video ref={ref} src={src} poster={src.replace(/\.mp4$/, '.webp')} muted loop playsInline preload="none" aria-label={label} data-reveal />
+}
+
 /** "Want this for your business?" pinned to the bottom once the case header scrolls away; gone again when the footer CTA shows. */
 function BookBar() {
   const [shown, setShown] = useState(false)
@@ -107,16 +120,21 @@ export function Work() {
             <video src={project.video} poster={project.image} controls playsInline preload="metadata" />
           </figure>
         ) : (
-          gallery.map((src, n) => (
-            <img
-              key={src}
-              src={src}
-              alt={`${project.title}, ${project.layout ? 'piece' : 'screen'} ${n + 1}`}
-              loading={n === 0 ? 'eager' : 'lazy'}
-              {...(!project.layout && { width: 1440, height: 900 })}
-              data-reveal
-            />
-          ))
+          gallery.map((src, n) => {
+            const alt = `${project.title}, ${project.layout ? 'piece' : 'screen'} ${n + 1}`
+            return src.endsWith('.mp4') ? (
+              <GalleryLoop key={src} src={src} label={alt} />
+            ) : (
+              <img
+                key={src}
+                src={src}
+                alt={alt}
+                loading={n === 0 ? 'eager' : 'lazy'}
+                {...(!project.layout && { width: 1440, height: 900 })}
+                data-reveal
+              />
+            )
+          })
         )}
       </section>
 
