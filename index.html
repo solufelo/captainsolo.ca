@@ -16,8 +16,15 @@
       // Apply the saved or system theme before first paint so pages never flash the wrong colours.
       document.documentElement.classList.add('js') // scroll reveals only hide things when JS can show them again
       try {
+        // ?motion=on brings scroll effects back for a visitor whose system asks for reduced motion (src/motion.ts)
+        var m = new URLSearchParams(location.search).get('motion')
+        if (m === 'on' || m === 'off') localStorage.setItem('motion', m)
+        if (localStorage.getItem('motion') === 'on') document.documentElement.classList.add('motion-on')
+      } catch (e) {}
+      try {
         // the greeting intro (Curtain.tsx): first page of a visit only
-        if (!sessionStorage.getItem('intro-seen') && !matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('intro')
+        var calm = matchMedia('(prefers-reduced-motion: reduce)').matches && !document.documentElement.classList.contains('motion-on')
+        if (!sessionStorage.getItem('intro-seen') && !calm) document.documentElement.classList.add('intro')
       } catch (e) {}
       try {
         var t = localStorage.getItem('theme')

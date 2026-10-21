@@ -8,6 +8,7 @@ import { Curtain } from './Curtain'
 import { FloatingMenu } from './FloatingMenu'
 import { Mark } from './Mark'
 import { Orb } from './Orb'
+import { reducedMotion } from '../motion'
 
 declare global {
   interface Window {
@@ -18,8 +19,9 @@ declare global {
 /** Smooth, slightly weighted scrolling (Lenis). Native scrolling for reduced motion. */
 function useSmoothScroll() {
   useEffect(() => {
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    const lenis = new Lenis({ lerp: 0.1 })
+    if (reducedMotion()) return
+    // autoToggle pauses smoothing while the page is overflow: hidden; nested scrollers (menus, embeds) keep native scroll.
+    const lenis = new Lenis({ lerp: 0.1, autoToggle: true, allowNestedScroll: true })
     window.lenis = lenis
     let raf = requestAnimationFrame(function loop(t) {
       lenis.raf(t)
@@ -45,7 +47,7 @@ function FooterCurve() {
   }, [pathname])
   useEffect(() => {
     const el = ref.current
-    if (!el || matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    if (!el || reducedMotion()) return
     const onScroll = () => {
       const p = Math.min(1, Math.max(0, (innerHeight - el.getBoundingClientRect().top) / innerHeight))
       el.style.setProperty('--curve', String(1 - p))

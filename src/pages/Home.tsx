@@ -1,56 +1,97 @@
-import { Fragment } from 'react'
+import { useEffect, useRef, type CSSProperties } from 'react'
 import { Link } from 'react-router'
 import { Hero } from '../components/Hero'
 import { Orb } from '../components/Orb'
-import { Clients, Strip } from '../components/Strip'
+import { Clients, Strip, useCover, useLit } from '../components/Strip'
 import { WorkList } from '../components/WorkList'
 import { bookCall, clients, faqs, getProject, offers, pains, process, projects, type Project } from '../content/site'
+import { reducedMotion } from '../motion'
 
 // Business clients first (the people this page is for), then range: 3D, a shop, a music video.
 const featured = ['barbershop-promo', 'koldhearted-lookbook', 'solvra', 'vair-drop', 'laurier-gameday', 'velare', 'suburbia', 'tec'].map(
   (s) => getProject(s) as Project,
 )
+// Vertical reels: the format barbershops, salons and promoters actually post.
+const reels = ['barbershop-promo', 'barbershop-braids', 'savyan-salon', 'club-event', 'laurier-basketball'].map((s) => getProject(s) as Project)
 // Stills slide past between the work and the services: photos on top, design underneath.
 const stills = (...slugs: string[]) => slugs.flatMap((s) => getProject(s)?.gallery ?? [])
 const stripRows: [string[], string[]] = [
   stills('koldhearted-lookbook', 'photo-selects'),
-  stills('cover-art', 'laurier-gameday').filter((s) => !/scorebug|spotlight|touchdown|crest/.test(s)),
+  stills('cover-art', 'laurier-gameday').filter((s) => !/broadcast|crest/.test(s)),
 ]
 const n = (i: number) => String(i + 1).padStart(2, '0')
+const vars = (v: Record<string, number>) => v as CSSProperties
 
-/** Each word rises out of its own line mask when the heading scrolls in (via [data-reveal] on the parent). */
-function Words({ text }: { text: string }) {
-  return text.split(' ').map((w, i) => (
-    <Fragment key={i}>
-      <span className="w">
-        <span style={{ transitionDelay: `${i * 45}ms` }}>{w}</span>
-      </span>{' '}
-    </Fragment>
+/** Each word lights up in turn as the heading rises up the screen (--p from useLit, --i per word). */
+function LitWords({ text }: { text: string }) {
+  const words = text.split(' ')
+  return words.map((w, i) => (
+    <span key={i} className="w" style={vars({ '--i': i })}>
+      {w}{' '}
+    </span>
   ))
 }
 
+/** A row of vertical promos that play only while on screen; reduced motion keeps their first frame. */
+function Reels({ items }: { items: Project[] }) {
+  const ref = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    const videos = ref.current?.querySelectorAll('video')
+    if (!videos || reducedMotion()) return
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => (e.isIntersecting ? (e.target as HTMLVideoElement).play().catch(() => {}) : (e.target as HTMLVideoElement).pause())),
+      { threshold: 0.25 },
+    )
+    videos.forEach((v) => io.observe(v))
+    return () => io.disconnect()
+  }, [])
+  return (
+    <section className="reels" aria-labelledby="reels-title">
+      <h2 id="reels-title" className="label wrap">
+        Reels
+      </h2>
+      <div ref={ref} className="reels-row">
+        {items.map((p) => (
+          <Link key={p.slug} to={`/work/${p.slug}`} className="reel-card" aria-label={p.title}>
+            <video src={p.preview} muted loop playsInline preload="metadata" aria-hidden="true" />
+          </Link>
+        ))}
+      </div>
+    </section>
+  )
+}
+
 export function Home() {
+  const stage = useRef<HTMLDivElement>(null)
+  const title = useRef<HTMLHeadingElement>(null)
+  useCover(stage)
+  useLit(title)
+  const problemTitle = 'Your business is better than it looks online.'
   return (
     <>
-      <Hero />
-
-      <section className="wrap problem" aria-labelledby="problem-title">
-        <p className="label">Sound familiar?</p>
-        <h2 id="problem-title" className="problem-title" data-reveal>
-          <Words text="Your business is better than it looks online." />
-        </h2>
-        <ul className="pains">
-          {pains.map((p) => (
-            <li key={p} data-reveal>
-              {p}
-            </li>
-          ))}
-        </ul>
-        <div className="problem-answer" data-reveal>
-          <p>I do all three: the shoot, the site and the upkeep, so it all looks like you.</p>
-          <Orb to={bookCall}>Book a call</Orb>
+      {/* The reel pins while the problem slides up over it on its own sheet. */}
+      <div ref={stage} className="hero-stage">
+        <Hero />
+        <div className="hero-sheet">
+          <section className="wrap problem" aria-labelledby="problem-title">
+            <p className="label">Sound familiar?</p>
+            <h2 ref={title} id="problem-title" className="problem-title" style={vars({ '--n': problemTitle.split(' ').length })}>
+              <LitWords text={problemTitle} />
+            </h2>
+            <ul className="pains">
+              {pains.map((p) => (
+                <li key={p} data-reveal>
+                  {p}
+                </li>
+              ))}
+            </ul>
+            <div className="problem-answer" data-reveal>
+              <p>I do all three: the shoot, the site and the upkeep, so it all looks like you.</p>
+              <Orb to={bookCall}>Book a call</Orb>
+            </div>
+          </section>
         </div>
-      </section>
+      </div>
 
       <Clients names={clients} />
 
@@ -65,6 +106,8 @@ export function Home() {
           </Link>
         </div>
       </section>
+
+      <Reels items={reels} />
 
       <Strip rows={stripRows} />
 
@@ -86,13 +129,14 @@ export function Home() {
         </Link>
       </section>
 
-      <section className="wrap steps" aria-labelledby="process-title">
+      {/* Each step pins a little lower than the last, so they stack like file tabs. */}
+      <section className="wrap steps deck" aria-labelledby="process-title">
         <h2 id="process-title" className="label">
           How it works
         </h2>
         <ol>
           {process.map((p, i) => (
-            <li key={p.step} data-reveal>
+            <li key={p.step} style={vars({ '--i': i })}>
               <span className="step-n">{n(i)}</span>
               <h3>{p.step}</h3>
               <p>{p.body}</p>

@@ -1,27 +1,41 @@
 import { useEffect, useRef, type RefObject } from 'react'
+import { reducedMotion } from '../motion'
 
-/** Sets --slide on the element: -1 as it enters the bottom of the screen, +1 as it leaves the top. */
-export function useSlide<T extends HTMLElement>(ref: RefObject<T | null>) {
+const clamp = (lo: number, hi: number, v: number) => Math.max(lo, Math.min(hi, v))
+
+/** Keeps a CSS variable on the element in step with scrolling: `value` gets its box and the viewport height. Off for reduced motion. */
+export function useScrollVar<T extends HTMLElement>(ref: RefObject<T | null>, name: string, value: (r: DOMRect, vh: number) => number) {
   useEffect(() => {
     const el = ref.current
-    if (!el || matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    if (!el || reducedMotion()) return
     let raf = 0
     const onScroll = () => {
       cancelAnimationFrame(raf)
-      raf = requestAnimationFrame(() => {
-        const r = el.getBoundingClientRect()
-        const t = Math.max(-1, Math.min(1, (innerHeight / 2 - (r.top + r.height / 2)) / innerHeight))
-        el.style.setProperty('--slide', String(t))
-      })
+      raf = requestAnimationFrame(() => el.style.setProperty(name, value(el.getBoundingClientRect(), innerHeight).toFixed(4)))
     }
     onScroll()
     addEventListener('scroll', onScroll, { passive: true })
+    addEventListener('resize', onScroll)
     return () => {
       removeEventListener('scroll', onScroll)
+      removeEventListener('resize', onScroll)
       cancelAnimationFrame(raf)
     }
-  }, [ref])
+    // `value` is a fixed formula per caller; re-subscribing on each render would only churn listeners.
+  }, [ref, name])
 }
+
+/** Sets --slide on the element: -1 as it enters the bottom of the screen, +1 as it leaves the top. */
+export const useSlide = <T extends HTMLElement>(ref: RefObject<T | null>) =>
+  useScrollVar(ref, '--slide', (r, vh) => clamp(-1, 1, (vh / 2 - (r.top + r.height / 2)) / vh))
+
+/** --cover on a pinned hero's stage: 0 at the top of the page, 1 once the next section has slid fully over it. */
+export const useCover = <T extends HTMLElement>(ref: RefObject<T | null>) =>
+  useScrollVar(ref, '--cover', (r, vh) => clamp(0, 1, -r.top / Math.min(vh, 1100)))
+
+/** --p for scroll-lit text: 0 while the element's top is low on screen, 1 once it has risen to 30% of the screen. */
+export const useLit = <T extends HTMLElement>(ref: RefObject<T | null>) =>
+  useScrollVar(ref, '--p', (r, vh) => clamp(0, 1, (vh * 0.88 - r.top) / (vh * 0.58)))
 
 /** Two rows of stills that slide in opposite directions as the section scrolls past. Decorative. */
 export function Strip({ rows }: { rows: [string[], string[]] }) {

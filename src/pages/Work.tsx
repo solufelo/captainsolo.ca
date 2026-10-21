@@ -1,8 +1,9 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router'
-import { getProject, projects } from '../content/site'
+import { bookCall, getProject, projects } from '../content/site'
 import { Orb } from '../components/Orb'
 import { NotFound } from './NotFound'
+import { reducedMotion } from '../motion'
 
 const external = (href: string) => !href.startsWith('/')
 
@@ -10,12 +11,37 @@ const external = (href: string) => !href.startsWith('/')
 function Loop({ src, poster }: { src: string; poster: string }) {
   const ref = useRef<HTMLVideoElement>(null)
   useEffect(() => {
-    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) ref.current?.play().catch(() => {})
+    if (!reducedMotion()) ref.current?.play().catch(() => {})
   }, [src])
   return (
     <figure className="case-loop">
       <video ref={ref} key={src} src={src} poster={poster} muted loop playsInline controls preload="metadata" />
     </figure>
+  )
+}
+
+/** "Want this for your business?" pinned to the bottom once the case header scrolls away; gone again when the footer CTA shows. */
+function BookBar() {
+  const [shown, setShown] = useState(false)
+  useEffect(() => {
+    let footerIn = false
+    const update = () => setShown(scrollY > 480 && !footerIn)
+    const footer = document.querySelector('.site-footer')
+    const io = new IntersectionObserver(([e]) => ((footerIn = e.isIntersecting), update()))
+    if (footer) io.observe(footer)
+    addEventListener('scroll', update, { passive: true })
+    return () => {
+      io.disconnect()
+      removeEventListener('scroll', update)
+    }
+  }, [])
+  return (
+    <aside className="book-bar" data-shown={shown} inert={!shown} aria-label="Book a call">
+      <p>Want this for your business?</p>
+      <Link to={bookCall} className="btn btn-sm">
+        Book a call
+      </Link>
+    </aside>
   )
 }
 
@@ -102,6 +128,7 @@ export function Work() {
         </Link>
         <Orb to="/work">All work</Orb>
       </nav>
+      <BookBar />
     </article>
   )
 }

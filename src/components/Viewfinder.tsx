@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router'
 import reel from '../content/heroReel.json'
+import { reducedMotion } from '../motion'
 
 const pad = (n: number) => String(Math.floor(n)).padStart(2, '0')
 // Camera-style timecode HH:MM:SS:FF at 24 fps.
@@ -17,7 +18,7 @@ export function Viewfinder() {
   useEffect(() => {
     const v = video.current
     if (!v) return
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (reducedMotion()) {
       v.pause()
       setHeld(true)
     } else {

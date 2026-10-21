@@ -1,13 +1,14 @@
 import { useEffect, useRef } from 'react'
 import { site } from '../content/site'
 import { Viewfinder } from './Viewfinder'
+import { reducedMotion } from '../motion'
 
 /** The name slides across the bottom of the reel; scrolling up reverses it. Still for reduced motion. */
 function Marquee({ text }: { text: string }) {
   const track = useRef<HTMLSpanElement>(null)
   useEffect(() => {
     const el = track.current
-    if (!el || matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    if (!el || reducedMotion()) return
     let x = 0
     let dir = -1
     let last = scrollY
