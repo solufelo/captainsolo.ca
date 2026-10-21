@@ -52,7 +52,7 @@ function Reels({ items }: { items: Project[] }) {
       </h2>
       <div ref={ref} className="reels-row">
         {items.map((p) => (
-          <Link key={p.slug} to={`/work/${p.slug}`} className="reel-card" aria-label={p.title}>
+          <Link key={p.slug} to={`/work/${p.slug}`} className="reel-card" aria-label={p.title} data-cursor="View">
             {/* iOS shows nothing before play without a poster: each preview has a first-frame .webp beside it */}
             <video src={p.preview} poster={p.preview?.replace(/\.mp4$/, '.webp')} muted loop playsInline preload="metadata" aria-hidden="true" />
           </Link>
@@ -80,8 +80,8 @@ export function Home() {
               <LitWords text={problemTitle} />
             </h2>
             <ul className="pains">
-              {pains.map((p) => (
-                <li key={p} data-reveal>
+              {pains.map((p, i) => (
+                <li key={p} data-reveal style={vars({ '--i': i })}>
                   {p}
                 </li>
               ))}
@@ -118,7 +118,7 @@ export function Home() {
         </h2>
         <ol>
           {offers.map((o, i) => (
-            <li key={o.title} data-reveal>
+            <li key={o.title} data-reveal style={vars({ '--i': i })}>
               <span className="step-n">{n(i)}</span>
               <h3>{o.title}</h3>
               <p>{o.line}</p>

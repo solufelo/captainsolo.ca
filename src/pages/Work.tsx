@@ -121,7 +121,7 @@ export function Work() {
       </section>
 
       <nav className="wrap case-next" aria-label="Next project">
-        <Link to={`/work/${next.slug}`}>
+        <Link to={`/work/${next.slug}`} data-cursor="Next">
           <span className="label">Next</span>
           <span className="case-next-title">{next.title}</span>
           <img src={next.image} alt="" width="800" height="500" loading="lazy" />

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type CSSProperties } from 'react'
 import { Link, useLocation } from 'react-router'
 import { bookCall, site, socials } from '../content/site'
 
@@ -34,6 +34,7 @@ export function FloatingMenu() {
       <button
         type="button"
         className="float-menu-btn"
+        data-magnetic
         data-shown={shown || open}
         data-open={open}
         aria-expanded={open}
@@ -48,8 +49,8 @@ export function FloatingMenu() {
       <nav id="side-menu" className="side-menu" data-open={open} aria-label="Menu" aria-hidden={!open} inert={!open}>
         <p className="label">Navigation</p>
         <ul>
-          {links.map((l) => (
-            <li key={l.label}>
+          {links.map((l, i) => (
+            <li key={l.label} style={{ '--i': i } as CSSProperties}>
               <Link to={l.to} aria-current={pathname === l.to ? 'page' : undefined}>
                 {l.label}
               </Link>

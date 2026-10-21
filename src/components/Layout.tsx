@@ -4,6 +4,7 @@ import Lenis from 'lenis'
 import 'lenis/dist/lenis.css'
 import { bookCall, site, socials } from '../content/site'
 import { CopyEmail } from './CopyEmail'
+import { Cursor } from './Cursor'
 import { Curtain } from './Curtain'
 import { FloatingMenu } from './FloatingMenu'
 import { Mark } from './Mark'
@@ -278,6 +279,7 @@ export function Layout() {
       <FooterCurve />
       <Footer />
       <MotionNote />
+      <Cursor />
     </>
   )
 }

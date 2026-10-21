@@ -300,7 +300,7 @@ export const projects: Project[] = [
     status: 'live',
     categories: ['code'],
     tags: ['React', 'TypeScript', 'PostgreSQL', 'Netlify Functions', 'AI'],
-    image: '/assets/projects/cinemaverse.webp',
+    image: '/assets/projects/cinemaverse-v2.webp',
     gallery: ['/assets/work/cinemaverse-home-2x.webp', '/assets/work/cinemaverse-feed-2x.webp', '/assets/work/cinemaverse-foryou.webp', '/assets/work/cinemaverse-profile-2x.webp'],
     demo: { label: 'Live demo', href: 'https://cinemaverse-solo.netlify.app/' },
     source: 'https://github.com/solufelo/cinemaverse-solo-wapp',
@@ -354,7 +354,7 @@ export const projects: Project[] = [
       { src: '/assets/videos/laurier-helmet-shuffle-m.mp4', poster: '/assets/work/laurier-helmet-shuffle-m-poster.webp', title: 'Helmet Shuffle jumbotron game' },
       { src: '/assets/videos/laurier-senior-day-tribute-m.mp4', poster: '/assets/work/laurier-senior-day-tribute-m-poster.webp', title: 'Senior Day tribute' },
     ],
-    gallery: ['/assets/work/laurier-senior-day-v2.webp', '/assets/work/laurier-countdown-1-m.webp', '/assets/work/laurier-countdown-2-m.webp', '/assets/work/laurier-countdown-3-m.webp', '/assets/work/laurier-endzone-m.webp', '/assets/work/laurier-bhm-m.webp', '/assets/work/laurier-crest-m.webp', '/assets/work/laurier-broadcast.webp'],
+    gallery: ['/assets/work/laurier-senior-day-v2.webp', '/assets/work/laurier-countdown-1-m.webp', '/assets/work/laurier-countdown-2-m.webp', '/assets/work/laurier-countdown-3-m.webp', '/assets/work/laurier-endzone-v2.webp', '/assets/work/laurier-bhm-m.webp', '/assets/work/laurier-crest-m.webp', '/assets/work/laurier-broadcast-v2.webp'],
     layout: 'grid',
   },
   {

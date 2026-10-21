@@ -3,13 +3,16 @@ import { Link } from 'react-router'
 import type { Project } from '../content/site'
 
 /**
- * Big-type work rows. With a mouse, hovering a row floats its preview (a silent loop for video work,
- * the screen for sites) next to the pointer; on touch screens each row shows its thumbnail instead.
+ * Big-type work rows. With a mouse, hovering a row floats a preview next to the pointer: every project sits in one
+ * vertical strip that slides to the hovered row, so moving (or scrolling) down the list rolls from one to the next.
+ * The hovered project plays its silent loop on top of its card. On touch screens each row shows its thumbnail instead.
  */
 export function WorkList({ items }: { items: Project[] }) {
   const [active, setActive] = useState<Project | null>(null)
-  // Vertical reels get a tall frame; known once the preview's metadata loads.
-  const [tall, setTall] = useState(false)
+  // The strip mounts on first hover, so the home page doesn't load every card up front.
+  const [armed, setArmed] = useState(false)
+  // Stays on the last row after the pointer leaves, so the preview shrinks away on the project it was showing.
+  const [index, setIndex] = useState(0)
   const float = useRef<HTMLDivElement>(null)
   // Where the pointer entered the row, so the preview opens under it instead of at the corner.
   const entry = useRef({ x: 0, y: 0 })
@@ -42,15 +45,17 @@ export function WorkList({ items }: { items: Project[] }) {
   return (
     <div className="work-list" onPointerLeave={() => setActive(null)}>
       <ul>
-        {items.map((p) => (
+        {items.map((p, i) => (
           <li key={p.slug}>
             <Link
               to={`/work/${p.slug}`}
               className="work-row"
+              data-cursor="hide"
               onPointerEnter={(e) => {
                 if (e.pointerType !== 'mouse') return
                 entry.current = { x: e.clientX, y: e.clientY }
-                if (!p.preview) setTall(false)
+                setArmed(true)
+                setIndex(i)
                 setActive(p)
               }}
             >
@@ -61,21 +66,17 @@ export function WorkList({ items }: { items: Project[] }) {
           </li>
         ))}
       </ul>
-      <div ref={float} className="work-float" data-on={!!active} data-tall={tall} aria-hidden="true">
-        {active &&
-          (active.preview ? (
-            <video
-              key={active.slug}
-              src={active.preview}
-              muted
-              loop
-              autoPlay
-              playsInline
-              onLoadedMetadata={(e) => setTall(e.currentTarget.videoHeight > e.currentTarget.videoWidth)}
-            />
-          ) : (
-            <img key={active.slug} src={active.image} alt="" />
-          ))}
+      <div ref={float} className="work-float" data-on={!!active} aria-hidden="true">
+        {armed && (
+          <div className="work-float-strip" style={{ translate: `0 ${-index * 100}%` }}>
+            {items.map((p) => (
+              <div key={p.slug} className="work-float-slide">
+                <img src={p.image} alt="" />
+                {active === p && p.preview && <video src={p.preview} muted loop autoPlay playsInline />}
+              </div>
+            ))}
+          </div>
+        )}
         <span className="work-float-view">View</span>
       </div>
     </div>

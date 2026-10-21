@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, type CSSProperties } from 'react'
 import { Link } from 'react-router'
 import { projects, type Project } from '../content/site'
 
@@ -18,10 +18,10 @@ const matches = (p: Project, f: FilterId) => f === 'all' || (f === 'wip' ? p.sta
 // An empty filter (e.g. "In progress" once everything ships) is a dead end, so hide it.
 const shownFilters = filters.filter((f) => projects.some((p) => matches(p, f.id)))
 
-export function WorkCard({ p, featured = false }: { p: Project; featured?: boolean }) {
+export function WorkCard({ p, featured = false, i = 0 }: { p: Project; featured?: boolean; i?: number }) {
   return (
-    <li className="work-card" data-featured={featured} data-reveal>
-      <Link to={`/work/${p.slug}`} className="work-link">
+    <li className="work-card" data-featured={featured} data-reveal style={{ '--i': i % 3 } as CSSProperties}>
+      <Link to={`/work/${p.slug}`} className="work-link" data-cursor="View">
         <div className="work-media">
           <img src={p.image} alt="" loading="lazy" width="800" height="500" />
           <span className={`status status-${p.status}`}>{p.status === 'live' ? 'Live' : 'In progress'}</span>
@@ -66,7 +66,7 @@ export function WorkGrid() {
       </div>
       <ul className="work-grid bento">
         {shown.map((p, i) => (
-          <WorkCard key={p.slug} p={p} featured={i === 0 && filter === 'all'} />
+          <WorkCard key={p.slug} p={p} featured={i === 0 && filter === 'all'} i={i} />
         ))}
       </ul>
     </>
