@@ -13,6 +13,8 @@ const filters = [
 type FilterId = (typeof filters)[number]['id']
 
 const matches = (p: Project, f: FilterId) => f === 'all' || (f === 'wip' ? p.status === 'wip' : p.categories.includes(f))
+// An empty filter (e.g. "In progress" once everything ships) is a dead end, so hide it.
+const shownFilters = filters.filter((f) => projects.some((p) => matches(p, f.id)))
 
 export function WorkCard({ p, featured = false }: { p: Project; featured?: boolean }) {
   return (
@@ -53,7 +55,7 @@ export function WorkGrid() {
   return (
     <>
       <div className="chips" role="group" aria-label="Filter work">
-        {filters.map((f) => (
+        {shownFilters.map((f) => (
           <button key={f.id} type="button" className="chip" aria-pressed={filter === f.id} onClick={() => setFilter(f.id)}>
             {f.label}
             <span className="chip-count">{projects.filter((p) => matches(p, f.id)).length}</span>

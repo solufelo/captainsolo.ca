@@ -60,7 +60,7 @@ body { background: ${c1}; }
 </style>
 <div class="glow"></div>
 <p class="kicker">${j.kicker}</p>${mark}
-<div class="win win1"><div class="bar"><i></i><i></i><i></i><span>${j.domain}</span></div><img src="${url(j.desktop)}" style="object-position:${j.focus ?? 'top'}"></div>
+<div class="win win1"><div class="bar"><i></i><i></i><i></i><span>${j.domain}</span></div><img src="${url(j.desktop)}" style="object-position:${j.focus ?? 'left top'}"></div>
 ${second}
 <div class="grain"></div>`
 }
