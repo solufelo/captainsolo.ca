@@ -2344,7 +2344,7 @@ p {
 }
 .case-clips {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 460px), 1fr));
   gap: clamp(14px, 2vw, 28px);
   max-width: 1400px;
   margin: 0 auto clamp(14px, 2vw, 28px);

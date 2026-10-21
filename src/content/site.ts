@@ -349,9 +349,10 @@ export const projects: Project[] = [
     loop: '/assets/videos/laurier-cinematic-opener.mp4',
     poster: '/assets/work/laurier-cinematic-opener-poster.webp',
     clips: [
-      { src: '/assets/videos/laurier-sizzle.mp4', poster: '/assets/work/laurier-sizzle-poster.webp', title: 'Game-day sizzle' },
-      { src: '/assets/videos/laurier-helmet-shuffle.mp4', poster: '/assets/work/laurier-helmet-shuffle-poster.webp', title: 'Helmet Shuffle jumbotron game' },
-      { src: '/assets/videos/laurier-senior-day-tribute.mp4', poster: '/assets/work/laurier-senior-day-tribute-poster.webp', title: 'Senior Day tribute' },
+      { src: '/assets/videos/laurier-sizzle-v7.mp4', poster: '/assets/work/laurier-sizzle-v7-poster.webp', title: 'Game-day sizzle' },
+      { src: '/assets/videos/laurier-graphics-demo-v2.mp4', poster: '/assets/work/laurier-graphics-demo-v2-poster.webp', title: 'Live-stream graphics demo' },
+      { src: '/assets/videos/laurier-helmet-shuffle-m.mp4', poster: '/assets/work/laurier-helmet-shuffle-m-poster.webp', title: 'Helmet Shuffle jumbotron game' },
+      { src: '/assets/videos/laurier-senior-day-tribute-m.mp4', poster: '/assets/work/laurier-senior-day-tribute-m-poster.webp', title: 'Senior Day tribute' },
     ],
     gallery: ['/assets/work/laurier-senior-day-v2.webp', '/assets/work/laurier-countdown-1-m.webp', '/assets/work/laurier-countdown-2-m.webp', '/assets/work/laurier-countdown-3-m.webp', '/assets/work/laurier-endzone-m.webp', '/assets/work/laurier-bhm-m.webp', '/assets/work/laurier-crest-m.webp', '/assets/work/laurier-broadcast.webp'],
     layout: 'grid',
