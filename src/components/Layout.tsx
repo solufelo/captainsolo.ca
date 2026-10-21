@@ -1,9 +1,65 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router'
+import Lenis from 'lenis'
+import 'lenis/dist/lenis.css'
 import { bookCall, site, socials } from '../content/site'
 import { CopyEmail } from './CopyEmail'
+import { Curtain } from './Curtain'
+import { FloatingMenu } from './FloatingMenu'
 import { Mark } from './Mark'
 import { Orb } from './Orb'
+
+declare global {
+  interface Window {
+    lenis?: Lenis
+  }
+}
+
+/** Smooth, slightly weighted scrolling (Lenis). Native scrolling for reduced motion. */
+function useSmoothScroll() {
+  useEffect(() => {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const lenis = new Lenis({ lerp: 0.1 })
+    window.lenis = lenis
+    let raf = requestAnimationFrame(function loop(t) {
+      lenis.raf(t)
+      raf = requestAnimationFrame(loop)
+    })
+    return () => {
+      cancelAnimationFrame(raf)
+      lenis.destroy()
+      delete window.lenis
+    }
+  }, [])
+}
+
+/** The page's bottom edge bows over the footer and flattens as the footer scrolls in. */
+function FooterCurve() {
+  const ref = useRef<HTMLDivElement>(null)
+  const { pathname } = useLocation()
+  // Same colour as the page's last section, so the bow reads as the page itself.
+  useEffect(() => {
+    const last = document.querySelector('main')?.lastElementChild
+    const bg = last ? getComputedStyle(last).backgroundColor : ''
+    ref.current?.style.setProperty('--curve-bg', bg && bg !== 'rgba(0, 0, 0, 0)' ? bg : 'var(--bg)')
+  }, [pathname])
+  useEffect(() => {
+    const el = ref.current
+    if (!el || matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const onScroll = () => {
+      const p = Math.min(1, Math.max(0, (innerHeight - el.getBoundingClientRect().top) / innerHeight))
+      el.style.setProperty('--curve', String(1 - p))
+    }
+    onScroll()
+    addEventListener('scroll', onScroll, { passive: true })
+    return () => removeEventListener('scroll', onScroll)
+  }, [])
+  return (
+    <div ref={ref} className="footer-curve" aria-hidden="true">
+      <div />
+    </div>
+  )
+}
 
 const nav = [
   { to: '/work', label: 'Work' },
@@ -163,15 +219,19 @@ function useReveal(key: string) {
 export function Layout() {
   const { pathname } = useLocation()
   useReveal(pathname)
+  useSmoothScroll()
   return (
     <>
       <a className="skip-link" href="#main">
         Skip to content
       </a>
+      <Curtain />
       <Header />
+      <FloatingMenu />
       <main id="main" tabIndex={-1}>
         <Outlet />
       </main>
+      <FooterCurve />
       <Footer />
     </>
   )

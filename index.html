@@ -16,6 +16,10 @@
       // Apply the saved or system theme before first paint so pages never flash the wrong colours.
       document.documentElement.classList.add('js') // scroll reveals only hide things when JS can show them again
       try {
+        // the greeting intro (Curtain.tsx): first page of a visit only
+        if (!sessionStorage.getItem('intro-seen') && !matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('intro')
+      } catch (e) {}
+      try {
         var t = localStorage.getItem('theme')
         if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
         document.documentElement.dataset.theme = t

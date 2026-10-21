@@ -479,6 +479,8 @@ export const pains = [
   'One person for the site, another for the shoot, and none of it matches.',
 ]
 
+export const clients = ['Laurier Golden Hawks', 'KOLDHEARTED', 'SOLVRA', 'Savyan Shades', 'Moksha Canada', 'Vair Studios', 'UTM', 'TGK', '10k Moss', 'Dela', 'J.V', 'Kenoh', 'J Finesse']
+
 export const offers = [
   { title: 'Websites', line: 'A fast site that brings in bookings, and that you can update yourself.' },
   { title: 'Photo & video', line: 'Shoots at your place that make people stop scrolling and walk in.' },

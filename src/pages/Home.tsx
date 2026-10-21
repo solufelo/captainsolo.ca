@@ -1,9 +1,10 @@
+import { Fragment } from 'react'
 import { Link } from 'react-router'
 import { Hero } from '../components/Hero'
 import { Orb } from '../components/Orb'
-import { Strip } from '../components/Strip'
+import { Clients, Strip } from '../components/Strip'
 import { WorkList } from '../components/WorkList'
-import { bookCall, faqs, getProject, offers, pains, process, projects, type Project } from '../content/site'
+import { bookCall, clients, faqs, getProject, offers, pains, process, projects, type Project } from '../content/site'
 
 // Business clients first (the people this page is for), then range: 3D, a shop, a music video.
 const featured = ['barbershop-promo', 'koldhearted-lookbook', 'solvra', 'vair-drop', 'laurier-gameday', 'velare', 'suburbia', 'tec'].map(
@@ -17,6 +18,17 @@ const stripRows: [string[], string[]] = [
 ]
 const n = (i: number) => String(i + 1).padStart(2, '0')
 
+/** Each word rises out of its own line mask when the heading scrolls in (via [data-reveal] on the parent). */
+function Words({ text }: { text: string }) {
+  return text.split(' ').map((w, i) => (
+    <Fragment key={i}>
+      <span className="w">
+        <span style={{ transitionDelay: `${i * 45}ms` }}>{w}</span>
+      </span>{' '}
+    </Fragment>
+  ))
+}
+
 export function Home() {
   return (
     <>
@@ -25,7 +37,7 @@ export function Home() {
       <section className="wrap problem" aria-labelledby="problem-title">
         <p className="label">Sound familiar?</p>
         <h2 id="problem-title" className="problem-title" data-reveal>
-          Your business is better than it looks online.
+          <Words text="Your business is better than it looks online." />
         </h2>
         <ul className="pains">
           {pains.map((p) => (
@@ -39,6 +51,8 @@ export function Home() {
           <Orb to={bookCall}>Book a call</Orb>
         </div>
       </section>
+
+      <Clients names={clients} />
 
       <section id="work" className="wrap home-work" aria-labelledby="work-title">
         <h2 id="work-title" className="label">

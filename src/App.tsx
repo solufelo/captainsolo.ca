@@ -28,7 +28,10 @@ function RouteEffects() {
     // Printed leave-behinds link to /#packages; packages now live on /services.
     if (pathname === '/' && hash === '#packages') return void navigate('/services', { replace: true })
     const target = hash && document.getElementById(decodeURIComponent(hash.slice(1)))
-    if (target) target.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })
+    // Lenis (smooth scrolling) keeps its own position, so scroll through it when it's running.
+    const lenis = window.lenis
+    if (target) lenis ? lenis.scrollTo(target, { offset: -24 }) : target.scrollIntoView({ behavior: 'auto' })
+    else if (lenis) lenis.scrollTo(0, { immediate: true, force: true })
     else window.scrollTo(0, 0)
   }, [pathname, hash, navigate])
   return null

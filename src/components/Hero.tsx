@@ -45,7 +45,19 @@ export function Hero() {
       <Viewfinder />
       <div className="hero-copy">
         <p className="hero-based">
-          <span className="dot" /> Based in Brampton, ON
+          <span>
+            Based in
+            <br />
+            Brampton, Canada
+          </span>
+          <span className="globe" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="9" />
+              <ellipse className="globe-a" cx="12" cy="12" rx="4.5" ry="9" />
+              <ellipse className="globe-b" cx="12" cy="12" rx="4.5" ry="9" />
+              <path d="M3 12h18M4.6 7.5h14.8M4.6 16.5h14.8" />
+            </svg>
+          </span>
         </p>
         <p className="hero-role">
           Videographer &<br />
