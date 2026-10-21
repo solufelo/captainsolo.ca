@@ -1,23 +1,23 @@
 {
  "clipSeconds": 1.8,
- "webm": "/assets/videos/hero-reel-feb03c06.webm",
- "mp4": "/assets/videos/hero-reel-feb03c06.mp4",
- "poster": "/assets/videos/hero-reel-feb03c06-poster.webp",
+ "webm": "/assets/videos/hero-reel-e5b523d7.webm",
+ "mp4": "/assets/videos/hero-reel-e5b523d7.mp4",
+ "poster": "/assets/videos/hero-reel-e5b523d7-poster.webp",
  "clips": [
   {
    "start": 0.0,
-   "slug": "ten-fold",
-   "label": "TGK – Ten Fold"
-  },
-  {
-   "start": 1.8,
    "slug": "tec",
    "label": "10k Moss – TEC"
   },
   {
-   "start": 3.6,
+   "start": 1.8,
    "slug": "july-6",
    "label": "Dela – July 6"
+  },
+  {
+   "start": 3.6,
+   "slug": "ten-fold",
+   "label": "TGK – Ten Fold"
   },
   {
    "start": 5.4,
@@ -31,23 +31,23 @@
   },
   {
    "start": 9.0,
-   "slug": "ten-fold",
-   "label": "TGK – Ten Fold"
-  },
-  {
-   "start": 10.8,
    "slug": "tec",
    "label": "10k Moss – TEC"
   },
   {
-   "start": 12.6,
+   "start": 10.8,
    "slug": "moksha-festival",
    "label": "Moksha festival"
   },
   {
-   "start": 14.4,
+   "start": 12.6,
    "slug": "july-6",
    "label": "Dela – July 6"
+  },
+  {
+   "start": 14.4,
+   "slug": "ten-fold",
+   "label": "TGK – Ten Fold"
   },
   {
    "start": 16.2,

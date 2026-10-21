@@ -29,16 +29,17 @@ SRC = {
 ZOOM = {'ten-fold': 0.9}
 
 # (project slug, start second, label). Moments from the triage loop windows.
+# Opens on work he shot; Ten Fold and Moksha (edit only) come later.
 MOMENTS = [
-    ('ten-fold', 103.0, 'TGK – Ten Fold'),
     ('tec', 11.0, '10k Moss – TEC'),
     ('july-6', 81.0, 'Dela – July 6'),
+    ('ten-fold', 103.0, 'TGK – Ten Fold'),
     ('vair-drop', 18.0, 'Vair Studios'),
     ('laurier-gameday', 7.9, 'Laurier game day'),
-    ('ten-fold', 106.6, 'TGK – Ten Fold'),
     ('tec', 13.2, '10k Moss – TEC'),
     ('moksha-festival', 42.0, 'Moksha festival'),
     ('july-6', 85.8, 'Dela – July 6'),
+    ('ten-fold', 106.6, 'TGK – Ten Fold'),
     ('laurier-gameday', 14.6, 'Laurier game day'),
 ]
 
