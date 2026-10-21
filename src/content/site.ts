@@ -151,6 +151,7 @@ export const projects: Project[] = [
     tags: ['Next.js', 'Python', 'FFmpeg', 'Postgres'],
     image: '/assets/projects/unicreate.webp',
     gallery: ['/assets/work/unicreate-1.webp', '/assets/work/unicreate-2.webp', '/assets/work/unicreate-3.webp', '/assets/work/unicreate-4.webp'],
+    demo: { label: 'Live demo', href: 'https://unicreate-studio-demo.onrender.com' },
   },
   {
     slug: 'captain-funds',
@@ -271,7 +272,7 @@ export const projects: Project[] = [
     image: '/assets/projects/cover-art.webp',
     loop: '/assets/videos/writing-my-story-loop.mp4',
     poster: '/assets/work/writing-my-story-poster.webp',
-    gallery: ['/assets/work/cover-misdirection.webp', '/assets/work/cover-aint-sad.webp', '/assets/work/cover-mexico.webp', '/assets/work/cover-cold-summer.webp', '/assets/work/cover-cold-summer-back.webp', '/assets/work/cover-i-miss-you.webp'],
+    gallery: ['/assets/work/cover-misdirection.webp', '/assets/work/cover-aint-sad.webp', '/assets/work/cover-mexico.webp', '/assets/work/cover-cold-summer.webp', '/assets/work/cover-cold-summer-back.webp', '/assets/work/cover-i-miss-you.webp', '/assets/work/cover-livin-lies.webp', '/assets/work/cover-fairy-remix.webp'],
     layout: 'grid',
   },
   {
@@ -285,7 +286,7 @@ export const projects: Project[] = [
     categories: ['photo'],
     tags: ['Sony A6100', 'Lookbook', 'Product'],
     image: '/assets/projects/koldhearted.webp',
-    gallery: ['/assets/work/koldhearted-1.webp', '/assets/work/koldhearted-2.webp', '/assets/work/koldhearted-3.webp', '/assets/work/koldhearted-4.webp', '/assets/work/koldhearted-5.webp', '/assets/work/koldhearted-6.webp'],
+    gallery: ['/assets/work/koldhearted-g1.webp', '/assets/work/koldhearted-g2.webp', '/assets/work/koldhearted-g3.webp', '/assets/work/koldhearted-g4.webp', '/assets/work/koldhearted-g5.webp', '/assets/work/koldhearted-g6.webp'],
     layout: 'grid',
   },
   {
@@ -299,7 +300,7 @@ export const projects: Project[] = [
     categories: ['photo'],
     tags: ['Sony A6100', 'Events', 'Studio'],
     image: '/assets/projects/photo-selects.webp',
-    gallery: ['/assets/work/portrait-1.webp', '/assets/work/portrait-2.webp', '/assets/work/portrait-3.webp', '/assets/work/selects-1.webp', '/assets/work/selects-2.webp', '/assets/work/selects-3.webp', '/assets/work/selects-4.webp', '/assets/work/selects-5.webp'],
+    gallery: ['/assets/work/portrait-1.webp', '/assets/work/portrait-2.webp', '/assets/work/portrait-3.webp', '/assets/work/selects-g1.webp', '/assets/work/selects-g2.webp', '/assets/work/selects-g3.webp', '/assets/work/selects-g4.webp', '/assets/work/selects-g5.webp'],
     layout: 'grid',
   },
   {
