@@ -8,10 +8,10 @@ export function Book() {
   return (
     <div className="page wrap book">
       <header className="page-head">
-        <p className="label">20 minutes · free · no prep needed</p>
+        <p className="label">30 minutes · free · no prep needed</p>
         <h1 className="page-title">Book a call</h1>
       </header>
-      <iframe className="cal-frame" src={`https://cal.com/${site.cal}?embed=true&theme=light`} title="Pick a time for a 20-minute call" />
+      <iframe className="cal-frame" src={`https://cal.com/${site.cal}?embed=true&theme=light`} title="Pick a time for a 30-minute call" />
       <p className="muted book-alt">
         No time that works? <Link to="/contact?call=1">Send a message</Link> and I’ll find one.
       </p>

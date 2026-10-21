@@ -22,7 +22,7 @@ export function ContactForm({ defaultService = '' }: { defaultService?: string }
     const message = form.elements.namedItem('message') as HTMLTextAreaElement | null
     if (message && pkg && !message.value) message.value = `I’m interested in the ${pkg.slice(0, 40)} package. `
     // "Book a call" buttons: there's no calendar, so the request is written for them.
-    if (message && q.get('call') && !message.value) message.value = 'I’d like a 20-minute call about my business. Good days and times for me: '
+    if (message && q.get('call') && !message.value) message.value = 'I’d like a 30-minute call about my business. Good days and times for me: '
   }, [search])
 
   async function submit(e: FormEvent<HTMLFormElement>) {

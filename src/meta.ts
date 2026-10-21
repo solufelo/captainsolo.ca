@@ -26,7 +26,7 @@ const fixed: Record<string, Omit<Meta, 'path'>> = {
     description: 'Shoot, Shoot + Site and Full brand packages, plus monthly site care and content shoots. Quoted after a short call.',
   },
   ...(site.cal && {
-    '/book': { title: 'Book a call | Solomon Olufelo', description: 'Pick a time for a free 20-minute call about your website, photos or video.' },
+    '/book': { title: 'Book a call | Solomon Olufelo', description: 'Pick a time for a free 30-minute call about your website, photos or video.' },
   }),
   '/blog': {
     title: 'Blog | Web Dev, Videography, AI Tools & Music Production | Captain Solo',

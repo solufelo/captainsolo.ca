@@ -8,7 +8,7 @@ export const site = {
   location: 'Brampton, ON · Serving the GTA',
   portrait: '/images/solomon-portrait-20260624.webp',
   /** Cal.com event, e.g. 'captainsolo/intro'. Empty: Book a call opens the contact form instead. */
-  cal: '',
+  cal: 'solomon-olufelo/30min',
   roles: ['Creative technologist', 'Full-stack developer', 'Motion & video'],
   tagline: 'Shipped demos, case studies, and client work across code and camera.',
   description:
@@ -543,7 +543,7 @@ export const retainers = [
 ]
 
 export const process = [
-  { step: 'Call', body: 'Twenty minutes on what you sell, who buys it and what isn’t working.' },
+  { step: 'Call', body: 'Thirty minutes on what you sell, who buys it and what isn’t working.' },
   { step: 'Shoot and build', body: 'I shoot at your place and build the site around it. You see it first.' },
   { step: 'Launch and care', body: 'Domain, email and Google set up, then I keep it fresh every month.' },
 ]

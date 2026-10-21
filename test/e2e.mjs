@@ -111,13 +111,16 @@ check('package button: message mentions the package', (await p.locator('textarea
 check('package flow: no console errors', p.errors.length === 0, p.errors.join(' | '))
 await p.close()
 
-// "Book a call" (there's no calendar) opens the form with the request already written
+// "Book a call" opens the Cal.com calendar; "Send a message" there opens the form with the request written
 p = await newPage()
 await p.goto(BASE + '/', { waitUntil: 'load' })
 await p.locator('.site-header').getByRole('link', { name: 'Book a call' }).first().click()
+await p.waitForURL('**/book')
+check('Book a call: the booking calendar is embedded', /^https:\/\/cal\.com\/solomon-olufelo\/30min\?embed=true/.test((await p.locator('iframe.cal-frame').getAttribute('src')) || ''))
+await p.getByRole('link', { name: 'Send a message' }).click()
 await p.waitForURL('**/contact?call=1')
 await p.waitForTimeout(300)
-check('Book a call: message is prefilled', (await p.locator('textarea[name=message]').inputValue()).includes('20-minute call'))
+check('Book a call: the message fallback is prefilled', (await p.locator('textarea[name=message]').inputValue()).includes('30-minute call'))
 await p.close()
 
 // One-tap email copies the address
