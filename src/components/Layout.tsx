@@ -35,6 +35,48 @@ function useSmoothScroll() {
   }, [])
 }
 
+/** The device asks for less motion, so the effects are off: say so once and offer to turn them on here (same as ?motion=on). */
+function MotionNote() {
+  const [shown, setShown] = useState(false)
+  useEffect(() => {
+    let saved: string | null = null
+    try {
+      saved = localStorage.getItem('motion')
+    } catch {
+      /* storage blocked: nothing to remember a choice with, so don't ask */
+      return
+    }
+    if (saved || !matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    setShown(true)
+    // A first-screen note: once the visitor scrolls on, it gets out of the way (it comes back next visit until they choose).
+    const onScroll = () => scrollY > 400 && setShown(false)
+    addEventListener('scroll', onScroll, { passive: true })
+    return () => removeEventListener('scroll', onScroll)
+  }, [])
+  const choose = (motion: 'on' | 'off') => {
+    try {
+      localStorage.setItem('motion', motion)
+    } catch {
+      /* private mode: the choice just won't persist */
+    }
+    // The effects set themselves up on load, so turning them on is a reload with html.motion-on (index.html).
+    if (motion === 'on') location.reload()
+    else setShown(false)
+  }
+  if (!shown) return null
+  return (
+    <aside className="motion-note" aria-label="Animations">
+      <p>Animations are off on this device.</p>
+      <button type="button" className="btn btn-sm" onClick={() => choose('on')}>
+        Turn on
+      </button>
+      <button type="button" className="motion-note-x" onClick={() => choose('off')} aria-label="Keep animations off">
+        ×
+      </button>
+    </aside>
+  )
+}
+
 /** The page's bottom edge bows over the footer and flattens as the footer scrolls in. */
 function FooterCurve() {
   const ref = useRef<HTMLDivElement>(null)
@@ -235,6 +277,7 @@ export function Layout() {
       </main>
       <FooterCurve />
       <Footer />
+      <MotionNote />
     </>
   )
 }
