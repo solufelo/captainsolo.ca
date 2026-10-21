@@ -20,8 +20,8 @@ const url = (p) => pathToFileURL(p.startsWith('/') ? join(root, 'public', p) : j
 const font = (f) => pathToFileURL(f).href
 const plexDir = join(root, 'node_modules/@fontsource/ibm-plex-sans/files')
 
-// The SO viewfinder mark, so every thumbnail reads as one body of work.
-const mark = `<svg class="mark" viewBox="0 0 120 120" fill="none" aria-hidden="true"><path d="M8 32V8h24M88 8h24v24M112 88v24H88M32 112H8V88" stroke="currentColor" stroke-width="7" stroke-linecap="square"/><path d="M50.66 41A10 10 0 1 0 42 56A10 10 0 1 1 33.34 71" stroke="currentColor" stroke-width="10.5"/><circle cx="80" cy="56" r="14.75" stroke="currentColor" stroke-width="10.5"/><circle cx="98" cy="22" r="6.5" fill="#ff3b30"/></svg>`
+// The Cut (the brand mark), so every thumbnail reads as one body of work.
+const mark = `<svg class="mark" viewBox="11.739 -6.453 96.521 132.906" aria-hidden="true"><path fill="currentColor" d="M79.321 -0.394A48 48 0 0 0 46.487 89.817L52.644 72.902A30 30 0 0 1 73.165 16.52Z"/><path fill="currentColor" d="M73.513 30.183A48 48 0 0 1 40.679 120.394L46.835 103.48A30 30 0 0 0 67.356 47.098Z"/></svg>`
 
 const base = `
 @font-face { font-family: Oswald; src: url('${font('C:/Windows/Fonts/Oswald-VariableFont_wght.ttf')}'); font-weight: 200 700; }
@@ -31,7 +31,7 @@ html, body { width: ${W}px; height: ${H}px; overflow: hidden; }
 body { position: relative; font-family: Plex, sans-serif; color: #fff; }
 .grain { position: absolute; inset: 0; opacity: .14; mix-blend-mode: overlay; pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
-.mark { position: absolute; right: 44px; top: 40px; width: 46px; height: 46px; color: rgb(255 255 255 / .82); z-index: 5; }
+.mark { position: absolute; right: 50.3px; top: 40px; width: 33.4px; height: 46px; color: rgb(255 255 255 / .82); z-index: 5; }
 .kicker { position: absolute; left: 56px; top: 50px; z-index: 5; font: 500 18px/1 Plex; letter-spacing: .22em; text-transform: uppercase; opacity: .82; }
 `
 
