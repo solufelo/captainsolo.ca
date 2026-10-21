@@ -32,8 +32,8 @@ export const services: { group: string; items: Service[] }[] = [
     items: [
       {
         title: 'Frontend & UX',
-        body: 'React 19, Vite and three.js. Fast, responsive, built to convert. This site is the demo.',
-        tags: ['React', 'Vite', 'three.js', 'GSAP'],
+        body: 'React 19 and Vite. Fast, responsive, built to convert. This site is the demo.',
+        tags: ['React', 'Vite', 'TypeScript', 'GSAP'],
       },
       {
         title: 'APIs & auth',
@@ -198,16 +198,16 @@ export const projects: Project[] = [
     title: 'captainsolo.ca',
     client: 'Personal project',
     role: 'Design, build, 3D, hosting',
-    summary: 'This site. Rebuilt October 2026: prerendered React pages, a compressed 3D planet, and a contact form on Cloudflare Workers.',
+    summary: 'This site. Rebuilt October 2026: prerendered React pages, a showreel in a camera viewfinder, and a contact form on Cloudflare Workers.',
     status: 'live',
     categories: ['code', 'motion'],
-    tags: ['React', 'Vite', 'R3F', 'Cloudflare'],
+    tags: ['React', 'Vite', 'Cloudflare', 'Video'],
     image: '/assets/projects/captainsolo.webp',
     gallery: ['/og-image.jpg', '/assets/projects/captainsolo.webp'],
     overview: {
-      what: 'The site you’re on: portfolio, blog, voice-tag shop and contact form, with a 3D planet in the hero.',
+      what: 'The site you’re on: portfolio, blog, voice-tag shop and contact form, with my showreel running inside a camera viewfinder in the hero.',
       problem: 'The previous version ran on shared cPanel hosting with a Python backend for a handful of features, and cost money every year for what is mostly a static site.',
-      outcome: 'Every page is prerendered to HTML, the planet went from 18 MB to 1 MB, and the contact form runs on a Cloudflare Worker. Hosting cost: $0.',
+      outcome: 'Every page is prerendered to HTML, the hero is an 11-second, 1.3 MB showreel instead of a WebGL scene, and the contact form runs on a Cloudflare Worker. Hosting cost: $0.',
     },
     source: 'https://github.com/solufelo/captainsolo.ca',
   },

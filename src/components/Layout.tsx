@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router'
 import { projects, site, socials } from '../content/site'
 import { CopyEmail } from './CopyEmail'
+import { Mark } from './Mark'
 
 const nav = [
   { to: '/#work', label: 'Work' },
@@ -51,9 +52,9 @@ function Header() {
   return (
     <header className="site-header" data-open={open}>
       <div className="wrap header-row">
-        <Link to="/" className="brand" aria-label={`${site.alias}, home`}>
-          <img src="/assets/brand/helmet.webp" alt="" width="36" height="36" />
-          <span>{site.alias}</span>
+        <Link to="/" className="brand" aria-label={`${site.name}, home`}>
+          <Mark size={34} />
+          <span>{site.name}</span>
         </Link>
         <nav className="main-nav" id="main-nav" aria-label="Main">
           {nav.map((n) => (

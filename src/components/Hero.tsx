@@ -1,52 +1,35 @@
-import { lazy, Suspense, useEffect, useState } from 'react'
 import { Link } from 'react-router'
 import { projects, site } from '../content/site'
 import { CopyEmail } from './CopyEmail'
-
-const Planet = lazy(() => import('./Planet'))
+import { Viewfinder } from './Viewfinder'
 
 // Work teased above the fold: a mix of sites and reels, in the order they appear in the grid.
 const teased = ['barbershop-promo', 'suburbia', 'mens-basketball', 'velare', 'godways-ministry'].map((s) => projects.find((p) => p.slug === s)!)
 
 export function Hero() {
-  // The planet needs WebGL, so it mounts only after hydration; the CSS placeholder stands in until then.
-  const [mounted, setMounted] = useState(false)
-  const [ready, setReady] = useState(false)
-  useEffect(() => setMounted(true), [])
-
   return (
     <section className="hero" aria-labelledby="hero-title">
-      <div className="hero-planet" data-ready={ready} aria-hidden="true">
-        <div className="planet-fallback">
-          <span className="pf-ring" />
-          <span className="pf-body" />
-          <span className="pf-moon" />
+      <div className="wrap hero-grid">
+        <div className="hero-copy">
+          <p className="pill">
+            <span className="dot" /> Available for work · Brampton, ON
+          </p>
+          <h1 id="hero-title" className="hero-title">
+            <span>Code it.</span>
+            <span>Film it.</span>
+            <span>Ship it.</span>
+          </h1>
+          <p className="hero-sub">
+            {site.name}: websites, and the photos and video that fill them, for businesses in Brampton and the GTA. One person from first call to launch, so it all looks like you.
+          </p>
+          <div className="hero-ctas">
+            <CopyEmail />
+            <Link to="/#work" className="btn btn-ghost">
+              See the work
+            </Link>
+          </div>
         </div>
-        {mounted && (
-          <Suspense fallback={null}>
-            <Planet onReady={() => setReady(true)} />
-          </Suspense>
-        )}
-      </div>
-
-      <div className="wrap hero-copy">
-        <p className="pill">
-          <span className="dot" /> {site.name} · {site.alias} · Brampton, ON
-        </p>
-        <h1 id="hero-title" className="hero-title">
-          <span>Code it.</span>
-          <span>Film it.</span>
-          <span>Ship it.</span>
-        </h1>
-        <p className="hero-sub">
-          Websites, and the photos and video that fill them, for businesses in Brampton and the GTA. One person from first call to launch, so it all looks like you.
-        </p>
-        <div className="hero-ctas">
-          <CopyEmail />
-          <Link to="/#work" className="btn btn-ghost">
-            See the work
-          </Link>
-        </div>
+        <Viewfinder />
       </div>
 
       <div className="wrap hero-tease" aria-label="Selected work">

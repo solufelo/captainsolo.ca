@@ -1,0 +1,43 @@
+{
+ "clipSeconds": 1.6,
+ "webm": "/assets/videos/hero-reel-ccdb1ccd.webm",
+ "mp4": "/assets/videos/hero-reel-ccdb1ccd.mp4",
+ "poster": "/assets/videos/hero-reel-ccdb1ccd-poster.webp",
+ "clips": [
+  {
+   "start": 0.0,
+   "slug": "barbershop-promo",
+   "label": "Barbershop promo"
+  },
+  {
+   "start": 1.6,
+   "slug": "mens-basketball",
+   "label": "Men’s basketball"
+  },
+  {
+   "start": 3.2,
+   "slug": "club-event",
+   "label": "Club night"
+  },
+  {
+   "start": 4.8,
+   "slug": "womens-basketball",
+   "label": "Women’s basketball"
+  },
+  {
+   "start": 6.4,
+   "slug": "barbershop-promo",
+   "label": "Barbershop promo"
+  },
+  {
+   "start": 8.0,
+   "slug": "club-event",
+   "label": "Club night"
+  },
+  {
+   "start": 9.6,
+   "slug": "mens-basketball",
+   "label": "Men’s basketball"
+  }
+ ]
+}

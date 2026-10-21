@@ -28,12 +28,27 @@ async function newPage(w = 1280, h = 800, opts = {}) {
   return page
 }
 
-// Planet: with motion allowed, the WebGL canvas comes up and the CSS placeholder hands over
+// Hero: the showreel plays inside the viewfinder (WebM/VP9 plays in Playwright's Chromium) and the HUD tracks it
 let p = await newPage(1280, 800, { reducedMotion: 'no-preference' })
 await p.goto(BASE + '/', { waitUntil: 'networkidle' })
-const planet = await p.locator('.hero-planet[data-ready="true"] canvas').waitFor({ timeout: 20000 }).then(() => true, () => false)
-check('3D planet renders on the home page', planet)
-check('planet: no console errors', p.errors.length === 0, p.errors.join(' | '))
+await p.waitForTimeout(2500)
+const vf = await p.evaluate(() => {
+  const v = document.querySelector('.viewfinder video')
+  return { t: v?.currentTime ?? 0, w: v?.videoWidth ?? 0, rec: document.querySelector('.vf-rec')?.textContent ?? '', clip: document.querySelector('.vf-clip')?.getAttribute('href') }
+})
+check('hero reel plays in the viewfinder', vf.t > 0.5 && vf.w === 640, JSON.stringify(vf))
+check('viewfinder HUD shows REC + timecode and links the clip', /REC\s*00:00:\d\d:\d\d/.test(vf.rec) && /^\/work\//.test(vf.clip || ''), JSON.stringify(vf))
+check('hero: no console errors', p.errors.length === 0, p.errors.join(' | '))
+await p.close()
+
+// Reduced motion: the reel waits, with a Play button that starts it
+p = await newPage(1280, 800)
+await p.goto(BASE + '/', { waitUntil: 'networkidle' })
+const playBtn = p.getByRole('button', { name: 'Play reel' })
+check('reduced motion: reel holds with a Play reel button', await playBtn.isVisible())
+await playBtn.click()
+await p.waitForTimeout(1200)
+check('Play reel button starts the reel', await p.evaluate(() => !document.querySelector('.viewfinder video').paused))
 await p.close()
 
 // Home: hydration, filters, theme, video, client-side navigation
