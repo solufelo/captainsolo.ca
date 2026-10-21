@@ -6,7 +6,6 @@ export const site = {
   url: 'https://captainsolo.ca',
   email: 'work@captainsolo.ca',
   location: 'Brampton, ON · Serving the GTA',
-  portrait: '/images/solomon-portrait-20260624.webp',
   /** Cal.com event, e.g. 'captainsolo/intro'. Empty: Book a call opens the contact form instead. */
   cal: 'solomon-olufelo/30min',
   roles: ['Creative technologist', 'Full-stack developer', 'Motion & video'],
@@ -140,7 +139,7 @@ export const projects: Project[] = [
     status: 'live',
     categories: ['video'],
     tags: ['Music video', 'Camcorder look', 'Party'],
-    image: '/assets/projects/kenoh-ray-ray-r2-c.webp',
+    image: '/assets/projects/kenoh-ray-ray-c.webp',
     loop: '/assets/videos/kenoh-ray-ray-loop.mp4',
     poster: '/assets/work/kenoh-ray-ray-poster.webp',
     gallery: ['/assets/work/kenoh-ray-ray-1.webp', '/assets/work/kenoh-ray-ray-2.webp', '/assets/work/kenoh-ray-ray-3.webp', '/assets/work/kenoh-ray-ray-4.webp'],
@@ -646,7 +645,7 @@ export const retainers = [
 ]
 
 export const process = [
-  { step: 'Call', body: 'Thirty minutes on what you sell, who buys it and what isn’t working.', image: '/assets/work/call-portrait.webp', alt: 'Solomon Olufelo' },
+  { step: 'Call', body: 'Thirty minutes on what you sell, who buys it and what isn’t working.', image: '/assets/work/call-booking.webp', alt: 'Booking a 30-minute call' },
   {
     step: 'Shoot and build',
     body: 'I shoot at your place and build the site around it. You see it first.',

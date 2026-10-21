@@ -199,7 +199,9 @@ function Footer() {
     <footer className="site-footer">
       <div className="wrap footer-cta">
         <h2 className="footer-title">
-          <img src={site.portrait} alt="" width="96" height="96" loading="lazy" />
+          <span className="footer-mark" aria-hidden="true">
+            <Mark />
+          </span>
           Let’s work
           <br />
           together
