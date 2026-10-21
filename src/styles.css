@@ -2204,14 +2204,14 @@ p {
   max-width: 1400px;
   margin-inline: auto;
 }
-.case-media[data-layout='tall'] {
+.case-media[data-layout='dense'] {
   display: block;
   columns: 4 180px;
   column-gap: clamp(10px, 1.4vw, 20px);
   max-width: 1400px;
   margin-inline: auto;
 }
-.case-media[data-layout='tall'] img {
+.case-media[data-layout='dense'] img {
   break-inside: avoid;
   margin-bottom: clamp(10px, 1.4vw, 20px);
 }

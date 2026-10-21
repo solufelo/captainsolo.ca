@@ -47,8 +47,8 @@ export type Project = {
   preview?: string
   /** Real screens for the case-study page; falls back to `image`. */
   gallery?: string[]
-  /** 'grid' lays pieces out in columns instead of one wide stack; 'tall' is the same for vertical frames. */
-  layout?: 'grid' | 'tall'
+  /** 'grid' lays pieces out in columns instead of one wide stack; 'dense' uses four narrow columns (vertical frames, cover walls). */
+  layout?: 'grid' | 'dense'
   /** Silent loop shown big at the top of the case study; `poster` is its first frame. */
   loop?: string
   poster?: string
@@ -179,6 +179,9 @@ export const projects: Project[] = [
     categories: ['code', 'motion'],
     tags: ['Next.js', 'three.js', 'R3F', 'Framer Motion'],
     image: '/assets/projects/velare.webp',
+    preview: '/assets/previews/velare-promo.mp4',
+    loop: '/assets/videos/velare-promo-loop.mp4',
+    poster: '/assets/work/velare-promo-poster.webp',
     gallery: ['/assets/work/velare-home.webp', '/assets/work/velare-configure.webp', '/assets/work/velare-exploded.webp', '/assets/work/velare-finishes.webp'],
     demo: { label: 'Live demo', href: 'https://velare-site.netlify.app/' },
     source: 'https://github.com/solufelo/velare-site',
@@ -260,9 +263,43 @@ export const projects: Project[] = [
     layout: 'grid',
   },
   {
+    slug: 'solvra',
+    title: 'SOLVRA',
+    client: 'SOLVRA skincare',
+    role: '3D product visuals',
+    summary: '3D product visuals for a skincare line: stills and a short product film.',
+    kind: '3D product visuals',
+    preview: '/assets/previews/solvra.mp4',
+    status: 'live',
+    categories: ['motion', 'design'],
+    tags: ['3D', 'Product', 'Motion'],
+    image: '/assets/projects/solvra.webp',
+    loop: '/assets/videos/solvra-loop.mp4',
+    poster: '/assets/work/solvra-poster.webp',
+    gallery: ['/assets/work/solvra-1.webp', '/assets/work/solvra-2.webp', '/assets/work/solvra-3.webp'],
+    layout: 'grid',
+  },
+  {
+    slug: 'no-captains-orders',
+    title: 'No Captain’s Orders',
+    client: 'Concept brand',
+    role: '3D, motion, label design',
+    summary: 'A 3D launch film for a concept Pinot Noir: gold-foil label, glass and a wine splash.',
+    kind: '3D product ad',
+    preview: '/assets/previews/no-captains-orders.mp4',
+    status: 'live',
+    categories: ['motion', 'design'],
+    tags: ['3D', 'Motion', 'Label design'],
+    image: '/assets/projects/no-captains-orders.webp',
+    loop: '/assets/videos/no-captains-orders-loop.mp4',
+    poster: '/assets/work/no-captains-orders-poster.webp',
+    gallery: ['/assets/work/no-captains-orders-1.webp', '/assets/work/no-captains-orders-2.webp', '/assets/work/no-captains-orders-3.webp', '/assets/work/no-captains-orders-4.webp'],
+    layout: 'grid',
+  },
+  {
     slug: 'cover-art',
     title: 'Cover art',
-    client: 'Kenoh, JV, J Finesse and others',
+    client: 'Kenoh, J Finesse, TGK, JV and others',
     role: 'Design, photography',
     summary: 'Single and album covers for GTA artists, from the shoot to the type.',
     kind: 'Cover art',
@@ -272,8 +309,8 @@ export const projects: Project[] = [
     image: '/assets/projects/cover-art.webp',
     loop: '/assets/videos/writing-my-story-loop.mp4',
     poster: '/assets/work/writing-my-story-poster.webp',
-    gallery: ['/assets/work/cover-misdirection.webp', '/assets/work/cover-aint-sad.webp', '/assets/work/cover-mexico.webp', '/assets/work/cover-cold-summer.webp', '/assets/work/cover-cold-summer-back.webp', '/assets/work/cover-i-miss-you.webp', '/assets/work/cover-livin-lies.webp', '/assets/work/cover-fairy-remix.webp'],
-    layout: 'grid',
+    gallery: ['/assets/work/cover-misdirection.webp', '/assets/work/cover-get-together.webp', '/assets/work/cover-no-manners.webp', '/assets/work/cover-livin-lies.webp', '/assets/work/cover-how-we-do.webp', '/assets/work/cover-aint-sad.webp', '/assets/work/cover-mexico.webp', '/assets/work/cover-rubber-band-man.webp', '/assets/work/cover-where-i-live.webp', '/assets/work/cover-jfinesse-chrome.webp', '/assets/work/cover-break-the-bank.webp', '/assets/work/cover-childs-play.webp', '/assets/work/cover-gift-n-curse.webp', '/assets/work/cover-cold-summer.webp', '/assets/work/cover-cold-summer-back.webp', '/assets/work/cover-fairy-remix.webp', '/assets/work/cover-i-miss-you.webp'],
+    layout: 'dense',
   },
   {
     slug: 'koldhearted-lookbook',
@@ -287,6 +324,20 @@ export const projects: Project[] = [
     tags: ['Sony A6100', 'Lookbook', 'Product'],
     image: '/assets/projects/koldhearted.webp',
     gallery: ['/assets/work/koldhearted-g1.webp', '/assets/work/koldhearted-g2.webp', '/assets/work/koldhearted-g3.webp', '/assets/work/koldhearted-g4.webp', '/assets/work/koldhearted-g5.webp', '/assets/work/koldhearted-g6.webp'],
+    layout: 'grid',
+  },
+  {
+    slug: 'platinum-plaques',
+    title: 'Platinum plaques',
+    client: 'UTM, artist management',
+    role: 'Photography',
+    summary: 'Plaque shoot for an artist-management label: the awards, the details and the artist with them.',
+    kind: 'Product photography',
+    status: 'live',
+    categories: ['photo'],
+    tags: ['Product', 'Studio', 'Music'],
+    image: '/assets/projects/plaques.webp',
+    gallery: ['/assets/work/plaques-1.webp', '/assets/work/plaques-2.webp', '/assets/work/plaques-3.webp', '/assets/work/plaques-4.webp', '/assets/work/plaques-5.webp'],
     layout: 'grid',
   },
   {
@@ -352,7 +403,7 @@ export const projects: Project[] = [
     loop: '/assets/videos/savyan-salon-loop.mp4',
     poster: '/assets/work/savyan-salon-poster.webp',
     gallery: ['/assets/work/savyan-salon-1.webp', '/assets/work/savyan-salon-2.webp', '/assets/work/savyan-salon-3.webp', '/assets/work/savyan-salon-4.webp'],
-    layout: 'tall',
+    layout: 'dense',
   },
   {
     slug: 'barbershop-promo',
