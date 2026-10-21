@@ -7,6 +7,7 @@ import { BlogPost } from './pages/BlogPost'
 import { Work } from './pages/Work'
 import { WorkIndex } from './pages/WorkIndex'
 import { ServicesPage } from './pages/ServicesPage'
+import { Book } from './pages/Book'
 import { VoiceTags } from './pages/VoiceTags'
 import { ContactPage } from './pages/ContactPage'
 import { Legal } from './pages/Legal'
@@ -45,6 +46,7 @@ export function App() {
           <Route path="work" element={<WorkIndex />} />
           <Route path="work/:slug" element={<Work />} />
           <Route path="services" element={<ServicesPage />} />
+          <Route path="book" element={<Book />} />
           <Route path="voice-tags" element={<VoiceTags />} />
           <Route path="contact" element={<ContactPage />} />
           <Route path="privacy-policy" element={<Legal page="privacy-policy" />} />

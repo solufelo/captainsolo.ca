@@ -7,6 +7,8 @@ export const site = {
   email: 'work@captainsolo.ca',
   location: 'Brampton, ON · Serving the GTA',
   portrait: '/images/solomon-portrait-20260624.webp',
+  /** Cal.com event, e.g. 'captainsolo/intro'. Empty: Book a call opens the contact form instead. */
+  cal: '',
   roles: ['Creative technologist', 'Full-stack developer', 'Motion & video'],
   tagline: 'Shipped demos, case studies, and client work across code and camera.',
   description:
@@ -389,23 +391,6 @@ export const projects: Project[] = [
     layout: 'grid',
   },
   {
-    slug: 'savyan-salon',
-    title: 'Savyan Shades',
-    client: 'Savyan Shades Beauty Salon',
-    role: 'Shot and edited',
-    summary: 'Promo reel for a beauty salon: nails, braids and a bright pink studio.',
-    kind: 'Brand video',
-    preview: '/assets/previews/savyan-salon.mp4',
-    status: 'live',
-    categories: ['video'],
-    tags: ['Local business', 'Vertical', 'Social'],
-    image: '/assets/projects/savyan-salon.webp',
-    loop: '/assets/videos/savyan-salon-loop.mp4',
-    poster: '/assets/work/savyan-salon-poster.webp',
-    gallery: ['/assets/work/savyan-salon-1.webp', '/assets/work/savyan-salon-2.webp', '/assets/work/savyan-salon-3.webp', '/assets/work/savyan-salon-4.webp'],
-    layout: 'dense',
-  },
-  {
     slug: 'barbershop-promo',
     title: 'Barbershop promo',
     client: 'A Brampton barbershop',
@@ -465,6 +450,23 @@ export const projects: Project[] = [
     video: '/assets/videos/mens-basketball.mp4',
     demo: { label: 'Watch on Instagram', href: 'https://www.instagram.com/reel/C0VtaMVM0iF/' },
   },
+  {
+    slug: 'savyan-salon',
+    title: 'Savyan Shades',
+    client: 'Savyan Shades Beauty Salon',
+    role: 'Shot and edited',
+    summary: 'Promo reel for a beauty salon: nails, braids and a bright pink studio.',
+    kind: 'Brand video',
+    preview: '/assets/previews/savyan-salon-v2.mp4',
+    status: 'live',
+    categories: ['video'],
+    tags: ['Local business', 'Vertical', 'Social'],
+    image: '/assets/projects/savyan-salon.webp',
+    loop: '/assets/videos/savyan-salon-loop-v2.mp4',
+    poster: '/assets/work/savyan-salon-poster-v2.webp',
+    gallery: ['/assets/work/savyan-salon-v2-1.webp', '/assets/work/savyan-salon-v2-2.webp', '/assets/work/savyan-salon-v2-3.webp', '/assets/work/savyan-salon-v2-4.webp'],
+    layout: 'dense',
+  },
 ]
 
 export const getProject = (slug: string) => projects.find((p) => p.slug === slug)
@@ -491,8 +493,8 @@ export const faqs = [
   { q: 'Do you only work with businesses?', a: 'Mostly local businesses, plus music videos and cover art for artists.' },
 ]
 
-/** Where every "Book a call" button goes: the contact form, with the request already written. */
-export const bookCall = '/contact?call=1'
+/** Where every "Book a call" button goes: the booking calendar, or the contact form with the request written. */
+export const bookCall = site.cal ? '/book' : '/contact?call=1'
 
 export type BrandPackage = { id: string; name: string; tagline: string; includes: string[]; featured?: boolean }
 

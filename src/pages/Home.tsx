@@ -6,7 +6,7 @@ import { WorkList } from '../components/WorkList'
 import { bookCall, faqs, getProject, offers, pains, process, projects, type Project } from '../content/site'
 
 // Business clients first (the people this page is for), then range: 3D, a shop, a music video.
-const featured = ['savyan-salon', 'barbershop-promo', 'koldhearted-lookbook', 'solvra', 'laurier-gameday', 'velare', 'suburbia', 'tec'].map(
+const featured = ['barbershop-promo', 'koldhearted-lookbook', 'solvra', 'vair-drop', 'laurier-gameday', 'velare', 'suburbia', 'tec'].map(
   (s) => getProject(s) as Project,
 )
 // Stills slide past between the work and the services: photos on top, design underneath.

@@ -25,6 +25,9 @@ const fixed: Record<string, Omit<Meta, 'path'>> = {
     title: 'Services | Websites, Photo & Video for GTA Businesses | Captain Solo',
     description: 'Shoot, Shoot + Site and Full brand packages, plus monthly site care and content shoots. Quoted after a short call.',
   },
+  ...(site.cal && {
+    '/book': { title: 'Book a call | Solomon Olufelo', description: 'Pick a time for a free 20-minute call about your website, photos or video.' },
+  }),
   '/blog': {
     title: 'Blog | Web Dev, Videography, AI Tools & Music Production | Captain Solo',
     description: 'Guides on web development, videography, music production, study tools and local business tips for Brampton and the GTA.',
