@@ -1,5 +1,5 @@
 // Renders the 16:10 project thumbnails (public/assets/projects/<slug>.webp) from real screens and reel frames.
-// Run: node scripts/thumbs/render.mjs <source-dir>   (needs Playwright + Python Pillow)
+// Run: node scripts/thumbs/render.mjs <source-dir> [slug ...]   (needs Playwright + Python Pillow)
 // Source dir holds <slug>-f1..3.jpg reel frames and <slug>-m.png / -d.png captures; see thumbs.json.
 import { createRequire } from 'node:module'
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
@@ -11,7 +11,8 @@ const here = dirname(fileURLToPath(import.meta.url))
 const root = resolve(here, '../..')
 const src = resolve(process.argv[2] ?? '.')
 const { chromium } = createRequire(join(root, 'package.json'))('playwright')
-const jobs = JSON.parse(readFileSync(join(here, 'thumbs.json'), 'utf8'))
+const only = process.argv.slice(3) // optional slugs: re-render just these
+const jobs = JSON.parse(readFileSync(join(here, 'thumbs.json'), 'utf8')).filter((j) => !only.length || only.includes(j.slug))
 const W = 1600
 const H = 1000
 
