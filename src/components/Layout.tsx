@@ -125,7 +125,7 @@ function ThemeToggle() {
   }
   // Both icons render; CSS shows the one for the current theme, so server and client markup match.
   return (
-    <button className="icon-btn theme-toggle" type="button" onClick={toggle} aria-label="Switch light or dark mode">
+    <button className="icon-btn theme-toggle" type="button" onClick={toggle} aria-label="Switch light or dark mode" data-magnetic="0.4">
       <svg className="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
         <circle cx="12" cy="12" r="4.5" />
         <path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M4.6 19.4l2.1-2.1M17.3 6.7l2.1-2.1" />
@@ -170,7 +170,7 @@ function Header() {
               {n.label}
             </NavLink>
           ))}
-          <Link to={bookCall} className="btn btn-sm">
+          <Link to={bookCall} className="btn btn-sm" data-magnetic="0.25">
             Book a call
           </Link>
         </nav>
@@ -178,6 +178,7 @@ function Header() {
           <ThemeToggle />
           <button
             className="icon-btn menu-btn"
+            data-magnetic="0.4"
             type="button"
             aria-expanded={open}
             aria-controls="main-nav"

@@ -25,8 +25,14 @@ export function Viewfinder() {
       v.play().catch(() => setHeld(true))
     }
     let raf = 0
+    let frame = -1
     const tick = () => {
-      setT(v.currentTime)
+      // Re-render when the 24 fps timecode changes, not on every refresh of a high-Hz screen.
+      const f = Math.floor(v.currentTime * 24)
+      if (f !== frame) {
+        frame = f
+        setT(v.currentTime)
+      }
       raf = requestAnimationFrame(tick)
     }
     raf = requestAnimationFrame(tick)

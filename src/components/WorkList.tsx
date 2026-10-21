@@ -24,14 +24,23 @@ export function WorkList({ items }: { items: Project[] }) {
     let tx = x
     let ty = y
     let raf = 0
+    let prev = 0
+    let tilt = 0
     const onMove = (e: PointerEvent) => {
       tx = e.clientX
       ty = e.clientY
     }
-    const tick = () => {
-      x += (tx - x) * 0.16
-      y += (ty - y) * 0.16
-      el.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`
+    const tick = (now: number) => {
+      const dt = prev ? Math.min(0.05, (now - prev) / 1000) : 1 / 60
+      prev = now
+      // Per second, so it trails the same on any refresh rate (~16 % of the gap per frame at 60 Hz).
+      const k = 1 - Math.exp(-10.5 * dt)
+      const vx = ((tx - x) * k) / dt
+      x += (tx - x) * k
+      y += (ty - y) * k
+      // Leans into sideways movement and rights itself when the pointer settles.
+      tilt += (Math.max(-7, Math.min(7, vx / 140)) - tilt) * (1 - Math.exp(-9 * dt))
+      el.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%) rotate(${tilt}deg)`
       raf = requestAnimationFrame(tick)
     }
     addEventListener('pointermove', onMove)

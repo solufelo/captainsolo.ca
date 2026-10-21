@@ -2802,6 +2802,34 @@ html:not(.intro) .hero .viewfinder video {
   margin-top: clamp(22px, 4vw, 48px);
   font-size: clamp(1.05rem, 1.6vw, 1.35rem);
 }
+/* Each step shows what it looks like: beside the text on wide screens, under it on phones. Row 2 only,
+   so the strip left showing under the next card is still just "01 CALL". */
+.deck li img {
+  grid-column: 1 / -1;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  margin-top: 20px;
+  border-radius: 14px;
+  object-fit: cover;
+  object-position: 50% 30%;
+}
+@media (min-width: 760px) {
+  .deck li {
+    grid-template-columns: auto minmax(0, 1fr) minmax(0, 1.15fr);
+    grid-template-rows: auto 1fr;
+  }
+  .deck p {
+    grid-column: 1 / 3;
+  }
+  .deck li img {
+    grid-column: 3;
+    grid-row: 2;
+    height: 100%;
+    min-height: 240px;
+    aspect-ratio: auto;
+    margin-top: clamp(22px, 4vw, 48px);
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   html:not(.motion-on) .deck li {
     position: relative;
@@ -2990,8 +3018,25 @@ html:not(.intro) .hero .viewfinder video {
 }
 
 /* ---------- Cursor: dot + halo that eases after it (Cursor.tsx; mouse only, motion on) ---------- */
+/* Size and corner radius are registered so they animate: the halo morphs from a ring into a capsule round a pill. */
+@property --cw {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 34px;
+}
+@property --ch {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 34px;
+}
+@property --cr {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 17px;
+}
 .cursor-dot,
-.cursor-halo {
+.cursor-halo,
+.cursor-ripple {
   display: none;
 }
 html.has-cursor,
@@ -3001,66 +3046,98 @@ html.has-cursor * {
 html.has-cursor :is(input, textarea, select, iframe, [contenteditable='true']) {
   cursor: auto !important;
 }
-html.has-cursor .cursor-dot,
-html.has-cursor .cursor-halo {
+/* Centred with margins, not a transform, so the halo can rotate and stretch about its middle (Cursor.tsx sets rotate/scale). */
+html.has-cursor :is(.cursor-dot, .cursor-halo, .cursor-ripple) {
   position: fixed;
   z-index: 10000;
   top: 0;
   left: 0;
   display: grid;
   place-items: center;
-  border-radius: 50%;
   pointer-events: none;
   mix-blend-mode: difference;
   translate: -100px -100px;
-  /* scale lives inside transform, after the centring, so a shrinking dot or squeezed halo stays on the pointer */
-  transform: translate(-50%, -50%);
-  transition: opacity 0.25s ease, transform 0.5s var(--spring), width 0.55s var(--spring), height 0.55s var(--spring),
-    background-color 0.25s ease, border-color 0.25s ease, color 0.2s ease;
 }
 html.has-cursor .cursor-dot {
   width: 8px;
   height: 8px;
+  margin: -4px 0 0 -4px;
+  border-radius: 50%;
   background: #fff;
+  transition: opacity 0.25s ease, transform 0.45s var(--spring);
 }
 html.has-cursor .cursor-halo {
-  width: 34px;
-  height: 34px;
+  --cw: 34px;
+  --ch: 34px;
+  --cr: 17px;
+  width: var(--cw);
+  height: var(--ch);
+  margin: calc(var(--ch) / -2) 0 0 calc(var(--cw) / -2);
   border: 1px solid #fff;
+  border-radius: var(--cr);
   color: transparent;
   font: 600 0.72rem / 1 var(--mono);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   white-space: nowrap;
   overflow: hidden;
+  transition: --cw 0.55s var(--spring), --ch 0.55s var(--spring), --cr 0.55s var(--spring), opacity 0.25s ease,
+    transform 0.45s var(--spring), background-color 0.25s ease, border-color 0.25s ease, color 0.2s ease;
 }
-html.cursor-out .cursor-dot,
-html.cursor-out .cursor-halo,
+html.cursor-out :is(.cursor-dot, .cursor-halo),
 html.has-cursor .cursor-dot[data-state='native'],
 html.has-cursor .cursor-halo:is([data-state='native'], [data-state='hide']) {
   opacity: 0;
 }
+html.has-cursor .cursor-dot:is([data-state='hover'], [data-state='label'], [data-state='stick'], [data-state='hide']) {
+  transform: scale(0);
+}
 html.has-cursor .cursor-halo[data-state='hover'] {
-  width: 58px;
-  height: 58px;
+  --cw: 58px;
+  --ch: 58px;
+  --cr: 29px;
   background: #fff;
 }
-html.has-cursor .cursor-dot:is([data-state='hover'], [data-state='label'], [data-state='stick'], [data-state='hide']) {
-  transform: translate(-50%, -50%) scale(0);
-}
 html.has-cursor .cursor-halo[data-state='label'] {
-  width: 88px;
-  height: 88px;
+  --cw: 88px;
+  --ch: 88px;
+  --cr: 44px;
   border-color: transparent;
   background: var(--accent);
   color: #fff;
   mix-blend-mode: normal;
 }
-html.has-cursor .cursor-halo[data-state='stick'] {
-  width: var(--stick, 64px);
-  height: var(--stick, 64px);
-}
 html.has-cursor .cursor-halo.is-down {
-  transform: translate(-50%, -50%) scale(0.8);
+  transform: scale(0.8);
   transition-duration: 0.15s;
+}
+/* A ring bursts from the pointer on every click */
+html.has-cursor .cursor-ripple {
+  width: 34px;
+  height: 34px;
+  margin: -17px 0 0 -17px;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  animation: cursor-ripple 0.6s var(--ease-out) forwards;
+}
+@keyframes cursor-ripple {
+  from {
+    transform: scale(0.5);
+    opacity: 0.9;
+  }
+  to {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+/* Magnetic buttons beyond the orbs (Cursor.tsx sets translate while hovered): follow fast, wobble home on the elastic */
+:is(.btn, .pill-link, .icon-btn)[data-magnetic] {
+  transition-property: translate, transform, background-color, border-color, box-shadow, color;
+  transition-duration: 1.1s, 0.55s, 0.15s, 0.15s, 0.3s, 0.2s;
+  transition-timing-function: var(--elastic), var(--spring), ease, ease, ease, ease;
+}
+:is(.btn, .pill-link, .icon-btn)[data-magnetic]:hover {
+  transition-duration: 0.25s, 0.55s, 0.15s, 0.15s, 0.3s, 0.2s;
+  transition-timing-function: var(--ease-out), var(--spring), ease, ease, ease, ease;
 }

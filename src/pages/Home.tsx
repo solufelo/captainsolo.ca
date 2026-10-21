@@ -102,7 +102,7 @@ export function Home() {
         </h2>
         <WorkList items={featured} />
         <div className="more-row">
-          <Link to="/work" className="pill-link">
+          <Link to="/work" className="pill-link" data-magnetic="0.25">
             All work <sup>{projects.length}</sup>
           </Link>
         </div>
@@ -141,6 +141,7 @@ export function Home() {
               <span className="step-n">{n(i)}</span>
               <h3>{p.step}</h3>
               <p>{p.body}</p>
+              <img src={p.image} alt={p.alt} loading="lazy" />
             </li>
           ))}
         </ol>

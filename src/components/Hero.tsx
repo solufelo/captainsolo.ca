@@ -13,13 +13,16 @@ function Marquee({ text }: { text: string }) {
     let dir = -1
     let last = scrollY
     let raf = 0
+    let prev = 0
     const onScroll = () => {
       if (scrollY !== last) dir = scrollY > last ? -1 : 1
       last = scrollY
     }
-    const tick = () => {
-      // Two copies of the text: wrapping at -50% is seamless.
-      x = (((x + dir * 0.045) % 50) - 50) % 50
+    const tick = (now: number) => {
+      const dt = prev ? Math.min(0.05, (now - prev) / 1000) : 0
+      prev = now
+      // Two copies of the text: wrapping at -50% is seamless. 2.7 % of the track a second, at any refresh rate.
+      x = (((x + dir * 2.7 * dt) % 50) - 50) % 50
       el.style.transform = `translate3d(${x}%, 0, 0)`
       raf = requestAnimationFrame(tick)
     }

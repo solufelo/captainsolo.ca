@@ -21,7 +21,7 @@ export function CopyEmail({ className = 'btn', compact = false }: { className?: 
   }
 
   return (
-    <a href={`mailto:${site.email}`} className={`${className} copy-email`} onClick={copy} data-copied={copied} aria-live="polite">
+    <a href={`mailto:${site.email}`} className={`${className} copy-email`} data-magnetic="0.25" onClick={copy} data-copied={copied} aria-live="polite">
       <svg viewBox="0 0 24 24" aria-hidden="true">
         {copied ? <path d="M5 12.5 10 17l9-10" /> : <path d="M4 6h16v12H4zM4 7l8 6 8-6" />}
       </svg>

@@ -635,9 +635,19 @@ export const retainers = [
 ]
 
 export const process = [
-  { step: 'Call', body: 'Thirty minutes on what you sell, who buys it and what isn’t working.' },
-  { step: 'Shoot and build', body: 'I shoot at your place and build the site around it. You see it first.' },
-  { step: 'Launch and care', body: 'Domain, email and Google set up, then I keep it fresh every month.' },
+  { step: 'Call', body: 'Thirty minutes on what you sell, who buys it and what isn’t working.', image: '/assets/work/call-portrait.webp', alt: 'Solomon Olufelo' },
+  {
+    step: 'Shoot and build',
+    body: 'I shoot at your place and build the site around it. You see it first.',
+    image: '/assets/projects/barbershop-promo.webp',
+    alt: 'Frames from a barbershop promo shoot',
+  },
+  {
+    step: 'Launch and care',
+    body: 'Domain, email and Google set up, then I keep it fresh every month.',
+    image: '/assets/projects/godways.webp',
+    alt: 'The Godways Ministry site on a laptop and a phone',
+  },
 ]
 
 export const contactServices = ['Brand package', 'Photo / video shoot', 'Website', 'Web app / full-stack build', 'Voice tag', 'Collaboration / other']
