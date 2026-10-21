@@ -65,6 +65,16 @@ export function Work() {
       </header>
 
       {project.loop && <Loop src={project.loop} poster={project.poster ?? project.image} />}
+      {project.clips && (
+        <section className="case-clips" aria-label="More clips">
+          {project.clips.map((c) => (
+            <figure key={c.src} className="case-clip">
+              <video src={c.src} poster={c.poster} controls playsInline preload="none" />
+              <figcaption>{c.title}</figcaption>
+            </figure>
+          ))}
+        </section>
+      )}
       <section className="case-media" data-layout={project.layout} aria-label="The work">
         {project.video ? (
           <figure className="case-video">

@@ -2339,6 +2339,29 @@ p {
   break-inside: avoid;
   margin-bottom: clamp(14px, 2vw, 28px);
 }
+.case-clips {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
+  gap: clamp(14px, 2vw, 28px);
+  max-width: 1400px;
+  margin: 0 auto clamp(14px, 2vw, 28px);
+  padding-inline: clamp(8px, 2vw, 28px);
+}
+.case-clip {
+  margin: 0;
+}
+.case-clip video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 6px;
+  background: #000;
+}
+.case-clip figcaption {
+  margin-top: 8px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
 .case-video {
   margin: 0 auto;
   width: min(100%, 430px);
