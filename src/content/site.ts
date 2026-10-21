@@ -10,7 +10,7 @@ export const site = {
   roles: ['Creative technologist', 'Full-stack developer', 'Motion & video'],
   tagline: 'Shipped demos, case studies, and client work across code and camera.',
   description:
-    'Solomon Olufelo (Captain Solo) is a Brampton-based full-stack developer and videographer. React, Python and C++ builds, plus sports, event and brand video.',
+    'Solomon Olufelo shoots photos and video and builds websites for businesses in Brampton and the GTA: from the first call to launch and the monthly upkeep.',
   airgigs: {
     profile: 'https://www.airgigs.com/user/solufelobeats',
     tag: 'https://www.airgigs.com/Voiceovers/111986/Custom-Producer-Tag--Voice-Tag-Studio-Quality-24-Hour-Delivery-Wet--Dry-Versions',
@@ -470,11 +470,29 @@ export const projects: Project[] = [
 export const getProject = (slug: string) => projects.find((p) => p.slug === slug)
 
 
-export const offers = [
-  { title: 'Websites', line: 'Fast sites you can update yourself.' },
-  { title: 'Photo & video', line: 'Shoots for your socials, menu and launch.' },
-  { title: 'Care plan', line: 'Hosting, edits and fresh content, monthly.' },
+// Home page, in the order a business owner reads it: their problem, the work, what I do, how, questions, a call.
+export const pains = [
+  'Photos from your phone, or from years ago.',
+  'A website that’s slow, dated or missing.',
+  'One person for the site, another for the shoot, and none of it matches.',
 ]
+
+export const offers = [
+  { title: 'Websites', line: 'A fast site that brings in bookings, and that you can update yourself.' },
+  { title: 'Photo & video', line: 'Shoots at your place that make people stop scrolling and walk in.' },
+  { title: 'Care plan', line: 'Hosting, edits and fresh content every month, so it never goes stale.' },
+]
+
+export const faqs = [
+  { q: 'What does it cost?', a: 'Every project is quoted after a short call, so you only pay for what you need.' },
+  { q: 'Do I need to be technical?', a: 'No. You get a site you can edit yourself and a walkthrough at launch.' },
+  { q: 'Can you shoot at my location?', a: 'Yes: your shop, studio or event, anywhere in the GTA.' },
+  { q: 'What happens after launch?', a: 'Site care covers hosting, updates and fixes for one monthly fee. Add content shoots whenever you want fresh material.' },
+  { q: 'Do you only work with businesses?', a: 'Mostly local businesses, plus music videos and cover art for artists.' },
+]
+
+/** Where every "Book a call" button goes: the contact form, with the request already written. */
+export const bookCall = '/contact?call=1'
 
 export type BrandPackage = { id: string; name: string; tagline: string; includes: string[]; featured?: boolean }
 
@@ -523,10 +541,9 @@ export const retainers = [
 ]
 
 export const process = [
-  { step: 'Call', body: 'A 20-minute chat about your business, your customers and what you need.' },
-  { step: 'Shoot', body: 'Photos and video at your location, planned around your brand.' },
-  { step: 'Build', body: 'Your site, built with your own content. You see it before anyone else.' },
-  { step: 'Launch', body: 'Domain, email and Google set up. Then I show you how to run it.' },
+  { step: 'Call', body: 'Twenty minutes on what you sell, who buys it and what isn’t working.' },
+  { step: 'Shoot and build', body: 'I shoot at your place and build the site around it. You see it first.' },
+  { step: 'Launch and care', body: 'Domain, email and Google set up, then I keep it fresh every month.' },
 ]
 
 export const contactServices = ['Brand package', 'Photo / video shoot', 'Website', 'Web app / full-stack build', 'Voice tag', 'Collaboration / other']

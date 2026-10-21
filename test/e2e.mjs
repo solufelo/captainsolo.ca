@@ -56,7 +56,10 @@ p = await newPage()
 await p.goto(BASE + '/', { waitUntil: 'load' })
 check('one hero (no duplicate render)', (await p.locator('.hero').count()) === 1)
 check('home lists 8 projects', (await p.locator('.work-row').count()) === 8)
-check('home stays short (under 250 words)', (await p.evaluate(() => document.body.innerText.split(/\s+/).filter(Boolean).length)) < 250)
+check('home stays short (under 400 words)', (await p.evaluate(() => document.body.innerText.split(/\s+/).filter(Boolean).length)) < 400)
+check('home leads with the client problem', (await p.locator('#problem-title').innerText()).includes('better than it looks online'))
+await p.locator('.faq summary').first().click()
+check('FAQ answers open', await p.locator('.faq details').first().evaluate((d) => d.open))
 await p.locator('.work-row').first().hover()
 await p.waitForTimeout(500)
 check('hovering a video row floats its silent preview', await p.evaluate(() => {
@@ -106,6 +109,15 @@ await p.waitForTimeout(300)
 check('package button: service preselected', (await p.locator('select[name=service]').inputValue()) === 'Brand package')
 check('package button: message mentions the package', (await p.locator('textarea[name=message]').inputValue()).includes('Full brand'))
 check('package flow: no console errors', p.errors.length === 0, p.errors.join(' | '))
+await p.close()
+
+// "Book a call" (there's no calendar) opens the form with the request already written
+p = await newPage()
+await p.goto(BASE + '/', { waitUntil: 'load' })
+await p.locator('.site-header').getByRole('link', { name: 'Book a call' }).first().click()
+await p.waitForURL('**/contact?call=1')
+await p.waitForTimeout(300)
+check('Book a call: message is prefilled', (await p.locator('textarea[name=message]').inputValue()).includes('20-minute call'))
 await p.close()
 
 // One-tap email copies the address

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router'
-import { site, socials } from '../content/site'
+import { bookCall, site, socials } from '../content/site'
 import { CopyEmail } from './CopyEmail'
 import { Mark } from './Mark'
 import { Orb } from './Orb'
@@ -69,7 +69,9 @@ function Header() {
               {n.label}
             </NavLink>
           ))}
-          <CopyEmail className="btn btn-sm" compact />
+          <Link to={bookCall} className="btn btn-sm">
+            Book a call
+          </Link>
         </nav>
         <div className="header-actions">
           <ThemeToggle />
@@ -101,8 +103,8 @@ function Footer() {
           together
         </h2>
         <div className="footer-rule">
-          <Orb to="/contact" size="lg">
-            Get in touch
+          <Orb to={bookCall} size="lg">
+            Book a call
           </Orb>
         </div>
         <CopyEmail className="pill-link" />
