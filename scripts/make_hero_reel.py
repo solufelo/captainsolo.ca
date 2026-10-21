@@ -19,7 +19,7 @@ W, H = 1280, 720
 DL = 'C:/Users/Administrator/Downloads/Video/'
 SRC = {
     'ten-fold': DL + 'tgk - ten fold v2_5.mp4',
-    'tec': DL + "10k Moss - 'TEC' (Official Music Video).mp4",
+    'tec': DL + '10KMOSS TEC APR 14 REF 1_5.mp4',  # 4K REF export; the release download runs 3.59 s later
     'july-6': DL + 'Dela - JULY 6 (Official Music Video).mp4',
     'moksha-festival': DL + 'moksha promo v4.mp4',
     'laurier-gameday': DL + '01_Hawk_Opener_v024_Native1080p_SoundV3_Shake_Master.mp4',
@@ -31,12 +31,12 @@ ZOOM = {'ten-fold': 0.9}
 # (project slug, start second, label). Moments from the triage loop windows.
 # Opens on work he shot; Ten Fold and Moksha (edit only) come later.
 MOMENTS = [
-    ('tec', 11.0, '10k Moss – TEC'),
+    ('tec', 7.41, '10k Moss – TEC'),
     ('july-6', 81.0, 'Dela – July 6'),
     ('ten-fold', 103.0, 'TGK – Ten Fold'),
     ('vair-drop', 18.0, 'Vair Studios'),
     ('laurier-gameday', 7.9, 'Laurier game day'),
-    ('tec', 13.2, '10k Moss – TEC'),
+    ('tec', 9.61, '10k Moss – TEC'),
     ('moksha-festival', 42.0, 'Moksha festival'),
     ('july-6', 85.8, 'Dela – July 6'),
     ('ten-fold', 106.6, 'TGK – Ten Fold'),

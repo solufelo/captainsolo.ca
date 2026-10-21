@@ -18,5 +18,11 @@
   {"slug": "moksha-festival", "out": "moksha-festival.webp", "type": "film", "kicker": "Festival promo"},
   {"slug": "vair-drop", "out": "vair-drop.webp", "type": "film", "kicker": "Brand drop teaser"},
   {"slug": "savyan-salon", "out": "savyan-salon.webp", "type": "reel", "kicker": "Salon promo · reel"},
-  {"slug": "no-captains-orders", "out": "no-captains-orders.webp", "type": "film", "kicker": "3D product ad"}
+  {"slug": "no-captains-orders", "out": "no-captains-orders.webp", "type": "film", "kicker": "3D product ad"},
+  {"slug": "koldhearted", "out": "koldhearted-q.webp", "type": "pieces", "kicker": "Lookbook · KOLDHEARTED", "h": 722, "pieces": ["/assets/work/koldhearted-g1.webp", "/assets/work/koldhearted-g2.webp", "/assets/work/koldhearted-g3.webp"]},
+  {"slug": "photo-selects", "out": "photo-selects-q.webp", "type": "pieces", "kicker": "Photography · selects", "h": 722, "pieces": ["/assets/work/portrait-1.webp", "/assets/work/selects-g1-q.webp", "/assets/work/selects-g2.webp"]},
+  {"slug": "laurier-gameday", "out": "laurier-gameday-q.webp", "type": "pieces", "kicker": "Sports design · Laurier", "h": 750, "pieces": ["/assets/work/laurier-countdown-1.webp", "/assets/work/laurier-senior-day.webp", "/assets/work/laurier-countdown-3.webp"]},
+  {"slug": "cover-art", "out": "cover-art-q.webp", "type": "pieces", "kicker": "Cover art", "h": 481, "pieces": ["/assets/work/cover-misdirection.webp", "/assets/work/cover-aint-sad.webp", "/assets/work/cover-mexico.webp"]},
+  {"slug": "solvra", "out": "solvra-q.webp", "type": "pieces", "kicker": "3D product visuals", "h": 648, "pieces": ["/assets/work/solvra-1.webp", "/assets/work/solvra-2.webp", "/assets/work/solvra-3.webp"]},
+  {"slug": "plaques", "out": "plaques-q.webp", "type": "pieces", "kicker": "Product photography · UTM", "h": 602, "pieces": ["/assets/work/plaques-1.webp", "/assets/work/plaques-2.webp", "/assets/work/plaques-4.webp"]}
 ]

@@ -91,6 +91,22 @@ body { background: #05070d url('${url(`${j.slug}-f1.jpg`)}') center ${j.focus ??
 <div class="grain"></div>`
 }
 
+// Three stills side by side over a blurred copy of the middle one: photo sets, covers and design work.
+function pieces(j) {
+  const ims = j.pieces.map(url)
+  return `<style>${base}
+body { background: #05070d; }
+.bg { position: absolute; inset: -60px; background: url('${ims[1]}') center/cover; filter: blur(46px) brightness(.38) saturate(1.3); }
+.row { position: absolute; inset: 110px 56px 56px; display: flex; align-items: center; justify-content: center; gap: 22px; }
+.row div { height: ${j.h}px; border-radius: 20px; overflow: hidden; box-shadow: 0 30px 70px -30px rgb(0 0 0 / .8), 0 0 0 1px rgb(255 255 255 / .1); }
+.row img { height: 100%; width: auto; display: block; }
+</style>
+<div class="bg"></div>
+<p class="kicker">${j.kicker}</p>${mark}
+<div class="row">${ims.map((f) => `<div><img src="${f}"></div>`).join('')}</div>
+<div class="grain"></div>`
+}
+
 const out = join(root, 'public/assets/projects')
 const tmp = join(src, '_render')
 mkdirSync(tmp, { recursive: true })
@@ -98,7 +114,7 @@ const browser = await chromium.launch({ executablePath: process.env.CHROME_PATH 
 const page = await browser.newPage({ viewport: { width: W, height: H } })
 for (const j of jobs) {
   const html = join(tmp, `${j.slug}.html`)
-  writeFileSync(html, `<!doctype html><meta charset="utf-8">${({ reel, film }[j.type] ?? site)(j)}`)
+  writeFileSync(html, `<!doctype html><meta charset="utf-8">${({ reel, film, pieces }[j.type] ?? site)(j)}`)
   await page.goto(pathToFileURL(html).href, { waitUntil: 'load' })
   await page.evaluate(() => document.fonts.ready)
   const png = join(tmp, `${j.slug}.png`)
