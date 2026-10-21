@@ -53,7 +53,8 @@ function Reels({ items }: { items: Project[] }) {
       <div ref={ref} className="reels-row">
         {items.map((p) => (
           <Link key={p.slug} to={`/work/${p.slug}`} className="reel-card" aria-label={p.title}>
-            <video src={p.preview} muted loop playsInline preload="metadata" aria-hidden="true" />
+            {/* iOS shows nothing before play without a poster: each preview has a first-frame .webp beside it */}
+            <video src={p.preview} poster={p.preview?.replace(/\.mp4$/, '.webp')} muted loop playsInline preload="metadata" aria-hidden="true" />
           </Link>
         ))}
       </div>
