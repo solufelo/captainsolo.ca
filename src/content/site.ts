@@ -6,6 +6,7 @@ export const site = {
   url: 'https://captainsolo.ca',
   email: 'work@captainsolo.ca',
   location: 'Brampton, ON · Serving the GTA',
+  portrait: '/images/solomon-portrait-20260624.webp',
   roles: ['Creative technologist', 'Full-stack developer', 'Motion & video'],
   tagline: 'Shipped demos, case studies, and client work across code and camera.',
   description:
@@ -24,57 +25,8 @@ export const socials = [
   { label: 'YouTube', href: 'https://www.youtube.com/@captainsolo' },
 ]
 
-export type Service = { title: string; body: string; tags: string[]; link?: { label: string; href: string } }
 
-export const services: { group: string; items: Service[] }[] = [
-  {
-    group: 'Code',
-    items: [
-      {
-        title: 'Frontend & UX',
-        body: 'React 19 and Vite. Fast, responsive, built to convert. This site is the demo.',
-        tags: ['React', 'Vite', 'TypeScript', 'GSAP'],
-      },
-      {
-        title: 'APIs & auth',
-        body: 'Express or Python REST, session auth, contact forms, Stripe hooks, admin dashboards.',
-        tags: ['Python', 'Node.js', 'SQLite', 'Stripe'],
-        link: { label: 'See work', href: '/#work' },
-      },
-    ],
-  },
-  {
-    group: 'Photo, video & motion',
-    items: [
-      {
-        title: 'Brand photography',
-        body: 'Portraits, storefronts, products and team shots for your site, socials and Google listing.',
-        tags: ['Portraits', 'Products', 'Locations'],
-        link: { label: 'See packages', href: '/#packages' },
-      },
-      {
-        title: 'Athletics & events',
-        body: 'University athletics: game recaps, multi-cam coverage and fast social cuts.',
-        tags: ['Premiere', 'Sony A6100', 'Sports'],
-        link: { label: 'See reels', href: '/#work' },
-      },
-      {
-        title: 'Brand & promo',
-        body: 'Short-form promos for local businesses: hooks, colour and platform-ready exports.',
-        tags: ['Premiere', 'Colour', 'Social'],
-        link: { label: 'See reels', href: '/#work' },
-      },
-      {
-        title: '3D & motion',
-        body: 'WebGL product landings and Blender motion: Velare and campus 3D assets.',
-        tags: ['three.js', 'Blender', 'GSAP'],
-        link: { label: 'Live demo', href: 'https://velare-site.netlify.app/' },
-      },
-    ],
-  },
-]
-
-export type Category = 'code' | 'video' | 'motion'
+export type Category = 'code' | 'video' | 'motion' | 'photo' | 'design'
 
 export type Project = {
   slug: string
@@ -84,36 +36,134 @@ export type Project = {
   /** What you did on it. */
   role: string
   summary: string
+  /** One or two words for the work list, e.g. "Web app". */
+  kind: string
   status: 'live' | 'wip'
   categories: Category[]
   tags: string[]
   image: string
   video?: string
+  /** Short silent loop shown when the work-list row is hovered. */
+  preview?: string
   /** Real screens for the case-study page; falls back to `image`. */
   gallery?: string[]
-  /** Case-study overview: what it was, the problem, what changed. Swap in real numbers when you have them. */
-  overview: { what: string; problem: string; outcome: string }
+  /** 'grid' lays pieces out in columns instead of one wide stack; 'tall' is the same for vertical frames. */
+  layout?: 'grid' | 'tall'
+  /** Silent loop shown big at the top of the case study; `poster` is its first frame. */
+  loop?: string
+  poster?: string
   demo?: { label: string; href: string }
   source?: string
 }
 
 export const projects: Project[] = [
   {
+    slug: 'ten-fold',
+    title: 'Ten Fold',
+    client: 'TGK',
+    role: 'Shot and edited',
+    summary: 'Music video filmed between Paris and a Greek island, finished in a film-gate look.',
+    kind: 'Music video',
+    preview: '/assets/previews/ten-fold.mp4',
+    status: 'live',
+    categories: ['video'],
+    tags: ['Music video', 'Travel', 'Colour'],
+    image: '/assets/projects/ten-fold.webp',
+    loop: '/assets/videos/ten-fold-loop.mp4',
+    poster: '/assets/work/ten-fold-poster.webp',
+    gallery: ['/assets/work/ten-fold-1.webp', '/assets/work/ten-fold-2.webp', '/assets/work/ten-fold-3.webp', '/assets/work/ten-fold-4.webp'],
+    layout: 'grid',
+  },
+  {
+    slug: 'tec',
+    title: 'TEC',
+    client: '10k Moss',
+    role: 'Shot and edited',
+    summary: 'A built teal set, hard coloured light and a fire title.',
+    kind: 'Music video',
+    preview: '/assets/previews/tec.mp4',
+    status: 'live',
+    categories: ['video'],
+    tags: ['Music video', 'Set design', 'VFX'],
+    image: '/assets/projects/tec.webp',
+    loop: '/assets/videos/tec-loop.mp4',
+    poster: '/assets/work/tec-poster.webp',
+    gallery: ['/assets/work/tec-1.webp', '/assets/work/tec-2.webp', '/assets/work/tec-3.webp', '/assets/work/tec-4.webp'],
+    layout: 'grid',
+  },
+  {
+    slug: 'july-6',
+    title: 'July 6',
+    client: 'Dela',
+    role: 'Director',
+    summary: 'Black-and-white street portraits around Spadina and Chinatown.',
+    kind: 'Music video',
+    preview: '/assets/previews/july-6.mp4',
+    status: 'live',
+    categories: ['video'],
+    tags: ['Music video', 'Black and white', 'Toronto'],
+    image: '/assets/projects/july-6.webp',
+    loop: '/assets/videos/july-6-loop.mp4',
+    poster: '/assets/work/july-6-poster.webp',
+    gallery: ['/assets/work/july-6-1.webp', '/assets/work/july-6-2.webp', '/assets/work/july-6-3.webp', '/assets/work/july-6-4.webp'],
+    layout: 'grid',
+  },
+  {
+    slug: 'primary-lotus',
+    title: 'Primary Lotus',
+    client: 'J.V',
+    role: 'Shot and edited',
+    summary: 'Summer backlight, shallow focus and fast, clean cutting.',
+    kind: 'Music video',
+    preview: '/assets/previews/primary-lotus.mp4',
+    status: 'live',
+    categories: ['video'],
+    tags: ['Music video', 'Natural light', 'Lyrics'],
+    image: '/assets/projects/primary-lotus.webp',
+    loop: '/assets/videos/primary-lotus-loop.mp4',
+    poster: '/assets/work/primary-lotus-poster.webp',
+    gallery: ['/assets/work/primary-lotus-1.webp', '/assets/work/primary-lotus-2.webp', '/assets/work/primary-lotus-3.webp', '/assets/work/primary-lotus-4.webp'],
+    layout: 'grid',
+  },
+  {
+    slug: 'stepwhiz',
+    title: 'StepWhiz',
+    client: 'Personal product',
+    role: 'Design, full stack, AI',
+    summary: 'AI study app: snap a problem, get a sourced step-by-step answer, then flashcards that make it stick.',
+    kind: 'AI study app',
+    status: 'live',
+    categories: ['code'],
+    tags: ['TypeScript', 'Fastify', 'Preact', 'AI'],
+    image: '/assets/projects/stepwhiz.webp',
+    gallery: ['/assets/work/stepwhiz-1.webp', '/assets/work/stepwhiz-2.webp', '/assets/work/stepwhiz-3.webp', '/assets/work/stepwhiz-4.webp'],
+    demo: { label: 'Live demo', href: 'https://stepwhiz.onrender.com/app/' },
+  },
+  {
+    slug: 'unicreate-studio',
+    title: 'UniCreate Studio',
+    client: 'Captain Solo Creative',
+    role: 'Design, full stack, video engine',
+    summary: 'Drop in a shoot, get finished short-form clips: cut, captioned, checked and ready to post.',
+    kind: 'Video app',
+    status: 'live',
+    categories: ['code', 'video'],
+    tags: ['Next.js', 'Python', 'FFmpeg', 'Postgres'],
+    image: '/assets/projects/unicreate.webp',
+    gallery: ['/assets/work/unicreate-1.webp', '/assets/work/unicreate-2.webp', '/assets/work/unicreate-3.webp', '/assets/work/unicreate-4.webp'],
+  },
+  {
     slug: 'captain-funds',
     title: 'Captain Funds',
     client: 'Personal project',
     role: 'Design, front end, API, database',
     summary: 'MERN fundraising platform: campaign creation, donations, role-based access, admin analytics.',
+    kind: 'Web app',
     status: 'live',
     categories: ['code'],
     tags: ['React', 'TypeScript', 'Express', 'MongoDB', 'Stripe'],
     image: '/assets/projects/captainfunds.webp',
     gallery: ['/assets/work/captainfunds-landing.webp', '/assets/work/captainfunds-dashboard.webp', '/assets/work/captainfunds-admin.webp', '/assets/work/captainfunds-donate.webp'],
-    overview: {
-      what: 'A fundraising platform where organisers create campaigns and supporters donate, with separate views for donors, organisers and admins.',
-      problem: 'Small campaigns need donations, user roles and reporting without paying a platform a cut of every dollar.',
-      outcome: 'Campaign pages, a donation flow, an organiser dashboard and admin analytics, all read from one donation ledger so every total agrees. The live demo has one-click organiser and admin accounts, fictional data and no real money.',
-    },
     demo: { label: 'Live demo', href: 'https://captainfunds.netlify.app/' },
     source: 'https://github.com/solufelo/captain-funds-mern',
   },
@@ -123,16 +173,12 @@ export const projects: Project[] = [
     client: 'Concept brand',
     role: '3D, motion, front end',
     summary: 'Launch site for a concept electric motorcycle: a scroll-driven 3D walkaround, a 3D configurator and a reservation flow.',
+    kind: '3D website',
     status: 'live',
     categories: ['code', 'motion'],
     tags: ['Next.js', 'three.js', 'R3F', 'Framer Motion'],
     image: '/assets/projects/velare.webp',
     gallery: ['/assets/work/velare-home.webp', '/assets/work/velare-configure.webp', '/assets/work/velare-exploded.webp', '/assets/work/velare-finishes.webp'],
-    overview: {
-      what: 'A product landing page for an electric motorbike, built around a 3D model you can turn and zoom.',
-      problem: 'Product pages for premium hardware usually fall back to photos. A 3D model lets a visitor explore the bike the way they would in a showroom.',
-      outcome: 'A scroll-driven 3D walkaround, a configurator for edition and finish, an exploded view of the technology, and a reservation flow that checks every field and returns a reference. Visitors who prefer reduced motion get a still version of the story.',
-    },
     demo: { label: 'Live demo', href: 'https://velare-site.netlify.app/' },
     source: 'https://github.com/solufelo/velare-site',
   },
@@ -142,16 +188,12 @@ export const projects: Project[] = [
     client: 'Concept skate shop',
     role: 'Design, CMS, front end',
     summary: 'Skate shop on a headless CMS: a 3D board builder, a cart that survives reloads and a demo checkout.',
+    kind: 'Online shop',
     status: 'live',
     categories: ['code'],
     tags: ['Next.js', 'Prismic', 'R3F', 'GSAP', 'Stripe'],
     image: '/assets/projects/suburbia.webp',
     gallery: ['/assets/work/suburbia-home.webp', '/assets/work/suburbia-builder.webp', '/assets/work/suburbia-product.webp', '/assets/work/suburbia-receipt.webp'],
-    overview: {
-      what: 'An e-commerce site for a skateboard brand: board customiser, product grid and team page, all editable in a headless CMS.',
-      problem: 'A small brand needs a shop it can update itself, with product pages that rank, and no developer on call.',
-      outcome: 'Shop, product pages and a 3D builder for custom completes, a cart that survives reloads, and a checkout that runs on Stripe test mode or a labelled demo, so nothing is ever charged. Products and pages are edited in Prismic, without code.',
-    },
     demo: { label: 'Live demo', href: 'https://suburbia-solo.netlify.app/' },
     source: 'https://github.com/solufelo/suburbia-solo',
   },
@@ -161,16 +203,12 @@ export const projects: Project[] = [
     client: 'Personal project',
     role: 'Full stack',
     summary: 'Social film log: watch status, ratings, a squad feed and AI picks, on live TMDB data.',
+    kind: 'Web app',
     status: 'live',
     categories: ['code'],
     tags: ['React', 'TypeScript', 'PostgreSQL', 'Netlify Functions', 'AI'],
     image: '/assets/projects/cinemaverse.webp',
     gallery: ['/assets/work/cinemaverse-home.webp', '/assets/work/cinemaverse-feed.webp', '/assets/work/cinemaverse-foryou.webp', '/assets/work/cinemaverse-profile.webp'],
-    overview: {
-      what: 'A gamer-style social layer on top of TMDB: log films, share your watch status, see what your squad is watching.',
-      problem: 'Film trackers are either spreadsheets or bloated social networks. This keeps it to a feed, a watchlist and recommendations.',
-      outcome: 'Mark a film watching, completed, queued or dropped, rate it and add a take, and it lands on your watchlist, your public profile and the squad feed. "For you" picks come from OpenRouter, with a built-in taste-match engine as the fallback. A one-click guest account lets anyone try it.',
-    },
     demo: { label: 'Live demo', href: 'https://cinemaverse-solo.netlify.app/' },
     source: 'https://github.com/solufelo/cinemaverse-solo-wapp',
   },
@@ -180,16 +218,12 @@ export const projects: Project[] = [
     client: 'Godways International Ministry, Toronto',
     role: 'Design, front end, API, CMS',
     summary: 'Client pitch demo: the ministry’s real copy and brand, a sermon library, events, and a CMS for staff.',
+    kind: 'Website',
     status: 'live',
     categories: ['code'],
     tags: ['React', 'Vite', 'Express', 'Render'],
     image: '/assets/projects/godways.webp',
     gallery: ['/assets/work/godways-home.webp', '/assets/work/godways-sermons.webp', '/assets/work/godways-week.webp', '/assets/work/godways-cms.webp'],
-    overview: {
-      what: 'A church website: welcome, latest sermon, message library, ministries, events and a give page, in the ministry’s own brand.',
-      problem: 'The ministry needed to see what a modern site would look like before committing. A pitch deck wouldn’t do it.',
-      outcome: 'A working site with their real copy: a searchable sermon library, the weekly schedule, events, a countdown to the next Sunday service, and a PIN-protected CMS so staff can publish sermons themselves.',
-    },
     demo: { label: 'Live demo', href: 'https://godways-demo-wapp.onrender.com/' },
     source: 'https://github.com/solufelo/godways-demo-wapp',
   },
@@ -199,17 +233,125 @@ export const projects: Project[] = [
     client: 'Personal project',
     role: 'Design, build, video, hosting',
     summary: 'This site. Rebuilt October 2026: prerendered React pages, a showreel in a camera viewfinder, and a contact form on Cloudflare Workers.',
+    kind: 'This site',
     status: 'live',
     categories: ['code', 'motion'],
     tags: ['React', 'Vite', 'Cloudflare', 'Video'],
     image: '/assets/projects/captainsolo.webp',
     gallery: ['/og-image.jpg', '/assets/projects/captainsolo.webp'],
-    overview: {
-      what: 'The site you’re on: portfolio, blog, voice-tag shop and contact form, with my showreel running inside a camera viewfinder in the hero.',
-      problem: 'The previous version ran on shared cPanel hosting with a Python backend for a handful of features, and cost money every year for what is mostly a static site.',
-      outcome: 'Every page is prerendered to HTML, the hero is an 11-second, 1.3 MB showreel instead of a WebGL scene, and the contact form runs on a Cloudflare Worker. Hosting cost: $0.',
-    },
     source: 'https://github.com/solufelo/captainsolo.ca',
+  },
+  {
+    slug: 'laurier-gameday',
+    title: 'Laurier Game Day',
+    client: 'Laurier Golden Hawks Athletics',
+    role: 'Design, 3D, motion',
+    summary: 'Game-day graphics for Golden Hawks football: social posts, countdown stories, 3D helmet renders and the live-stream scorebug.',
+    kind: 'Sports design',
+    preview: '/assets/previews/laurier-gameday.mp4',
+    status: 'live',
+    categories: ['design', 'motion'],
+    tags: ['Blender', 'After Effects', 'Photoshop', 'Broadcast'],
+    image: '/assets/projects/laurier-gameday.webp',
+    loop: '/assets/videos/laurier-opener-loop.mp4',
+    poster: '/assets/work/laurier-opener-poster.webp',
+    gallery: ['/assets/work/laurier-senior-day.webp', '/assets/work/laurier-countdown-1.webp', '/assets/work/laurier-countdown-2.webp', '/assets/work/laurier-countdown-3.webp', '/assets/work/laurier-endzone.webp', '/assets/work/laurier-bhm.webp', '/assets/work/laurier-crest.webp', '/assets/work/laurier-scorebug.webp', '/assets/work/laurier-spotlight.webp', '/assets/work/laurier-touchdown.webp'],
+    layout: 'grid',
+  },
+  {
+    slug: 'cover-art',
+    title: 'Cover art',
+    client: 'Kenoh, JV, J Finesse and others',
+    role: 'Design, photography',
+    summary: 'Single and album covers for GTA artists, from the shoot to the type.',
+    kind: 'Cover art',
+    status: 'live',
+    categories: ['design'],
+    tags: ['Photoshop', 'Photography', 'Type'],
+    image: '/assets/projects/cover-art.webp',
+    loop: '/assets/videos/writing-my-story-loop.mp4',
+    poster: '/assets/work/writing-my-story-poster.webp',
+    gallery: ['/assets/work/cover-misdirection.webp', '/assets/work/cover-aint-sad.webp', '/assets/work/cover-mexico.webp', '/assets/work/cover-cold-summer.webp', '/assets/work/cover-cold-summer-back.webp', '/assets/work/cover-i-miss-you.webp'],
+    layout: 'grid',
+  },
+  {
+    slug: 'koldhearted-lookbook',
+    title: 'KOLDHEARTED lookbook',
+    client: 'KOLDHEARTED apparel',
+    role: 'Photography',
+    summary: 'Apparel lookbook on a colour-loud set, plus product shots for the shop.',
+    kind: 'Photography',
+    status: 'live',
+    categories: ['photo'],
+    tags: ['Sony A6100', 'Lookbook', 'Product'],
+    image: '/assets/projects/koldhearted.webp',
+    gallery: ['/assets/work/koldhearted-1.webp', '/assets/work/koldhearted-2.webp', '/assets/work/koldhearted-3.webp', '/assets/work/koldhearted-4.webp', '/assets/work/koldhearted-5.webp', '/assets/work/koldhearted-6.webp'],
+    layout: 'grid',
+  },
+  {
+    slug: 'photo-selects',
+    title: 'Photo selects',
+    client: 'Artists and events',
+    role: 'Photography',
+    summary: 'Studio sessions, street style and nights out.',
+    kind: 'Photography',
+    status: 'live',
+    categories: ['photo'],
+    tags: ['Sony A6100', 'Events', 'Studio'],
+    image: '/assets/projects/photo-selects.webp',
+    gallery: ['/assets/work/selects-1.webp', '/assets/work/selects-2.webp', '/assets/work/selects-3.webp', '/assets/work/selects-4.webp', '/assets/work/selects-5.webp'],
+    layout: 'grid',
+  },
+  {
+    slug: 'moksha-festival',
+    title: 'Festival of Diversity',
+    client: 'Moksha Canada',
+    role: 'Shot and edited',
+    summary: 'Festival promo at Nathan Phillips Square: performers, crowd and kinetic titles.',
+    kind: 'Event promo',
+    preview: '/assets/previews/moksha-festival.mp4',
+    status: 'live',
+    categories: ['video'],
+    tags: ['Event', '4K', 'Motion titles'],
+    image: '/assets/projects/moksha-festival.webp',
+    loop: '/assets/videos/moksha-festival-loop.mp4',
+    poster: '/assets/work/moksha-festival-poster.webp',
+    gallery: ['/assets/work/moksha-festival-1.webp', '/assets/work/moksha-festival-2.webp', '/assets/work/moksha-festival-3.webp', '/assets/work/moksha-festival-4.webp'],
+    layout: 'grid',
+  },
+  {
+    slug: 'vair-drop',
+    title: 'Vair drop teaser',
+    client: 'Vair Studios',
+    role: 'Shot and edited',
+    summary: 'Drop teaser for a clothing label: product-first framing and split screens.',
+    kind: 'Brand video',
+    preview: '/assets/previews/vair-drop.mp4',
+    status: 'live',
+    categories: ['video'],
+    tags: ['Brand', '4K', 'Apparel'],
+    image: '/assets/projects/vair-drop.webp',
+    loop: '/assets/videos/vair-drop-loop.mp4',
+    poster: '/assets/work/vair-drop-poster.webp',
+    gallery: ['/assets/work/vair-drop-1.webp', '/assets/work/vair-drop-2.webp', '/assets/work/vair-drop-3.webp', '/assets/work/vair-drop-4.webp'],
+    layout: 'grid',
+  },
+  {
+    slug: 'savyan-salon',
+    title: 'Savyan Shades',
+    client: 'Savyan Shades Beauty Salon',
+    role: 'Shot and edited',
+    summary: 'Promo reel for a beauty salon: nails, braids and a bright pink studio.',
+    kind: 'Brand video',
+    preview: '/assets/previews/savyan-salon.mp4',
+    status: 'live',
+    categories: ['video'],
+    tags: ['Local business', 'Vertical', 'Social'],
+    image: '/assets/projects/savyan-salon.webp',
+    loop: '/assets/videos/savyan-salon-loop.mp4',
+    poster: '/assets/work/savyan-salon-poster.webp',
+    gallery: ['/assets/work/savyan-salon-1.webp', '/assets/work/savyan-salon-2.webp', '/assets/work/savyan-salon-3.webp', '/assets/work/savyan-salon-4.webp'],
+    layout: 'tall',
   },
   {
     slug: 'barbershop-promo',
@@ -217,16 +359,13 @@ export const projects: Project[] = [
     client: 'A Brampton barbershop',
     role: 'Shoot, edit, colour',
     summary: 'High-energy social promo: cinematic cuts synced to the music.',
+    kind: 'Brand video',
+    preview: '/assets/previews/barbershop-promo.mp4',
     status: 'live',
     categories: ['video'],
     tags: ['Premiere Pro', 'Sony A6100'],
     image: '/assets/projects/barbershop-promo.webp',
     video: '/assets/videos/barbershop-promo.mp4',
-    overview: {
-      what: 'A one-minute vertical promo for a barbershop: fades, detail shots and the finished cut, edited to the beat.',
-      problem: 'A barbershop lives on walk-ins and word of mouth. A promo that looks like the work gives people a reason to book.',
-      outcome: 'A platform-ready vertical edit for Instagram and TikTok, shot and delivered as a single piece.',
-    },
     demo: { label: 'Watch on Instagram', href: 'https://www.instagram.com/reel/CsCKDtUJGo2/' },
   },
   {
@@ -235,16 +374,13 @@ export const projects: Project[] = [
     client: 'Event promoter',
     role: 'Multi-cam shoot, edit',
     summary: 'Event energy captured with fast, beat-synced editing.',
+    kind: 'Event video',
+    preview: '/assets/previews/club-event.mp4',
     status: 'live',
     categories: ['video'],
     tags: ['Multi-cam', 'Gimbal', 'Live coverage'],
     image: '/assets/projects/club-event.webp',
     video: '/assets/videos/club-event.mp4',
-    overview: {
-      what: 'A recap of a club night: crowd, lights and the DJ, shot handheld and on a gimbal in low light.',
-      problem: 'Promoters need next-day content that makes the last event look like the one you missed.',
-      outcome: 'A fast, beat-synced vertical recap ready for the promoter’s socials.',
-    },
     demo: { label: 'Watch on Instagram', href: 'https://www.instagram.com/reel/CqQzDikJRQj/' },
   },
   {
@@ -253,16 +389,13 @@ export const projects: Project[] = [
     client: 'University athletics',
     role: 'Shoot, edit',
     summary: 'Athletic highlights for university athletics.',
+    kind: 'Sports video',
+    preview: '/assets/previews/womens-basketball.mp4',
     status: 'live',
     categories: ['video'],
     tags: ['Sports video', 'Telephoto'],
     image: '/assets/projects/womens-basketball.webp',
     video: '/assets/videos/womens-basketball.mp4',
-    overview: {
-      what: 'Game highlights for a women’s university basketball team: plays, reactions and the bench, cut for social.',
-      problem: 'Athletics departments need highlights out fast, while the game is still being talked about.',
-      outcome: 'A 90-second vertical highlight reel delivered for the team’s channels.',
-    },
     demo: { label: 'Watch on Instagram', href: 'https://www.instagram.com/reel/Coi6VfvuGDq/' },
   },
   {
@@ -271,31 +404,25 @@ export const projects: Project[] = [
     client: 'University athletics',
     role: 'Multi-cam shoot, edit',
     summary: 'University athletics game recap: multi-cam, beat-synced cuts.',
+    kind: 'Sports video',
+    preview: '/assets/previews/mens-basketball.mp4',
     status: 'live',
     categories: ['video'],
     tags: ['Athletics', 'Game recap'],
     image: '/assets/projects/mens-basketball.webp',
     video: '/assets/videos/mens-basketball.mp4',
-    overview: {
-      what: 'A men’s university basketball game recap from two camera positions, cut to music.',
-      problem: 'A single courtside angle misses half the game. Two cameras and a tight edit keep the pace up.',
-      outcome: 'A one-minute recap with baseline and elevated angles, beat-synced, delivered for the athletics channels.',
-    },
     demo: { label: 'Watch on Instagram', href: 'https://www.instagram.com/reel/C0VtaMVM0iF/' },
   },
 ]
 
 export const getProject = (slug: string) => projects.find((p) => p.slug === slug)
 
-export const about = {
-  heading: 'Brampton-based. I build, ship and host my own work.',
-  paragraphs: [
-    'I build and ship from Brampton: client sites, this portfolio, and the deploy scripts behind it. I own every build, start to finish.',
-    'Right now I’m focused on local businesses: the shoot, the site and the upkeep, handled by one person who answers the phone.',
-    'Before code paid the bills, video and audio did. Years of it.',
-  ],
-  portrait: '/images/solomon-portrait-20260624.webp',
-}
+
+export const offers = [
+  { title: 'Websites', line: 'Fast sites you can update yourself.' },
+  { title: 'Photo & video', line: 'Shoots for your socials, menu and launch.' },
+  { title: 'Care plan', line: 'Hosting, edits and fresh content, monthly.' },
+]
 
 export type BrandPackage = { id: string; name: string; tagline: string; includes: string[]; featured?: boolean }
 

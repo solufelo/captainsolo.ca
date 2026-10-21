@@ -80,6 +80,17 @@ body { background: #05070d; }
 <div class="grain"></div>`
 }
 
+// One full-bleed frame: music videos and landscape promos, where the shot is the thumbnail.
+function film(j) {
+  return `<style>${base}
+body { background: #05070d url('${url(`${j.slug}-f1.jpg`)}') center ${j.focus ?? '50%'} / cover; }
+.shade { position: absolute; inset: 0; background: linear-gradient(rgb(5 7 13 / .6), transparent 26%, transparent 78%, rgb(5 7 13 / .3)); }
+</style>
+<div class="shade"></div>
+<p class="kicker">${j.kicker}</p>${mark}
+<div class="grain"></div>`
+}
+
 const out = join(root, 'public/assets/projects')
 const tmp = join(src, '_render')
 mkdirSync(tmp, { recursive: true })
@@ -87,7 +98,7 @@ const browser = await chromium.launch({ executablePath: process.env.CHROME_PATH 
 const page = await browser.newPage({ viewport: { width: W, height: H } })
 for (const j of jobs) {
   const html = join(tmp, `${j.slug}.html`)
-  writeFileSync(html, `<!doctype html><meta charset="utf-8">${j.type === 'reel' ? reel(j) : site(j)}`)
+  writeFileSync(html, `<!doctype html><meta charset="utf-8">${({ reel, film }[j.type] ?? site)(j)}`)
   await page.goto(pathToFileURL(html).href, { waitUntil: 'load' })
   await page.evaluate(() => document.fonts.ready)
   const png = join(tmp, `${j.slug}.png`)

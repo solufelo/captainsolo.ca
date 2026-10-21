@@ -1,16 +1,14 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router'
-import { projects, site, socials } from '../content/site'
+import { site, socials } from '../content/site'
 import { CopyEmail } from './CopyEmail'
 import { Mark } from './Mark'
+import { Orb } from './Orb'
 
 const nav = [
-  { to: '/#work', label: 'Work' },
-  { to: '/#packages', label: 'Packages' },
-  { to: '/#services', label: 'Services' },
-  { to: '/#about', label: 'About' },
-  { to: '/blog', label: 'Blog' },
-  { to: '/voice-tags', label: 'Voice tags' },
+  { to: '/work', label: 'Work' },
+  { to: '/services', label: 'Services' },
+  { to: '/contact', label: 'Contact' },
 ]
 
 function ThemeToggle() {
@@ -41,7 +39,16 @@ function ThemeToggle() {
 function Header() {
   const [open, setOpen] = useState(false)
   const { pathname, hash } = useLocation()
+  // On the home page the header floats over the showreel until you scroll past it.
+  const [overHero, setOverHero] = useState(pathname === '/')
   useEffect(() => setOpen(false), [pathname, hash])
+  useEffect(() => {
+    if (pathname !== '/') return setOverHero(false)
+    const onScroll = () => setOverHero(scrollY < innerHeight - 120)
+    onScroll()
+    addEventListener('scroll', onScroll, { passive: true })
+    return () => removeEventListener('scroll', onScroll)
+  }, [pathname])
   useEffect(() => {
     if (!open) return
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false)
@@ -50,7 +57,7 @@ function Header() {
   }, [open])
 
   return (
-    <header className="site-header" data-open={open}>
+    <header className="site-header" data-open={open} data-over-hero={overHero}>
       <div className="wrap header-row">
         <Link to="/" className="brand" aria-label={`${site.name}, home`}>
           <Mark size={34} />
@@ -83,43 +90,37 @@ function Header() {
   )
 }
 
-/** Work carousel under the footer: the last thing a visitor sees before the email is more work. */
-function WorkCarousel() {
-  const row = [...projects, ...projects]
-  return (
-    <div className="work-carousel" aria-hidden="true">
-      <div className="work-carousel-track">
-        {row.map((p, i) => (
-          <Link key={p.slug + i} to={`/work/${p.slug}`} tabIndex={-1}>
-            <img src={p.image} alt="" width="240" height="150" loading="lazy" />
-          </Link>
-        ))}
-      </div>
-    </div>
-  )
-}
-
 function Footer() {
   return (
     <footer className="site-footer">
-      <div className="wrap footer-cta" data-reveal>
-        <h2 className="section-title">Let’s make yours.</h2>
-        <p className="lead">One email is all it takes. I reply within 1–2 business days.</p>
-        <CopyEmail />
-      </div>
-      <WorkCarousel />
-      <div className="wrap footer-grid">
-        <div>
-          <p className="footer-name">{site.name}</p>
-          <p className="muted">
-            {site.alias} · {site.location}
-          </p>
-          <a className="footer-mail" href={`mailto:${site.email}`}>
-            {site.email}
-          </a>
+      <div className="wrap footer-cta">
+        <h2 className="footer-title">
+          <img src={site.portrait} alt="" width="96" height="96" loading="lazy" />
+          Let’s work
+          <br />
+          together
+        </h2>
+        <div className="footer-rule">
+          <Orb to="/contact" size="lg">
+            Get in touch
+          </Orb>
         </div>
+        <CopyEmail className="pill-link" />
+      </div>
+      <div className="wrap footer-meta">
+        <dl>
+          <div>
+            <dt>Version</dt>
+            <dd>{new Date().getFullYear()} Edition</dd>
+          </div>
+          <div>
+            <dt>Location</dt>
+            <dd>Brampton, ON</dd>
+          </div>
+        </dl>
         <nav aria-label="Social">
-          <ul className="link-list">
+          <p className="label">Socials</p>
+          <ul>
             {socials.map((s) => (
               <li key={s.label}>
                 <a href={s.href} target="_blank" rel="noopener noreferrer">
@@ -130,16 +131,15 @@ function Footer() {
           </ul>
         </nav>
         <nav aria-label="Site">
-          <ul className="link-list">
+          <p className="label">More</p>
+          <ul>
             <li><Link to="/blog">Blog</Link></li>
             <li><Link to="/voice-tags">Voice tags</Link></li>
-            <li><Link to="/contact">Contact form</Link></li>
             <li><Link to="/privacy-policy">Privacy</Link></li>
             <li><Link to="/terms-of-service">Terms</Link></li>
           </ul>
         </nav>
       </div>
-      <p className="wrap fineprint muted">© {new Date().getFullYear()} {site.name}. Built by hand in Brampton.</p>
     </footer>
   )
 }

@@ -6,16 +6,8 @@ const contactFor = (service: string, pkg: string) =>
 
 export function Packages() {
   return (
-    <section id="packages" className="section section-alt" aria-labelledby="packages-title">
+    <section id="packages" className="packages" aria-label="Packages">
       <div className="wrap">
-        <header className="section-head">
-          <p className="kicker">For businesses & creators</p>
-          <h2 id="packages-title" className="section-title">
-            Brand packages
-          </h2>
-          <p className="lead">Photos, video and a website from one person: shot, built and launched together, so it all looks like you.</p>
-        </header>
-
         <ol className="process" aria-label="How it works">
           {process.map((p, i) => (
             <li key={p.step}>

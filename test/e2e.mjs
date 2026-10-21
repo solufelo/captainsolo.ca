@@ -30,20 +30,20 @@ async function newPage(w = 1280, h = 800, opts = {}) {
 
 // Hero: the showreel plays inside the viewfinder (WebM/VP9 plays in Playwright's Chromium) and the HUD tracks it
 let p = await newPage(1280, 800, { reducedMotion: 'no-preference' })
-await p.goto(BASE + '/', { waitUntil: 'networkidle' })
+await p.goto(BASE + '/', { waitUntil: 'load' })
 await p.waitForTimeout(2500)
 const vf = await p.evaluate(() => {
   const v = document.querySelector('.viewfinder video')
   return { t: v?.currentTime ?? 0, w: v?.videoWidth ?? 0, rec: document.querySelector('.vf-rec')?.textContent ?? '', clip: document.querySelector('.vf-clip')?.getAttribute('href') }
 })
-check('hero reel plays in the viewfinder', vf.t > 0.5 && vf.w === 640, JSON.stringify(vf))
+check('hero reel plays in the viewfinder', vf.t > 0.5 && vf.w >= 640, JSON.stringify(vf))
 check('viewfinder HUD shows REC + timecode and links the clip', /REC\s*00:00:\d\d:\d\d/.test(vf.rec) && /^\/work\//.test(vf.clip || ''), JSON.stringify(vf))
 check('hero: no console errors', p.errors.length === 0, p.errors.join(' | '))
 await p.close()
 
 // Reduced motion: the reel waits, with a Play button that starts it
 p = await newPage(1280, 800)
-await p.goto(BASE + '/', { waitUntil: 'networkidle' })
+await p.goto(BASE + '/', { waitUntil: 'load' })
 const playBtn = p.getByRole('button', { name: 'Play reel' })
 check('reduced motion: reel holds with a Play reel button', await playBtn.isVisible())
 await playBtn.click()
@@ -51,31 +51,43 @@ await p.waitForTimeout(1200)
 check('Play reel button starts the reel', await p.evaluate(() => !document.querySelector('.viewfinder video').paused))
 await p.close()
 
-// Home: hydration, filters, theme, video, client-side navigation
+// Home: hydration, work list + hover preview, theme, client-side navigation
 p = await newPage()
-await p.goto(BASE + '/', { waitUntil: 'networkidle' })
+await p.goto(BASE + '/', { waitUntil: 'load' })
 check('one hero (no duplicate render)', (await p.locator('.hero').count()) === 1)
-check('hero teases real work above the fold', (await p.locator('.hero-tease img').count()) >= 4)
-await p.getByRole('button', { name: /^Video/ }).click()
-check('work filter: Video shows 4 cards', (await p.locator('.work-card').count()) === 4)
-await p.getByRole('button', { name: /^Sites & apps/ }).click()
-check('work filter: Sites & apps shows 6', (await p.locator('.work-card').count()) === 6)
-check('empty "In progress" filter is hidden', (await p.getByRole('button', { name: /^In progress/ }).count()) === 0)
-await p.getByRole('button', { name: /^All/ }).first().click()
-check('work filter: All shows 10', (await p.locator('.work-card').count()) === 10)
+check('home lists 8 projects', (await p.locator('.work-row').count()) === 8)
+check('home stays short (under 250 words)', (await p.evaluate(() => document.body.innerText.split(/\s+/).filter(Boolean).length)) < 250)
+await p.locator('.work-row').first().hover()
+await p.waitForTimeout(500)
+check('hovering a video row floats its silent preview', await p.evaluate(() => {
+  const f = document.querySelector('.work-float')
+  const v = f?.querySelector('video')
+  return f?.dataset.on === 'true' && !!v && v.muted && /\/assets\/previews\//.test(v.getAttribute('src') || '')
+}))
 const before = await p.evaluate(() => document.documentElement.dataset.theme)
 await p.locator('.theme-toggle').click()
 const after = await p.evaluate(() => [document.documentElement.dataset.theme, localStorage.getItem('theme')])
 check('theme toggle flips and persists', before !== after[0] && after[0] === after[1], `${before} -> ${after}`)
+
+// /work: filters and case studies
+await p.getByRole('link', { name: /^All work/ }).click()
+await p.waitForURL('**/work')
+await p.getByRole('button', { name: /^Video/ }).click()
+check('work filter: Video shows 12 cards', (await p.locator('.work-card').count()) === 12)
+await p.getByRole('button', { name: /^Sites & apps/ }).click()
+check('work filter: Sites & apps shows 8', (await p.locator('.work-card').count()) === 8)
+check('empty "In progress" filter is hidden', (await p.getByRole('button', { name: /^In progress/ }).count()) === 0)
+await p.getByRole('button', { name: /^All/ }).first().click()
+check('work filter: All shows 23', (await p.locator('.work-card').count()) === 23)
 await p.getByRole('button', { name: /^Video/ }).click()
 await p.locator('.work-card a').first().click()
 await p.waitForURL('**/work/**')
-await p.waitForFunction(() => document.querySelectorAll('.case-overview h2').length === 3, null, { timeout: 5000 }).catch(() => {})
-check('work card opens its case study', (await p.locator('h1').count()) === 1 && (await p.locator('.case-overview h2').count()) === 3)
-check('case study: reel is a <video> with controls', await p.locator('.case-video video[controls]').isVisible())
-check('case study: next project card present', (await p.locator('.case-next .work-card').count()) === 1)
-await p.goto(BASE + '/', { waitUntil: 'networkidle' })
-await p.getByRole('link', { name: /All 13 articles/ }).click()
+await p.waitForFunction(() => document.querySelectorAll('.case-meta dt').length >= 3, null, { timeout: 5000 }).catch(() => {})
+check('work card opens its case study', (await p.locator('h1').count()) === 1 && (await p.locator('.case-meta dt').count()) >= 3)
+check('case study: the video is on the page with controls', await p.locator('.case-video video[controls], .case-loop video[controls]').first().isVisible())
+check('case study: links to the next project', (await p.locator('.case-next a[href^="/work/"]').count()) === 1)
+await p.goto(BASE + '/', { waitUntil: 'load' })
+await p.locator('.site-footer').getByRole('link', { name: 'Blog' }).click()
 await p.waitForURL('**/blog')
 const titled = await p.waitForFunction(() => document.title.startsWith('Blog'), null, { timeout: 3000 }).then(() => true, () => false)
 check('client nav to /blog updates the title', titled, await p.title())
@@ -84,9 +96,10 @@ check('blog filter: Music Production shows 3', (await p.locator('.post-card').co
 check('home + blog: no console errors', p.errors.length === 0, p.errors.join(' | '))
 await p.close()
 
-// Brand package button prefills the contact form
+// Old printed links to /#packages land on /services; a package button prefills the contact form
 p = await newPage()
-await p.goto(BASE + '/#packages', { waitUntil: 'networkidle' })
+await p.goto(BASE + '/#packages', { waitUntil: 'load' })
+check('old /#packages link lands on /services', await p.waitForURL('**/services', { timeout: 3000 }).then(() => true, () => false), p.url())
 await p.getByRole('link', { name: 'Ask about Full brand' }).click()
 await p.waitForURL('**/contact?**')
 await p.waitForTimeout(300)
@@ -98,7 +111,7 @@ await p.close()
 // One-tap email copies the address
 p = await newPage()
 await p.context().grantPermissions(['clipboard-read', 'clipboard-write'])
-await p.goto(BASE + '/contact', { waitUntil: 'networkidle' })
+await p.goto(BASE + '/contact', { waitUntil: 'load' })
 await p.locator('.contact .copy-email').click()
 await p.waitForTimeout(200)
 const clip = await p.evaluate(() => navigator.clipboard.readText())
@@ -107,8 +120,8 @@ await p.close()
 
 // Mobile menu
 p = await newPage(390, 844)
-await p.goto(BASE + '/', { waitUntil: 'networkidle' })
-const navLink = p.locator('#main-nav').getByRole('link', { name: 'Blog' })
+await p.goto(BASE + '/', { waitUntil: 'load' })
+const navLink = p.locator('#main-nav').getByRole('link', { name: 'Services' })
 check('mobile: nav hidden before opening', !(await navLink.isVisible()))
 await p.getByRole('button', { name: 'Open menu' }).click()
 await p.waitForTimeout(300)
@@ -122,7 +135,7 @@ await p.close()
 
 // Blog post links route client-side; voice-tag samples play
 p = await newPage()
-await p.goto(BASE + '/blog/metro-boomin-producer-tag', { waitUntil: 'networkidle' })
+await p.goto(BASE + '/blog/metro-boomin-producer-tag', { waitUntil: 'load' })
 await p.evaluate(() => (window.__marker = 1))
 await p.locator('.prose a[href="/voice-tags"]').first().click()
 await p.waitForURL('**/voice-tags')
@@ -145,18 +158,18 @@ const paths = [...sitemap.matchAll(/<loc>https:\/\/captainsolo\.ca([^<]*)<\/loc>
 const bad = []
 for (const path of paths) {
   p.errors = []
-  const res = await p.goto(BASE + path, { waitUntil: 'networkidle' })
+  const res = await p.goto(BASE + path, { waitUntil: 'load' })
   const h1 = await p.locator('h1').count()
   if (res.status() !== 200 || h1 !== 1 || p.errors.length) bad.push(`${path} status=${res.status()} h1=${h1} ${p.errors.join(' | ')}`)
 }
 check(`all ${paths.length} sitemap pages: 200, one h1, no errors`, paths.length > 15 && bad.length === 0, bad.join('\n      '))
-const nf = await p.goto(BASE + '/no-such-page', { waitUntil: 'networkidle' })
+const nf = await p.goto(BASE + '/no-such-page', { waitUntil: 'load' })
 check('unknown URL gets 404 status and the designed page', nf.status() === 404 && (await p.locator('h1').innerText()).toUpperCase().includes('LOST'), String(nf.status()))
 await p.close()
 
 // Contact form through the real Worker
 p = await newPage()
-await p.goto(BASE + '/contact', { waitUntil: 'networkidle' })
+await p.goto(BASE + '/contact', { waitUntil: 'load' })
 await p.fill('input[name=name]', 'Test Person')
 await p.fill('input[name=email]', 'test@example.com')
 await p.fill('textarea[name=message]', 'Testing the new contact form end to end.')

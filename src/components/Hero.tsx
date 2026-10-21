@@ -1,54 +1,61 @@
-import { Link } from 'react-router'
-import { projects, site } from '../content/site'
-import { CopyEmail } from './CopyEmail'
+import { useEffect, useRef } from 'react'
+import { site } from '../content/site'
 import { Viewfinder } from './Viewfinder'
 
-// Work teased above the fold: a mix of sites and reels, in the order they appear in the grid.
-const teased = ['barbershop-promo', 'suburbia', 'mens-basketball', 'velare', 'godways-ministry'].map((s) => projects.find((p) => p.slug === s)!)
+/** The name slides across the bottom of the reel; scrolling up reverses it. Still for reduced motion. */
+function Marquee({ text }: { text: string }) {
+  const track = useRef<HTMLSpanElement>(null)
+  useEffect(() => {
+    const el = track.current
+    if (!el || matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    let x = 0
+    let dir = -1
+    let last = scrollY
+    let raf = 0
+    const onScroll = () => {
+      if (scrollY !== last) dir = scrollY > last ? -1 : 1
+      last = scrollY
+    }
+    const tick = () => {
+      // Two copies of the text: wrapping at -50% is seamless.
+      x = (((x + dir * 0.045) % 50) - 50) % 50
+      el.style.transform = `translate3d(${x}%, 0, 0)`
+      raf = requestAnimationFrame(tick)
+    }
+    addEventListener('scroll', onScroll, { passive: true })
+    raf = requestAnimationFrame(tick)
+    return () => {
+      removeEventListener('scroll', onScroll)
+      cancelAnimationFrame(raf)
+    }
+  }, [])
+  return (
+    <span className="marquee" aria-hidden="true">
+      <span ref={track}>
+        <span>{text}</span>
+        <span>{text}</span>
+      </span>
+    </span>
+  )
+}
 
 export function Hero() {
   return (
     <section className="hero" aria-labelledby="hero-title">
-      <div className="wrap hero-grid">
-        <div className="hero-copy">
-          <p className="pill">
-            <span className="dot" /> Available for work · Brampton, ON
-          </p>
-          <h1 id="hero-title" className="hero-title">
-            <span>Code it.</span>
-            <span>Film it.</span>
-            <span>Ship it.</span>
-          </h1>
-          <p className="hero-sub">
-            {site.name}: websites, and the photos and video that fill them, for businesses in Brampton and the GTA. One person from first call to launch, so it all looks like you.
-          </p>
-          <div className="hero-ctas">
-            <CopyEmail />
-            <Link to="/#work" className="btn btn-ghost">
-              See the work
-            </Link>
-          </div>
-        </div>
-        <Viewfinder />
+      <Viewfinder />
+      <div className="hero-copy">
+        <p className="hero-based">
+          <span className="dot" /> Based in Brampton, ON
+        </p>
+        <p className="hero-role">
+          Videographer &<br />
+          web developer
+        </p>
       </div>
-
-      <div className="wrap hero-tease" aria-label="Selected work">
-        <ul>
-          {teased.map((p) => (
-            <li key={p.slug}>
-              <Link to={`/work/${p.slug}`}>
-                <img src={p.image} alt={p.title} width="320" height="200" loading="eager" />
-                <span>{p.title}</span>
-              </Link>
-            </li>
-          ))}
-          <li className="tease-more">
-            <Link to="/#work">
-              All {projects.length} projects <span aria-hidden="true">↓</span>
-            </Link>
-          </li>
-        </ul>
-      </div>
+      <h1 id="hero-title" className="hero-name">
+        <span className="sr-only">{site.name}, videographer and web developer</span>
+        <Marquee text={`${site.name} —`} />
+      </h1>
     </section>
   )
 }

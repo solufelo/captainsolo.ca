@@ -6,6 +6,8 @@ const filters = [
   { id: 'all', label: 'All' },
   { id: 'code', label: 'Sites & apps' },
   { id: 'video', label: 'Video' },
+  { id: 'photo', label: 'Photography' },
+  { id: 'design', label: 'Design' },
   { id: 'motion', label: '3D & motion' },
   { id: 'wip', label: 'In progress' },
 ] as const

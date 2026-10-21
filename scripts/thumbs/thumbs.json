@@ -1,4 +1,6 @@
 [
+  {"slug": "stepwhiz", "out": "stepwhiz.webp", "type": "site", "kicker": "AI study app", "domain": "stepwhiz.onrender.com", "colors": ["#0b1f4d", "#1d4ed8", "#f59e0b"], "desktop": "/assets/work/stepwhiz-1.webp", "mobile": "stepwhiz-m.png"},
+  {"slug": "unicreate-studio", "out": "unicreate.webp", "type": "site", "kicker": "Video app · AI clips", "domain": "UniCreate Studio", "colors": ["#0b0f24", "#5b21b6", "#f59e0b"], "desktop": "/assets/work/unicreate-1.webp", "mobile": "unicreate-m.png"},
   {"slug": "captain-funds", "out": "captainfunds.webp", "type": "site", "kicker": "Fundraising platform", "domain": "captainfunds.netlify.app", "colors": ["#0f1f1c", "#1f5a50", "#f4a93a"], "desktop": "/assets/work/captainfunds-landing.webp", "second": "/assets/work/captainfunds-dashboard.webp"},
   {"slug": "velare", "out": "velare.webp", "type": "site", "kicker": "3D product launch", "domain": "velare-site.netlify.app", "colors": ["#07070d", "#3b1d8f", "#1d4ed8"], "desktop": "/assets/work/velare-home.webp", "second": "/assets/work/velare-configure.webp"},
   {"slug": "suburbia", "out": "suburbia.webp", "type": "site", "kicker": "Skate shop · CMS", "domain": "suburbia-solo.netlify.app", "colors": ["#2b2a8c", "#f26b3a", "#f2a6cf"], "desktop": "/assets/work/suburbia-home.webp", "mobile": "suburbia-m.png"},
@@ -8,5 +10,12 @@
   {"slug": "barbershop-promo", "out": "barbershop-promo.webp", "type": "reel", "kicker": "Barbershop promo · reel", "focus": "35%"},
   {"slug": "club-event", "out": "club-event.webp", "type": "reel", "kicker": "Club night · reel", "focus": "45%"},
   {"slug": "mens-basketball", "out": "mens-basketball.webp", "type": "reel", "kicker": "Men’s basketball · reel", "focus": "55%"},
-  {"slug": "womens-basketball", "out": "womens-basketball.webp", "type": "reel", "kicker": "Women’s basketball · reel", "focus": "50%"}
+  {"slug": "womens-basketball", "out": "womens-basketball.webp", "type": "reel", "kicker": "Women’s basketball · reel", "focus": "50%"},
+  {"slug": "ten-fold", "out": "ten-fold.webp", "type": "film", "kicker": "Music video · TGK"},
+  {"slug": "tec", "out": "tec.webp", "type": "film", "kicker": "Music video · 10k Moss"},
+  {"slug": "july-6", "out": "july-6.webp", "type": "film", "kicker": "Music video · Dela"},
+  {"slug": "primary-lotus", "out": "primary-lotus.webp", "type": "film", "kicker": "Music video · J.V"},
+  {"slug": "moksha-festival", "out": "moksha-festival.webp", "type": "film", "kicker": "Festival promo"},
+  {"slug": "vair-drop", "out": "vair-drop.webp", "type": "film", "kicker": "Brand drop teaser"},
+  {"slug": "savyan-salon", "out": "savyan-salon.webp", "type": "reel", "kicker": "Salon promo · reel"}
 ]

@@ -1,133 +1,67 @@
 import { Link } from 'react-router'
 import { Hero } from '../components/Hero'
-import { WorkGrid } from '../components/WorkGrid'
-import { Packages } from '../components/Packages'
-import { ContactSection } from '../components/ContactForm'
-import { PostCard } from '../components/PostCard'
-import { about, projects, services } from '../content/site'
-import { posts } from '../content/posts'
+import { Orb } from '../components/Orb'
+import { Strip } from '../components/Strip'
+import { WorkList } from '../components/WorkList'
+import { getProject, offers, projects, type Project } from '../content/site'
+
+// The home list mixes music video, design, sites, a local business and photography; the rest is on /work.
+const featured = ['ten-fold', 'laurier-gameday', 'velare', 'tec', 'savyan-salon', 'suburbia', 'july-6', 'koldhearted-lookbook'].map(
+  (s) => getProject(s) as Project,
+)
+// Stills slide past between the work and the services: photos on top, design underneath.
+const stills = (...slugs: string[]) => slugs.flatMap((s) => getProject(s)?.gallery ?? [])
+const stripRows: [string[], string[]] = [
+  stills('koldhearted-lookbook', 'photo-selects'),
+  stills('cover-art', 'laurier-gameday').filter((s) => !/scorebug|spotlight|touchdown|crest/.test(s)),
+]
 
 export function Home() {
   return (
     <>
       <Hero />
 
-      {/* Work comes straight after the hero: it's what a client came to see. */}
-      <section id="work" className="section" aria-labelledby="work-title">
-        <div className="wrap">
-          <header className="section-head row" data-reveal>
-            <div>
-              <p className="kicker">Selected work</p>
-              <h2 id="work-title" className="section-title">
-                Work
-              </h2>
-            </div>
-            <p className="lead">Sites, apps and reels. Click any one for the full story. Works in progress are labelled honestly.</p>
-          </header>
-          <WorkGrid />
+      <section className="wrap intro" aria-label="What I do">
+        <p className="intro-line" data-reveal>
+          Websites, photos and video for businesses across the GTA. Shot, built and launched by one person.
+        </p>
+        <div className="intro-side" data-reveal>
+          <p>Code it. Film it. Ship it.</p>
+          <Orb to="/contact">Get a quote</Orb>
         </div>
       </section>
 
-      <Packages />
-
-      <section id="services" className="section" aria-labelledby="services-title">
-        <div className="wrap">
-          <header className="section-head" data-reveal>
-            <p className="kicker">What I do</p>
-            <h2 id="services-title" className="section-title">
-              Services
-            </h2>
-            <p className="lead">Full-stack builds and camera work, scoped honestly and shipped with clear demos and source.</p>
-          </header>
-          <div className="service-groups">
-            {services.map((g) => (
-              <div key={g.group} className="service-group" data-reveal>
-                <h3 className="group-label">{g.group}</h3>
-                <ul className="service-list">
-                  {g.items.map((s) => (
-                    <li key={s.title} className="service">
-                      <h4>{s.title}</h4>
-                      <p>{s.body}</p>
-                      <ul className="tags">
-                        {s.tags.map((t) => (
-                          <li key={t}>{t}</li>
-                        ))}
-                      </ul>
-                      {s.link &&
-                        (s.link.href.startsWith('/') ? (
-                          <Link to={s.link.href} className="arrow-link">
-                            {s.link.label}
-                          </Link>
-                        ) : (
-                          <a href={s.link.href} className="arrow-link" target="_blank" rel="noopener noreferrer">
-                            {s.link.label}
-                          </a>
-                        ))}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
+      <section id="work" className="wrap home-work" aria-labelledby="work-title">
+        <h2 id="work-title" className="label">
+          Recent work
+        </h2>
+        <WorkList items={featured} />
+        <div className="more-row">
+          <Link to="/work" className="pill-link">
+            All work <sup>{projects.length}</sup>
+          </Link>
         </div>
       </section>
 
-      <section id="about" className="section section-alt" aria-labelledby="about-title">
-        <div className="wrap about-grid">
-          <figure className="portrait" data-reveal>
-            <img src={about.portrait} alt="Solomon Olufelo" width="640" height="800" loading="lazy" />
-          </figure>
-          <div data-reveal>
-            <p className="kicker">Brampton · Captain Solo</p>
-            <h2 id="about-title" className="section-title">
-              About
-            </h2>
-            <p className="about-lede">{about.heading}</p>
-            {about.paragraphs.map((p) => (
-              <p key={p}>{p}</p>
-            ))}
-            <dl className="stats">
-              <div>
-                <dt>1,400+</dt>
-                <dd>Video & audio jobs delivered</dd>
-              </div>
-              <div>
-                <dt>{projects.length}</dt>
-                <dd>Projects with their own page</dd>
-              </div>
-              <div>
-                <dt>{posts.length}</dt>
-                <dd>Guides on the blog</dd>
-              </div>
-            </dl>
-          </div>
-        </div>
-      </section>
+      <Strip rows={stripRows} />
 
-      <section className="section" aria-labelledby="latest-title">
-        <div className="wrap">
-          <header className="section-head row" data-reveal>
-            <div>
-              <p className="kicker">Knowledge hub</p>
-              <h2 id="latest-title" className="section-title">
-                From the blog
-              </h2>
-            </div>
-            <Link to="/blog" className="arrow-link">
-              All {posts.length} articles
-            </Link>
-          </header>
-          <ul className="post-grid">
-            {posts.slice(0, 3).map((p) => (
-              <li key={p.slug} data-reveal>
-                <PostCard post={p} />
-              </li>
-            ))}
-          </ul>
-        </div>
+      <section className="wrap offers" aria-labelledby="offers-title">
+        <h2 id="offers-title" className="label">
+          Services
+        </h2>
+        <ol>
+          {offers.map((o, i) => (
+            <li key={o.title} data-reveal>
+              <span className="offer-n">{String(i + 1).padStart(2, '0')}</span>
+              <h3>{o.title}</h3>
+              <p>{o.line}</p>
+            </li>
+          ))}
+        </ol>
+        <Link to="/services" className="arrow-link">
+          Packages
+        </Link>
       </section>
-
-      <ContactSection />
     </>
   )
 }
