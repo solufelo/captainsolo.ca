@@ -16,11 +16,11 @@ function page(path, outFile) {
   const url = SITE + (meta.path === '/' ? '/' : meta.path)
   const head = [
     `<meta property="og:type" content="${meta.type ?? 'website'}" />`,
-    `<meta property="og:site_name" content="Captain Solo" />`,
+    `<meta property="og:site_name" content="Solomon Olufelo" />`,
     `<meta property="og:title" content="${esc(meta.title)}" />`,
     `<meta property="og:description" content="${esc(meta.description)}" />`,
     `<meta property="og:url" content="${url}" />`,
-    `<meta property="og:image" content="${SITE}/og-image.jpg?v=2" />`, // ?v= makes apps that cached the old card fetch the new one
+    `<meta property="og:image" content="${SITE}/og-image.jpg?v=3" />`, // ?v= makes apps that cached the old card fetch the new one
     `<meta property="og:image:width" content="1200" />`,
     `<meta property="og:image:height" content="630" />`,
     `<meta name="twitter:card" content="summary_large_image" />`,

@@ -272,30 +272,22 @@ p {
 .brand {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   text-decoration: none;
-  font: 600 0.78rem/1 var(--display);
+  font: 600 1.1rem/1 var(--display);
   text-transform: uppercase;
-  letter-spacing: 0.17em;
+  letter-spacing: 0.12em;
   margin-right: auto;
 }
 .brand .mark {
   flex: none;
   color: var(--ink);
 }
-/* The name sits after a hairline, quieter than the marks; phones keep just the marks. */
-.brand span {
-  padding: 5px 0 5px 12px;
-  border-left: 1px solid color-mix(in srgb, currentColor 28%, transparent);
-  opacity: 0.78;
-}
-@media (max-width: 420px) {
-  .brand span {
-    display: none;
+@media (max-width: 360px) {
+  .brand {
+    font-size: 1rem;
+    letter-spacing: 0.06em;
   }
-}
-.brand:hover .mark-rec {
-  animation: rec 1.2s steps(1) infinite;
 }
 .main-nav {
   display: flex;

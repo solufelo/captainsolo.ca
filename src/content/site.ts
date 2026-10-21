@@ -2,7 +2,7 @@
 
 export const site = {
   name: 'Solomon Olufelo',
-  alias: 'Captain Solo',
+  alias: 'Captain Solo', // the old brand name: kept only as alternateName in search data
   url: 'https://captainsolo.ca',
   email: 'work@captainsolo.ca',
   location: 'Brampton, ON · Serving the GTA',
@@ -231,7 +231,7 @@ export const projects: Project[] = [
   {
     slug: 'unicreate-studio',
     title: 'UniCreate Studio',
-    client: 'Captain Solo Creative',
+    client: 'Personal product',
     role: 'Design, full stack, video engine',
     summary: 'Drop in a shoot, get finished short-form clips: cut, captioned, checked and ready to post.',
     kind: 'Video app',
