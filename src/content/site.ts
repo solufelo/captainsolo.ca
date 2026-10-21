@@ -139,7 +139,7 @@ export const projects: Project[] = [
     status: 'live',
     categories: ['video'],
     tags: ['Music video', 'Camcorder look', 'Party'],
-    image: '/assets/projects/kenoh-ray-ray-c.webp',
+    image: '/assets/projects/kenoh-ray-ray-n.webp',
     loop: '/assets/videos/kenoh-ray-ray-loop.mp4',
     poster: '/assets/work/kenoh-ray-ray-poster.webp',
     gallery: ['/assets/work/kenoh-ray-ray-1.webp', '/assets/work/kenoh-ray-ray-2.webp', '/assets/work/kenoh-ray-ray-3.webp', '/assets/work/kenoh-ray-ray-4.webp'],
