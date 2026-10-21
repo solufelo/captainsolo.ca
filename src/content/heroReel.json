@@ -1,58 +1,58 @@
 {
  "clipSeconds": 1.8,
- "webm": "/assets/videos/hero-reel-38b2583e.webm",
- "mp4": "/assets/videos/hero-reel-38b2583e.mp4",
- "poster": "/assets/videos/hero-reel-38b2583e-poster.webp",
+ "webm": "/assets/videos/hero-reel-9c5d7056.webm",
+ "mp4": "/assets/videos/hero-reel-9c5d7056.mp4",
+ "poster": "/assets/videos/hero-reel-9c5d7056-poster.webp",
  "clips": [
   {
    "start": 0.0,
+   "slug": "barbershop-promo",
+   "label": "Barbershop promo"
+  },
+  {
+   "start": 1.73,
+   "slug": "club-event",
+   "label": "NYE club night"
+  },
+  {
+   "start": 3.3,
+   "slug": "no-captains-orders",
+   "label": "No Captain’s Orders"
+  },
+  {
+   "start": 5.1,
+   "slug": "laurier-basketball",
+   "label": "Laurier basketball"
+  },
+  {
+   "start": 6.9,
    "slug": "tec",
    "label": "10k Moss – TEC"
   },
   {
-   "start": 1.8,
-   "slug": "july-6",
-   "label": "Dela – July 6"
+   "start": 8.7,
+   "slug": "laurier-gameday",
+   "label": "Laurier game day"
   },
   {
-   "start": 3.6,
-   "slug": "ten-fold",
-   "label": "TGK – Ten Fold"
+   "start": 10.5,
+   "slug": "kenoh-mexico",
+   "label": "JV & Kenoh – Mexico"
   },
   {
-   "start": 5.4,
+   "start": 12.3,
    "slug": "vair-drop",
    "label": "Vair Studios"
   },
   {
-   "start": 7.2,
-   "slug": "laurier-gameday",
-   "label": "Laurier game day"
-  },
-  {
-   "start": 9.0,
-   "slug": "tec",
-   "label": "10k Moss – TEC"
-  },
-  {
-   "start": 10.8,
+   "start": 14.1,
    "slug": "moksha-festival",
    "label": "Moksha festival"
   },
   {
-   "start": 12.6,
-   "slug": "july-6",
-   "label": "Dela – July 6"
-  },
-  {
-   "start": 14.4,
-   "slug": "ten-fold",
-   "label": "TGK – Ten Fold"
-  },
-  {
-   "start": 16.2,
-   "slug": "laurier-gameday",
-   "label": "Laurier game day"
+   "start": 15.9,
+   "slug": "kenoh-fanned-out",
+   "label": "Kenoh – Fanned Out"
   }
  ]
 }

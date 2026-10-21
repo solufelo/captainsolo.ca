@@ -20,7 +20,9 @@ function page(path, outFile) {
     `<meta property="og:title" content="${esc(meta.title)}" />`,
     `<meta property="og:description" content="${esc(meta.description)}" />`,
     `<meta property="og:url" content="${url}" />`,
-    `<meta property="og:image" content="${SITE}/og-image.jpg" />`,
+    `<meta property="og:image" content="${SITE}/og-image.jpg?v=2" />`, // ?v= makes apps that cached the old card fetch the new one
+    `<meta property="og:image:width" content="1200" />`,
+    `<meta property="og:image:height" content="630" />`,
     `<meta name="twitter:card" content="summary_large_image" />`,
     meta.jsonLd ? `<script type="application/ld+json">${JSON.stringify(meta.jsonLd).replace(/</g, '\\u003c')}</script>` : '',
   ].join('\n    ')
