@@ -45,8 +45,11 @@ export type Project = {
   tags: string[]
   image: string
   video?: string
-  /** More clips with sound for the case study, shown under the loop; `title` is the caption. */
-  clips?: { src: string; poster: string; title: string }[]
+  /** What `video` sounds like, shown under it. No case video has dialogue (checked with speech detection, 2026-10-22),
+   *  so this line stands in for captions; give the words as captions if one ever does. */
+  sound?: string
+  /** More clips for the case study, shown under the loop; `title` is the caption, `sound` as above. */
+  clips?: { src: string; poster: string; title: string; sound: string }[]
   /** The client's own words, shown on the case study (real quotes only, as they said them). */
   quote?: { text: string; by: string }
   /** Short silent loop shown when the work-list row is hovered. */
@@ -435,13 +438,13 @@ export const projects: Project[] = [
     loop: '/assets/videos/laurier-cinematic-opener.mp4',
     poster: '/assets/work/laurier-cinematic-opener-poster.webp',
     clips: [
-      { src: '/assets/videos/laurier-sizzle-v7.mp4', poster: '/assets/work/laurier-sizzle-v7-poster.webp', title: 'Game-day sizzle' },
-      { src: '/assets/videos/laurier-graphics-demo-v2.mp4', poster: '/assets/work/laurier-graphics-demo-v2-poster.webp', title: 'Live-stream graphics demo' },
-      { src: '/assets/videos/laurier-stingers.mp4', poster: '/assets/work/laurier-stingers-poster.webp', title: 'Game-day stingers' },
-      { src: '/assets/videos/laurier-crowd-prompts.mp4', poster: '/assets/work/laurier-crowd-prompts-poster.webp', title: 'Videoboard crowd prompts' },
-      { src: '/assets/videos/laurier-senior-day-bumpers.mp4', poster: '/assets/work/laurier-senior-day-bumpers-poster.webp', title: 'Senior Day bumpers' },
-      { src: '/assets/videos/laurier-helmet-shuffle-m.mp4', poster: '/assets/work/laurier-helmet-shuffle-m-poster.webp', title: 'Helmet Shuffle jumbotron game' },
-      { src: '/assets/videos/laurier-senior-day-tribute-m.mp4', poster: '/assets/work/laurier-senior-day-tribute-m-poster.webp', title: 'Senior Day tribute' },
+      { src: '/assets/videos/laurier-sizzle-v7.mp4', poster: '/assets/work/laurier-sizzle-v7-poster.webp', title: 'Game-day sizzle', sound: 'No dialogue' },
+      { src: '/assets/videos/laurier-graphics-demo-v2.mp4', poster: '/assets/work/laurier-graphics-demo-v2-poster.webp', title: 'Live-stream graphics demo', sound: 'No sound' },
+      { src: '/assets/videos/laurier-stingers.mp4', poster: '/assets/work/laurier-stingers-poster.webp', title: 'Game-day stingers', sound: 'No sound' },
+      { src: '/assets/videos/laurier-crowd-prompts.mp4', poster: '/assets/work/laurier-crowd-prompts-poster.webp', title: 'Videoboard crowd prompts', sound: 'No sound' },
+      { src: '/assets/videos/laurier-senior-day-bumpers.mp4', poster: '/assets/work/laurier-senior-day-bumpers-poster.webp', title: 'Senior Day bumpers', sound: 'No dialogue' },
+      { src: '/assets/videos/laurier-helmet-shuffle-m.mp4', poster: '/assets/work/laurier-helmet-shuffle-m-poster.webp', title: 'Helmet Shuffle jumbotron game', sound: 'No dialogue' },
+      { src: '/assets/videos/laurier-senior-day-tribute-m.mp4', poster: '/assets/work/laurier-senior-day-tribute-m-poster.webp', title: 'Senior Day tribute', sound: 'No dialogue' },
     ],
     gallery: ['/assets/work/laurier-clash-hero.webp', '/assets/work/laurier-senior-day-v2.webp', '/assets/work/laurier-helmets-duo.webp', '/assets/work/laurier-countdown-1-m.webp', '/assets/work/laurier-clash-close.webp', '/assets/work/laurier-countdown-2-m.webp', '/assets/work/laurier-media-day.webp', '/assets/work/laurier-countdown-3-m.webp', '/assets/work/laurier-endzone-v2.webp', '/assets/videos/laurier-bhm-loop.mp4', '/assets/work/laurier-helmets-heritage.webp', '/assets/work/laurier-crest-m.webp', '/assets/work/laurier-broadcast-v2.webp'],
     layout: 'grid',
@@ -590,6 +593,7 @@ export const projects: Project[] = [
     tags: ['Premiere Pro', 'Sony A6100'],
     image: '/assets/projects/barbershop-promo-r2-c.webp',
     video: '/assets/videos/barbershop-promo-q.mp4',
+    sound: 'Music with vocals, no dialogue',
     demo: { label: 'Watch on Instagram', href: 'https://www.instagram.com/reel/CsCKDtUJGo2/' },
   },
   {
@@ -605,6 +609,7 @@ export const projects: Project[] = [
     tags: ['Brand video', 'Barbershop', 'Braids'],
     image: '/assets/projects/barbershop-braids-r2-c.webp',
     video: '/assets/videos/barbershop-braids.mp4',
+    sound: 'Music with vocals, no dialogue',
   },
   {
     slug: 'club-event',
@@ -619,6 +624,7 @@ export const projects: Project[] = [
     tags: ['Multi-cam', 'Gimbal', 'Live coverage'],
     image: '/assets/projects/club-event-r2-c.webp',
     video: '/assets/videos/club-event-nye.mp4',
+    sound: 'Music with vocals, no dialogue',
   },
   {
     slug: 'laurier-basketball',
@@ -633,6 +639,7 @@ export const projects: Project[] = [
     tags: ['Sports video', 'Telephoto', 'Motion graphics'],
     image: '/assets/projects/laurier-basketball-r2-c.webp',
     video: '/assets/videos/laurier-basketball.mp4',
+    sound: 'No dialogue',
   },
   {
     slug: 'savyan-salon',

@@ -575,10 +575,17 @@ p {
   letter-spacing: 0.08em;
   text-shadow: 0 1px 3px rgb(0 0 0 / 0.6);
 }
+/* REC and the timecode sit on the same smoked pill as the clip label: white text needs it over the reel's brightest
+   frames (4.7:1 even on pure white; bare text with a shadow dropped to 3.95:1). */
 .vf-rec {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgb(5 8 20 / 0.6);
+  backdrop-filter: blur(6px);
+  text-shadow: none;
 }
 .vf-rec i {
   width: 9px;
@@ -594,7 +601,7 @@ p {
   50% { opacity: 0.15; }
 }
 .vf-tc {
-  opacity: 0.85;
+  opacity: 0.9;
   font-variant-numeric: tabular-nums;
 }
 .vf-clip {
@@ -603,7 +610,7 @@ p {
   max-width: 55%;
   padding: 6px 10px;
   border-radius: 999px;
-  background: rgb(5 8 20 / 0.55);
+  background: rgb(5 8 20 / 0.6);
   backdrop-filter: blur(6px);
   color: var(--vf-ink);
   text-decoration: none;
@@ -2114,6 +2121,12 @@ p {
   height: 100%;
   transition: translate 0.65s var(--ease-io);
 }
+/* Reduced motion: the preview appears and changes in place (WorkList.tsx also drops its trailing, tilt and video). */
+@media (prefers-reduced-motion: reduce) {
+  html:not(.motion-on) :is(.work-float, .work-float-strip) {
+    transition: none;
+  }
+}
 .work-float-slide {
   position: relative;
   height: 100%;
@@ -2532,6 +2545,15 @@ p {
   aspect-ratio: 9 / 16;
   border-radius: 10px;
   background: #000;
+}
+/* what a video sounds like, for anyone watching without sound: none has dialogue, so this stands in for captions */
+.case-sound {
+  color: var(--muted);
+}
+.case-video .case-sound {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  text-align: center;
 }
 .case-next {
   display: flex;

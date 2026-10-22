@@ -3,7 +3,6 @@ import { Route, Routes, useLocation, useNavigate } from 'react-router'
 import { Layout } from './components/Layout'
 import { Home } from './pages/Home'
 import { BlogIndex } from './pages/BlogIndex'
-import { Work } from './pages/Work'
 import { WorkIndex } from './pages/WorkIndex'
 import { ServicesPage } from './pages/ServicesPage'
 import { Book } from './pages/Book'
@@ -13,8 +12,10 @@ import { Legal } from './pages/Legal'
 import { NotFound } from './pages/NotFound'
 import { metaFor } from './meta'
 
-// A post page brings the posts' text with it, so other pages don't download it. The prerendered HTML shows meanwhile.
+// A post page brings the posts' text with it, and a case study its gallery descriptions (alts.json), so other pages
+// don't download them. The prerendered HTML shows meanwhile.
 const BlogPost = lazy(() => import('./pages/BlogPost').then((m) => ({ default: m.BlogPost })))
+const Work = lazy(() => import('./pages/Work').then((m) => ({ default: m.Work })))
 
 /** Keeps <title>/description current on client-side navigation and handles #hash scrolling. */
 function RouteEffects() {
@@ -56,7 +57,14 @@ export function App() {
             }
           />
           <Route path="work" element={<WorkIndex />} />
-          <Route path="work/:slug" element={<Work />} />
+          <Route
+            path="work/:slug"
+            element={
+              <Suspense>
+                <Work />
+              </Suspense>
+            }
+          />
           <Route path="services" element={<ServicesPage />} />
           <Route path="book" element={<Book />} />
           <Route path="voice-tags" element={<VoiceTags />} />

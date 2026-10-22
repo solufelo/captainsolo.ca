@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router'
 import { bookCall, getProject, phoneSrcSet, projects, sizeOf } from '../content/site'
 import { Orb } from '../components/Orb'
+import alts from '../content/alts.json'
 import { NotFound } from './NotFound'
 import { reducedMotion } from '../motion'
 
@@ -13,14 +14,14 @@ const phoneCut = (src: string) => src.replace(/\.mp4$/, '-phone.mp4')
 const shownAt = { screens: '100vw', grid: '(max-width: 700px) 100vw, 50vw', dense: '(max-width: 760px) 50vw, 25vw' }
 
 /** The silent loop at the top of a video case study: plays on its own unless the visitor prefers reduced motion. */
-function Loop({ src, poster }: { src: string; poster: string }) {
+function Loop({ src, poster, label }: { src: string; poster: string; label: string }) {
   const ref = useRef<HTMLVideoElement>(null)
   useEffect(() => {
     if (!reducedMotion()) ref.current?.play().catch(() => {})
   }, [src])
   return (
     <figure className="case-loop">
-      <video ref={ref} key={src} poster={poster} muted loop playsInline controls preload="metadata">
+      <video ref={ref} key={src} poster={poster} muted loop playsInline controls preload="metadata" aria-label={label}>
         <source media={PHONE} src={phoneCut(src)} type="video/mp4" />
         <source src={src} type="video/mp4" />
       </video>
@@ -122,13 +123,15 @@ export function Work() {
           <footer>{project.quote.by}</footer>
         </blockquote>
       )}
-      {project.loop && <Loop src={project.loop} poster={project.poster ?? project.image} />}
+      {project.loop && <Loop src={project.loop} poster={project.poster ?? project.image} label={`${project.title}, silent loop`} />}
       {project.clips && (
         <section className="case-clips" aria-label="More clips">
           {project.clips.map((c) => (
             <figure key={c.src} className="case-clip">
-              <video src={c.src} poster={c.poster} controls playsInline preload="none" />
-              <figcaption>{c.title}</figcaption>
+              <video src={c.src} poster={c.poster} controls playsInline preload="none" aria-label={c.title} />
+              <figcaption>
+                {c.title} <span className="case-sound">· {c.sound}</span>
+              </figcaption>
             </figure>
           ))}
         </section>
@@ -136,11 +139,13 @@ export function Work() {
       <section className="case-media" data-layout={project.layout} aria-label="The work">
         {project.video ? (
           <figure className="case-video">
-            <video src={project.video} poster={project.image} controls playsInline preload="none" />
+            <video src={project.video} poster={project.image} controls playsInline preload="none" aria-label={`${project.title}, full video`} />
+            {project.sound && <figcaption className="case-sound">{project.sound}</figcaption>}
           </figure>
         ) : (
           gallery.map((src, n) => {
-            const alt = `${project.title}, ${project.layout ? 'piece' : 'screen'} ${n + 1}`
+            // alts.json describes each still; a new image without one falls back to its place in the gallery
+            const alt = (alts as Record<string, string>)[src] ?? `${project.title}, ${project.layout ? 'piece' : 'screen'} ${n + 1}`
             if (src.endsWith('.mp4')) return <GalleryLoop key={src} src={src} label={alt} />
             // screens without a known size are 16:10
             const [w, h] = sizeOf(src) ?? (project.layout ? [] : [1440, 900])

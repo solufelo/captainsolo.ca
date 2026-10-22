@@ -38,6 +38,13 @@ const vf = await p.evaluate(() => {
 })
 check('hero reel plays in the viewfinder', vf.t > 0.5 && vf.w >= 640, JSON.stringify(vf))
 check('viewfinder HUD shows REC + timecode and links the clip', /REC\s*00:00:\d\d:\d\d/.test(vf.rec) && /^\/work\//.test(vf.clip || ''), JSON.stringify(vf))
+await p.locator('.work-row').first().hover()
+await p.waitForTimeout(500)
+check('hovering a video row floats its silent preview', await p.evaluate(() => {
+  const f = document.querySelector('.work-float')
+  const v = f?.querySelector('video')
+  return f?.dataset.on === 'true' && !!v && v.muted && /\/assets\/previews\//.test(v.getAttribute('src') || '')
+}))
 check('hero: no console errors', p.errors.length === 0, p.errors.join(' | '))
 await p.close()
 
@@ -82,10 +89,9 @@ await p.locator('.faq summary').first().click()
 check('FAQ answers open', await p.locator('.faq details').first().evaluate((d) => d.open))
 await p.locator('.work-row').first().hover()
 await p.waitForTimeout(500)
-check('hovering a video row floats its silent preview', await p.evaluate(() => {
+check('reduced motion: hovering a row floats its still card, no video, no tilt', await p.evaluate(() => {
   const f = document.querySelector('.work-float')
-  const v = f?.querySelector('video')
-  return f?.dataset.on === 'true' && !!v && v.muted && /\/assets\/previews\//.test(v.getAttribute('src') || '')
+  return f?.dataset.on === 'true' && !f.querySelector('video') && !!f.querySelector('img') && f.style.transform.endsWith('rotate(0deg)')
 }))
 const before = await p.evaluate(() => document.documentElement.dataset.theme)
 await p.locator('.theme-toggle').click()
@@ -126,6 +132,19 @@ await p.locator('.post-card').first().click()
 await p.waitForURL('**/blog/**')
 check('a post opened from the blog loads its text', await p.locator('.prose h2').first().waitFor({ timeout: 5000 }).then(() => true, () => false))
 check('home + blog: no console errors', p.errors.length === 0, p.errors.join(' | '))
+await p.close()
+
+// Case pages: videos are named and say what they sound like (none has dialogue); stills are described, not numbered
+p = await newPage()
+await p.goto(BASE + '/work/laurier-gameday', { waitUntil: 'load' })
+check('case videos are labelled and say what they sound like', await p.evaluate(() => {
+  const clips = [...document.querySelectorAll('.case-clip')]
+  return clips.length === 7 && clips.every((f) => f.querySelector('video')?.getAttribute('aria-label') && f.querySelector('.case-sound')) && !!document.querySelector('.case-loop video')?.getAttribute('aria-label')
+}))
+check('gallery stills carry real descriptions', await p.evaluate(() => {
+  const alts = [...document.querySelectorAll('.case-media img')].map((i) => i.alt)
+  return alts.length > 10 && alts.every((a) => a.length > 30 && !/, (piece|screen) \d+$/.test(a))
+}))
 await p.close()
 
 // Old printed links to /#packages land on /services; a package button prefills the contact form
