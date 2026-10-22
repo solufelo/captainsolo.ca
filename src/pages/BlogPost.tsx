@@ -1,12 +1,14 @@
 import { Link, useNavigate, useParams } from 'react-router'
 import { PostCard } from '../components/PostCard'
 import { formatDate, getPost, relatedPosts } from '../content/posts'
+import { postBody } from '../content/postBody'
 import { NotFound } from './NotFound'
 
 export function BlogPost() {
   const post = getPost(useParams().slug ?? '')
+  const body = post && postBody(post.slug)
   const navigate = useNavigate()
-  if (!post) return <NotFound />
+  if (!post || !body) return <NotFound />
 
   // Links inside the post HTML are plain <a>; route same-site ones without a full page load.
   const routeInternalLinks = (e: React.MouseEvent) => {
@@ -34,11 +36,11 @@ export function BlogPost() {
       </header>
 
       <div className="wrap post-layout">
-        {post.toc.length > 2 && (
+        {body.toc.length > 2 && (
           <aside className="toc" aria-label="On this page">
             <p className="toc-label">On this page</p>
             <ol>
-              {post.toc.map((t) => (
+              {body.toc.map((t) => (
                 <li key={t.id}>
                   <a href={`#${t.id}`}>{t.text}</a>
                 </li>
@@ -47,7 +49,7 @@ export function BlogPost() {
           </aside>
         )}
         {/* Trusted, first-party content converted from the old site by scripts/convert_posts.py. */}
-        <div className="prose" onClick={routeInternalLinks} dangerouslySetInnerHTML={{ __html: post.html }} />
+        <div className="prose" onClick={routeInternalLinks} dangerouslySetInnerHTML={{ __html: body.html }} />
       </div>
 
       <section className="wrap section-tight" aria-labelledby="related-title">

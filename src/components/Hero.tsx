@@ -26,9 +26,16 @@ function Marquee({ text }: { text: string }) {
       el.style.transform = `translate3d(${x}%, 0, 0)`
       raf = requestAnimationFrame(tick)
     }
+    // Only while the name is on screen: scrolled past, the loop would keep a phone's main thread busy for nothing.
+    const io = new IntersectionObserver(([e]) => {
+      cancelAnimationFrame(raf)
+      prev = 0
+      if (e.isIntersecting) raf = requestAnimationFrame(tick)
+    })
+    io.observe(el)
     addEventListener('scroll', onScroll, { passive: true })
-    raf = requestAnimationFrame(tick)
     return () => {
+      io.disconnect()
       removeEventListener('scroll', onScroll)
       cancelAnimationFrame(raf)
     }

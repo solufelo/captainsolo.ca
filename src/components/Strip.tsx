@@ -1,7 +1,10 @@
 import { useEffect, useRef, type RefObject } from 'react'
+import { sizeOf } from '../content/site'
 import { reducedMotion } from '../motion'
 
 const clamp = (lo: number, hi: number, v: number) => Math.max(lo, Math.min(hi, v))
+// scripts/phone_media.py writes <name>-strip.webp, this tall, beside every gallery still taller than it (2x the strip's 380 px)
+const STRIP_H = 760
 
 /** Keeps a CSS variable on the element in step with scrolling: `value` gets its box and the viewport height. Off for reduced motion. */
 export function useScrollVar<T extends HTMLElement>(ref: RefObject<T | null>, name: string, value: (r: DOMRect, vh: number) => number) {
@@ -45,9 +48,11 @@ export function Strip({ rows }: { rows: [string[], string[]] }) {
     <div ref={ref} className="strip" aria-hidden="true">
       {rows.map((row, i) => (
         <div key={i} className="strip-row">
-          {row.map((src) => (
-            <img key={src} src={src} alt="" loading="lazy" />
-          ))}
+          {row.map((src) => {
+            // the size holds each still's width before it loads, so the row doesn't jump sideways
+            const [w, h] = sizeOf(src) ?? []
+            return <img key={src} src={(h ?? 0) > STRIP_H ? src.replace(/\.webp$/, '-strip.webp') : src} width={w} height={h} alt="" loading="lazy" />
+          })}
         </div>
       ))}
     </div>

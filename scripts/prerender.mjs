@@ -1,5 +1,5 @@
 // Renders every route to static HTML after `vite build`, so pages work without JavaScript and search engines see content.
-import { mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 
@@ -11,7 +11,16 @@ const SITE = 'https://captainsolo.ca'
 
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 
-function page(path, outFile) {
+// Every /assets file a page points at must exist: a phone or strip copy that scripts/phone_media.py hasn't made yet
+// would otherwise ship as a broken image or a video that never plays on phones.
+const missing = new Set()
+function checkAssets(html) {
+  const refs = [...html.matchAll(/(?:src|poster)="(\/assets\/[^"]+)"/g)].map((m) => m[1])
+  for (const [, set] of html.matchAll(/srcset="([^"]+)"/g)) refs.push(...set.split(',').map((c) => c.trim().split(/\s+/)[0]))
+  for (const ref of refs) if (ref.startsWith('/assets/') && !existsSync(join(dist, ref.split(/[?#]/)[0]))) missing.add(ref)
+}
+
+async function page(path, outFile) {
   const meta = metaFor(path)
   const url = SITE + (meta.path === '/' ? '/' : meta.path)
   const head = [
@@ -26,13 +35,15 @@ function page(path, outFile) {
     `<meta name="twitter:card" content="summary_large_image" />`,
     meta.jsonLd ? `<script type="application/ld+json">${JSON.stringify(meta.jsonLd).replace(/</g, '\\u003c')}</script>` : '',
   ].join('\n    ')
+  const app = await render(path)
   const html = template
     .replace(/<title>[\s\S]*?<\/title>/, `<title>${esc(meta.title)}</title>`)
     .replace('<meta name="description" content="" />', `<meta name="description" content="${esc(meta.description)}" />`)
     .replace('<link rel="canonical" href="https://captainsolo.ca/" />', `<link rel="canonical" href="${url}" />`)
     .replace('<!--head-->', head)
-    .replace('<!--app-->', render(path))
+    .replace('<!--app-->', () => app) // a function, so a `$&` or `$'` in a post isn't read as a replacement pattern
   if (!html.includes('id="root"><') || html.includes('<!--app-->')) throw new Error(`prerender produced no markup for ${path}`)
+  checkAssets(html)
   mkdirSync(dirname(outFile), { recursive: true })
   writeFileSync(outFile, html)
 }
@@ -40,9 +51,10 @@ function page(path, outFile) {
 // `blog.html`, not `blog/index.html`: Cloudflare's asset router then serves `/blog` itself and
 // redirects `/blog/` to it, keeping the slash-less URLs the old site had indexed.
 for (const path of prerenderPaths) {
-  page(path, path === '/' ? join(dist, 'index.html') : join(dist, path.slice(1) + '.html'))
+  await page(path, path === '/' ? join(dist, 'index.html') : join(dist, path.slice(1) + '.html'))
 }
-page('/404', join(dist, '404.html'))
+await page('/404', join(dist, '404.html'))
+if (missing.size) throw new Error(`pages point at missing files (run scripts/phone_media.py?):\n  ${[...missing].join('\n  ')}`)
 
 const today = new Date().toISOString().slice(0, 10)
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>

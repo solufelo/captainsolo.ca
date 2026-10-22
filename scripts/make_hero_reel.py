@@ -22,6 +22,7 @@ import hashlib
 import json
 import re
 import subprocess
+import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -110,7 +111,17 @@ def encode(tall):
     mp4 = VID / f'hero-reel{tag}.mp4'
     subprocess.run([*base, '-c:v', 'libx264', '-preset', 'slow', '-crf', '29', '-maxrate', '1.7M', '-bufsize', '3.4M', *TAGS,
                     '-movflags', '+faststart', str(mp4)], check=True)
-    subprocess.run([*base, '-c:v', 'libvpx-vp9', '-b:v', '1.5M', '-crf', '42', '-row-mt', '1', *TAGS, str(VID / f'hero-reel{tag}.webm')], check=True)
+    webm = str(VID / f'hero-reel{tag}.webm')
+    if tall:
+        # Phones: two passes keep the one-pass picture (VMAF 97.3 on the phone model, worst frame better) at 2.0 MB instead of
+        # 2.7 MB, the biggest download on a phone's first visit (2026-10-22 audit; 540x960 at 600k scored 89.7).
+        vp9 = ['-c:v', 'libvpx-vp9', '-b:v', '900k', '-crf', '42', '-row-mt', '1', '-auto-alt-ref', '1', '-lag-in-frames', '25', *TAGS]
+        with tempfile.TemporaryDirectory() as tmp:
+            log = str(Path(tmp) / 'vp9')
+            subprocess.run([*base, *vp9, '-pass', '1', '-passlogfile', log, '-f', 'null', '-'], check=True)
+            subprocess.run([*base, *vp9, '-pass', '2', '-passlogfile', log, webm], check=True)
+    else:
+        subprocess.run([*base, '-c:v', 'libvpx-vp9', '-b:v', '1.5M', '-crf', '42', '-row-mt', '1', *TAGS, webm], check=True)
     subprocess.run(['ffmpeg', '-v', 'error', '-y', '-ss', '0.4', '-i', str(mp4), '-frames:v', '1', '-vf',
                     'scale=in_color_matrix=bt709:in_range=tv,format=bgra', '-c:v', 'libwebp', '-quality', '80',
                     str(VID / f'hero-reel{tag}-poster.webp')], check=True)
@@ -123,8 +134,8 @@ def encode(tall):
 encode(tall=False)
 encode(tall=True)
 
-# content-hash the outputs (by the wide mp4); drop older cuts
-digest = hashlib.sha1((VID / 'hero-reel.mp4').read_bytes()).hexdigest()[:8]
+# content-hash all four cuts (the names are cached for a year, so a re-encoded phone cut needs a new one); drop older cuts
+digest = hashlib.sha1(b''.join((VID / f'hero-reel{t}.{e}').read_bytes() for t in ('', '-tall') for e in ('mp4', 'webm'))).hexdigest()[:8]
 for old in VID.glob('hero-reel-*'):
     if re.fullmatch(r'hero-reel-[0-9a-f]{8}(-tall)?(-poster)?\.(mp4|webm|webp)', old.name):
         old.unlink()

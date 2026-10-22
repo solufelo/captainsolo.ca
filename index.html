@@ -12,6 +12,9 @@
     <link rel="icon" type="image/x-icon" href="/favicon.ico?v=2" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=2" />
     <link rel="manifest" href="/site.webmanifest" />
+    <!-- the two faces the first screen is set in, fetched with the HTML instead of after the CSS (vite build swaps in the hashed paths) -->
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="/node_modules/@fontsource-variable/oswald/files/oswald-latin-wght-normal.woff2" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="/node_modules/@fontsource/ibm-plex-sans/files/ibm-plex-sans-latin-400-normal.woff2" />
     <script>
       // Apply the saved or system theme before first paint so pages never flash the wrong colours.
       document.documentElement.classList.add('js') // scroll reveals only hide things when JS can show them again

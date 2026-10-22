@@ -1,4 +1,5 @@
 // Site copy carried over from the June 2026 build. Edit here; every page reads from this file.
+import imageSizes from './imageSizes.json'
 
 export const site = {
   name: 'Solomon Olufelo',
@@ -654,6 +655,9 @@ export const projects: Project[] = [
 ]
 
 export const getProject = (slug: string) => projects.find((p) => p.slug === slug)
+
+/** [width, height] of a gallery still (scripts/phone_media.py), so pages hold its space before it loads. */
+export const sizeOf = (src: string) => (imageSizes as Record<string, number[]>)[src] as [number, number] | undefined
 
 // Music videos that credit Solomon in their YouTube description but have no case study here. Each role is
 // the description's own wording (Portfolio-Archive/_triage/web-credits).

@@ -1,9 +1,8 @@
-import { useEffect } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
 import { Route, Routes, useLocation, useNavigate } from 'react-router'
 import { Layout } from './components/Layout'
 import { Home } from './pages/Home'
 import { BlogIndex } from './pages/BlogIndex'
-import { BlogPost } from './pages/BlogPost'
 import { Work } from './pages/Work'
 import { WorkIndex } from './pages/WorkIndex'
 import { ServicesPage } from './pages/ServicesPage'
@@ -13,6 +12,9 @@ import { ContactPage } from './pages/ContactPage'
 import { Legal } from './pages/Legal'
 import { NotFound } from './pages/NotFound'
 import { metaFor } from './meta'
+
+// A post page brings the posts' text with it, so other pages don't download it. The prerendered HTML shows meanwhile.
+const BlogPost = lazy(() => import('./pages/BlogPost').then((m) => ({ default: m.BlogPost })))
 
 /** Keeps <title>/description current on client-side navigation and handles #hash scrolling. */
 function RouteEffects() {
@@ -45,7 +47,14 @@ export function App() {
         <Route element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="blog" element={<BlogIndex />} />
-          <Route path="blog/:slug" element={<BlogPost />} />
+          <Route
+            path="blog/:slug"
+            element={
+              <Suspense>
+                <BlogPost />
+              </Suspense>
+            }
+          />
           <Route path="work" element={<WorkIndex />} />
           <Route path="work/:slug" element={<Work />} />
           <Route path="services" element={<ServicesPage />} />

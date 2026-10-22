@@ -50,6 +50,14 @@ const tall = await p.evaluate(() => {
   return { w: v?.videoWidth ?? 0, h: v?.videoHeight ?? 0, src: v?.currentSrc ?? '', t: v?.currentTime ?? 0 }
 })
 check('phone hero plays the vertical cut', tall.h > tall.w && /-tall\./.test(tall.src) && tall.t > 0.3, JSON.stringify(tall))
+check('photo strip holds each still’s size before it loads', await p.evaluate(() => [...document.querySelectorAll('.strip img')].every((i) => i.getAttribute('width') && i.getAttribute('height'))))
+// Scrolled past, the reel stops decoding and picks up again on the way back
+await p.evaluate(() => window.scrollTo(0, document.body.scrollHeight / 2))
+await p.waitForTimeout(800)
+const away = await p.evaluate(() => document.querySelector('.viewfinder video').paused)
+await p.evaluate(() => window.scrollTo(0, 0))
+await p.waitForTimeout(800)
+check('hero reel pauses off screen and resumes on return', away && (await p.evaluate(() => !document.querySelector('.viewfinder video').paused)))
 await p.close()
 
 // Reduced motion: the reel waits, with a Play button that starts it
@@ -113,6 +121,10 @@ const titled = await p.waitForFunction(() => document.title.startsWith('Blog'), 
 check('client nav to /blog updates the title', titled, await p.title())
 await p.getByRole('button', { name: /^Music Production/ }).click()
 check('blog filter: Music Production shows 3', (await p.locator('.post-card').count()) === 3)
+// a post's page and text load on demand (they're not in the main bundle)
+await p.locator('.post-card').first().click()
+await p.waitForURL('**/blog/**')
+check('a post opened from the blog loads its text', await p.locator('.prose h2').first().waitFor({ timeout: 5000 }).then(() => true, () => false))
 check('home + blog: no console errors', p.errors.length === 0, p.errors.join(' | '))
 await p.close()
 

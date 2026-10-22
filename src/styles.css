@@ -219,14 +219,23 @@ p {
   color: var(--ink);
 }
 .btn-sm {
+  position: relative;
   min-height: 38px;
   padding: 0 16px;
   font-size: 0.875rem;
+}
+/* 38 px to look at, 44 px to tap */
+.btn-sm::before {
+  content: '';
+  position: absolute;
+  inset: -4px 0;
 }
 .arrow-link {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  padding-block: 8px; /* a 44 px tap target; the negative margin keeps it where it was */
+  margin-block: -8px;
   font-weight: 600;
   color: var(--accent);
   text-decoration: none;
@@ -290,6 +299,7 @@ p {
   text-transform: uppercase;
   letter-spacing: 0.12em;
   margin-right: auto;
+  min-height: 44px;
 }
 .brand .mark {
   flex: none;
@@ -588,6 +598,8 @@ p {
   font-variant-numeric: tabular-nums;
 }
 .vf-clip {
+  position: relative;
+  display: flex;
   max-width: 55%;
   padding: 6px 10px;
   border-radius: 999px;
@@ -596,9 +608,19 @@ p {
   color: var(--vf-ink);
   text-decoration: none;
   white-space: nowrap;
+  text-shadow: none;
+}
+/* long labels end in an ellipsis; the arrow stays */
+.vf-clip span:first-child {
+  min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
-  text-shadow: none;
+}
+/* the pill is 24 px tall; its tap area is 44 */
+.vf-clip::before {
+  content: '';
+  position: absolute;
+  inset: -10px -2px;
 }
 .vf-clip:hover {
   background: var(--accent);
@@ -1509,6 +1531,10 @@ p {
   flex-wrap: wrap;
   gap: 6px 16px;
 }
+.inline-links a {
+  padding-block: 8px; /* a 44 px tap target; the negative margin keeps the row where it was */
+  margin-block: -8px;
+}
 .contact-form,
 .form-done {
   padding: clamp(20px, 4vw, 36px);
@@ -2369,6 +2395,9 @@ p {
   padding: 0;
 }
 .footer-meta a {
+  display: inline-block;
+  padding: 12px 8px; /* a 44 px tap target; the negative margin keeps the row where it was */
+  margin: -12px -8px;
   text-decoration: none;
 }
 .footer-meta a:hover {

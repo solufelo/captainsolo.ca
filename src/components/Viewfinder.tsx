@@ -52,8 +52,22 @@ export function Viewfinder() {
     v.addEventListener('playing', run)
     v.addEventListener('pause', stop)
     if (!v.paused) run()
+    // Scrolled past, the reel pauses (decoding video nobody sees drains a phone) and picks up again on the way back.
+    // It only resumes a pause of its own, so a visitor's pause stays put.
+    let parked = false
+    const io = new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting && !v.paused) {
+        parked = true
+        v.pause()
+      } else if (e.isIntersecting && parked) {
+        parked = false
+        v.play().catch(() => {})
+      }
+    })
+    io.observe(v)
     return () => {
       stop()
+      io.disconnect()
       v.removeEventListener('playing', run)
       v.removeEventListener('pause', stop)
     }
@@ -111,7 +125,8 @@ export function Viewfinder() {
           </span>
         </span>
         <Link to={`/work/${clip.slug}`} className="vf-clip">
-          {clip.label} <span aria-hidden="true">↗</span>
+          <span>{clip.label}</span>
+          <span aria-hidden="true">&nbsp;↗</span>
         </Link>
       </figcaption>
       <button type="button" className="vf-toggle" onClick={toggle} aria-label={rolling ? 'Pause showreel' : 'Play showreel'}>

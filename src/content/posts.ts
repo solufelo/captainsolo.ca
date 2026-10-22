@@ -1,5 +1,6 @@
 import raw from './posts.json'
 
+/** What cards, titles and search data need. The text itself is in post-bodies.json, loaded with the post page (postBody.ts). */
 export type Post = {
   slug: string
   title: string
@@ -10,27 +11,9 @@ export type Post = {
   excerpt: string
   seoTitle: string
   description: string
-  html: string
-  toc: { id: string; text: string }[]
 }
 
-const slugify = (s: string) =>
-  s.toLowerCase().replace(/&[a-z]+;/g, '').replace(/<[^>]+>/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
-
-// Give every <h2> an id so the table of contents can link to it. Runs identically on server and client.
-function withAnchors(html: string) {
-  const toc: Post['toc'] = []
-  const out = html.replace(/<h2>([\s\S]*?)<\/h2>/g, (_, inner: string) => {
-    const text = inner.replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').trim()
-    let id = slugify(text) || 'section'
-    while (toc.some((t) => t.id === id)) id += '-2'
-    toc.push({ id, text })
-    return `<h2 id="${id}">${inner}</h2>`
-  })
-  return { html: out, toc }
-}
-
-export const posts: Post[] = (raw as Omit<Post, 'toc'>[]).map((p) => ({ ...p, ...withAnchors(p.html) }))
+export const posts: Post[] = raw
 
 export const categories = [...new Set(posts.map((p) => p.category))]
 

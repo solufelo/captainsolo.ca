@@ -1,4 +1,4 @@
-"""One-off: turn the scraped June 2026 build (pages.json) into src/content/posts.json.
+"""One-off: turn the scraped June 2026 build (pages.json) into src/content/posts.json (+ post-bodies.json, the text).
 
 Run: python -I scripts/convert_posts.py <pages.json> src/content/posts.json
 """
@@ -7,6 +7,7 @@ import json
 import re
 import sys
 from html.parser import HTMLParser
+from pathlib import Path
 
 OLD_ORIGINS = ('https://captainsolo-ca.pages.dev', 'https://captainsolo.ca')
 KEEP = {'h2', 'h3', 'h4', 'p', 'ul', 'ol', 'li', 'a', 'strong', 'em', 'b', 'i', 'blockquote', 'code', 'pre',
@@ -128,9 +129,12 @@ def main(src, dst):
         posts.append({'slug': slug, **m, 'heading': page['h1'].strip(),
                       'seoTitle': page['title'], 'description': page['description'] or m['excerpt'], 'html': body})
     posts.sort(key=lambda p: p['date'], reverse=True)
-    json.dump(posts, open(dst, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     for p in posts:
         print(p['date'], p['category'].ljust(26), p['slug'], len(p['html']))
+    # the text goes in its own file, which only the post page loads (src/content/postBody.ts)
+    bodies = {p['slug']: p.pop('html') for p in posts}
+    json.dump(posts, open(dst, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+    json.dump(bodies, open(Path(dst).with_name('post-bodies.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
 
 
 if __name__ == '__main__':
