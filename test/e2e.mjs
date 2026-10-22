@@ -94,6 +94,11 @@ check('work filter: Sites & apps shows 8', (await p.locator('.work-card').count(
 check('empty "In progress" filter is hidden', (await p.getByRole('button', { name: /^In progress/ }).count()) === 0)
 await p.getByRole('button', { name: /^All/ }).first().click()
 check('work filter: All shows 35', (await p.locator('.work-card').count()) === 35)
+check(
+  'more credits: 11 YouTube links that open in a new tab, each read out in full',
+  (await p.locator('a.credit[target="_blank"][href^="https://www.youtube.com/watch?v="]').count()) === 11 &&
+    (await p.getByRole('link', { name: 'REALTALK Yung Koba ft. TGK Directed, shot and edited 2024', exact: true }).count()) === 1,
+)
 await p.getByRole('button', { name: /^Video/ }).click()
 await p.locator('.work-card a').first().click()
 await p.waitForURL('**/work/**')

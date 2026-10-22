@@ -655,6 +655,22 @@ export const projects: Project[] = [
 
 export const getProject = (slug: string) => projects.find((p) => p.slug === slug)
 
+// Music videos that credit Solomon in their YouTube description but have no case study here. Each role is
+// the description's own wording (Portfolio-Archive/_triage/web-credits).
+export const credits = [
+  { title: 'REALTALK', artist: 'Yung Koba ft. TGK', role: 'Directed, shot and edited', year: 2024, href: 'https://www.youtube.com/watch?v=7P7KWg8B4js' },
+  { title: 'Change 4 Nun', artist: 'Katozai', role: 'Edit', year: 2024, href: 'https://www.youtube.com/watch?v=ouDl0GwS4cU' },
+  { title: 'All I Know', artist: 'HighrollerDJay', role: 'VFX', year: 2024, href: 'https://www.youtube.com/watch?v=WJUTy3tlDsM' },
+  { title: 'Back At It', artist: 'XXAVI', role: 'VFX', year: 2024, href: 'https://www.youtube.com/watch?v=0v0VPMu9aBI' },
+  { title: 'At The Wheel', artist: '10k Moss', role: 'VFX', year: 2024, href: 'https://www.youtube.com/watch?v=6NmtoXAm5fU' },
+  { title: 'BACK2BACK', artist: 'Yung Koba & TGK', role: 'Co-directed, shot and edited', year: 2023, href: 'https://www.youtube.com/watch?v=F8kT3U3XB1M' },
+  { title: 'PROVEWRONG', artist: 'Apostoli & Kid Kwazii', role: 'Directed and shot', year: 2023, href: 'https://www.youtube.com/watch?v=-gKAWZMgCjQ' },
+  { title: 'UNION', artist: 'BSF N3LLY', role: 'Shot and edited', year: 2023, href: 'https://www.youtube.com/watch?v=HQ0WanNDMCs' },
+  { title: 'WEEZY BABY', artist: 'BSF N3LLY', role: 'Shot and edited', year: 2023, href: 'https://www.youtube.com/watch?v=vT0ABFcd0Kw' },
+  { title: 'Perfect Timing', artist: 'Lil Recco', role: 'Edit', year: 2023, href: 'https://www.youtube.com/watch?v=8nF_hjOGBdo' },
+  { title: 'Life of A GoGetter', artist: 'TGK', role: 'Edit', year: 2022, href: 'https://www.youtube.com/watch?v=pp94sT10wkU' },
+]
+
 
 // Home page, in the order a business owner reads it: their problem, the work, what I do, how, questions, a call.
 export const pains = [
