@@ -1,8 +1,12 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { Link } from 'react-router'
 import reel from '../content/heroReel.json'
 import { reducedMotion } from '../motion'
 
+// Upright screens (phones, tablets held tall) get the 9:16 cut; <source media> picks before anything downloads.
+// The same query swaps the poster in CSS (styles.css), since a video's poster attribute can't vary by screen.
+const TALL = '(max-aspect-ratio: 3/4)'
+const posters = { '--poster': `url(${reel.poster})`, '--poster-tall': `url(${reel.tall.poster})` } as CSSProperties
 const pad = (n: number) => String(Math.floor(n)).padStart(2, '0')
 // Camera-style timecode HH:MM:SS:FF at 24 fps.
 const timecode = (s: number) => `${pad(s / 3600)}:${pad((s / 60) % 60)}:${pad(s % 60)}:${pad((s % 1) * 24)}`
@@ -53,18 +57,19 @@ export function Viewfinder() {
   const clip = [...reel.clips].reverse().find((c) => t >= c.start) ?? reel.clips[0]
 
   return (
-    <figure className="viewfinder" data-rolling={rolling}>
+    <figure className="viewfinder" data-rolling={rolling} style={posters}>
       <video
         ref={video}
         muted
         loop
         playsInline
         preload="auto"
-        poster={reel.poster}
         onPlaying={() => setRolling(true)}
         onPause={() => setRolling(false)}
         aria-label="Showreel: barbershop promo, club night and university basketball, shot and edited by Solomon"
       >
+        <source media={TALL} src={reel.tall.webm} type="video/webm" />
+        <source media={TALL} src={reel.tall.mp4} type="video/mp4" />
         <source src={reel.webm} type="video/webm" />
         <source src={reel.mp4} type="video/mp4" />
       </video>

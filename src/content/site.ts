@@ -46,6 +46,8 @@ export type Project = {
   video?: string
   /** More clips with sound for the case study, shown under the loop; `title` is the caption. */
   clips?: { src: string; poster: string; title: string }[]
+  /** The client's own words, shown on the case study (real quotes only, as they said them). */
+  quote?: { text: string; by: string }
   /** Short silent loop shown when the work-list row is hovered. */
   preview?: string
   /** Real screens for the case-study page; falls back to `image`. */
@@ -498,7 +500,8 @@ export const projects: Project[] = [
     title: 'Barbershop promo',
     client: 'A Brampton barbershop',
     role: 'Shoot, edit, colour',
-    summary: 'High-energy social promo: cinematic cuts synced to the music.',
+    summary: 'High-energy social promo: cinematic cuts synced to the music. Ron now calls me his go-to shooter.',
+    quote: { text: 'This is acc hard, no cap.', by: 'Ron, the barber' },
     kind: 'Brand video',
     preview: '/assets/previews/barbershop-promo-r2.mp4',
     status: 'live',
@@ -556,6 +559,7 @@ export const projects: Project[] = [
     client: 'Savyan Shades Beauty Salon',
     role: 'Shot and edited',
     summary: 'Promo reel for a beauty salon: nails, braids and a bright pink studio.',
+    quote: { text: 'Thank you so much! It’s exactly how I imagined!!', by: 'Savyan Shades Beauty Salon' },
     kind: 'Brand video',
     preview: '/assets/previews/savyan-salon-r2.mp4',
     status: 'live',

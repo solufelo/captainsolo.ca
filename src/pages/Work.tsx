@@ -103,6 +103,12 @@ export function Work() {
         </dl>
       </header>
 
+      {project.quote && (
+        <blockquote className="wrap case-quote">
+          <p>“{project.quote.text}”</p>
+          <footer>{project.quote.by}</footer>
+        </blockquote>
+      )}
       {project.loop && <Loop src={project.loop} poster={project.poster ?? project.image} />}
       {project.clips && (
         <section className="case-clips" aria-label="More clips">

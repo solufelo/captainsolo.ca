@@ -1,8 +1,13 @@
 {
  "clipSeconds": 1.8,
- "webm": "/assets/videos/hero-reel-9c5d7056.webm",
- "mp4": "/assets/videos/hero-reel-9c5d7056.mp4",
- "poster": "/assets/videos/hero-reel-9c5d7056-poster.webp",
+ "webm": "/assets/videos/hero-reel-eb97fc37.webm",
+ "mp4": "/assets/videos/hero-reel-eb97fc37.mp4",
+ "poster": "/assets/videos/hero-reel-eb97fc37-poster.webp",
+ "tall": {
+  "webm": "/assets/videos/hero-reel-eb97fc37-tall.webm",
+  "mp4": "/assets/videos/hero-reel-eb97fc37-tall.mp4",
+  "poster": "/assets/videos/hero-reel-eb97fc37-tall-poster.webp"
+ },
  "clips": [
   {
    "start": 0.0,

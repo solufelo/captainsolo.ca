@@ -35,6 +35,7 @@ function LitWords({ text }: { text: string }) {
 /** A row of vertical promos that play only while on screen; reduced motion keeps their first frame. */
 function Reels({ items }: { items: Project[] }) {
   const ref = useRef<HTMLDivElement>(null)
+  const quote = items.find((p) => p.quote)?.quote // one client's words under the reels; the rest live on their case pages
   useEffect(() => {
     const videos = ref.current?.querySelectorAll('video')
     if (!videos || reducedMotion()) return
@@ -58,6 +59,12 @@ function Reels({ items }: { items: Project[] }) {
           </Link>
         ))}
       </div>
+      {quote && (
+        <blockquote className="wrap reels-quote">
+          <p>“{quote.text}”</p>
+          <footer>{quote.by}</footer>
+        </blockquote>
+      )}
     </section>
   )
 }

@@ -488,7 +488,12 @@ p {
   position: absolute;
   inset: 0;
   margin: 0;
-  background: #05070d;
+  background: #05070d var(--poster) center / cover no-repeat;
+}
+@media (max-aspect-ratio: 3/4) {
+  .viewfinder {
+    background-image: var(--poster-tall);
+  }
 }
 .viewfinder video {
   position: absolute;
@@ -2850,6 +2855,25 @@ html:not(.intro) .hero .viewfinder video {
 /* ---------- Reels: vertical promos in a row (swipe on phones) ---------- */
 .reels {
   padding-block: clamp(24px, 5vw, 64px);
+}
+
+/* ---------- A client's own words: under the reels and on the case study ---------- */
+.reels-quote,
+.case-quote {
+  margin-block: clamp(22px, 3.5vw, 40px) 0;
+  font: 500 clamp(1.5rem, 3.4vw, 2.5rem) / 1.12 var(--display);
+  text-transform: uppercase;
+  text-align: center;
+}
+.case-quote {
+  margin-block: 0 clamp(28px, 4vw, 52px);
+}
+.reels-quote footer,
+.case-quote footer {
+  margin-top: 10px;
+  font: 500 0.95rem / 1.4 var(--body);
+  text-transform: none;
+  color: var(--ink-2);
 }
 .reels-row {
   display: flex;

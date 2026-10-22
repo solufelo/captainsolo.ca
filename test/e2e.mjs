@@ -41,6 +41,17 @@ check('viewfinder HUD shows REC + timecode and links the clip', /REC\s*00:00:\d\
 check('hero: no console errors', p.errors.length === 0, p.errors.join(' | '))
 await p.close()
 
+// Phones get the 9:16 cut, so faces aren't centre-cropped out of the 16:9 reel
+p = await newPage(390, 844, { reducedMotion: 'no-preference' })
+await p.goto(BASE + '/', { waitUntil: 'load' })
+await p.waitForTimeout(2000)
+const tall = await p.evaluate(() => {
+  const v = document.querySelector('.viewfinder video')
+  return { w: v?.videoWidth ?? 0, h: v?.videoHeight ?? 0, src: v?.currentSrc ?? '', t: v?.currentTime ?? 0 }
+})
+check('phone hero plays the vertical cut', tall.h > tall.w && /-tall\./.test(tall.src) && tall.t > 0.3, JSON.stringify(tall))
+await p.close()
+
 // Reduced motion: the reel waits, with a Play button that starts it
 p = await newPage(1280, 800)
 await p.goto(BASE + '/', { waitUntil: 'load' })
@@ -56,7 +67,8 @@ p = await newPage()
 await p.goto(BASE + '/', { waitUntil: 'load' })
 check('one hero (no duplicate render)', (await p.locator('.hero').count()) === 1)
 check('home lists 8 projects', (await p.locator('.work-row').count()) === 8)
-check('home stays short (under 400 words)', (await p.evaluate(() => document.body.innerText.split(/\s+/).filter(Boolean).length)) < 400)
+// 400 plus room for one real client quote under the reels (counted here with the reduced-motion note showing)
+check('home stays short (under 410 words)', (await p.evaluate(() => document.body.innerText.split(/\s+/).filter(Boolean).length)) < 410)
 check('home leads with the client problem', (await p.locator('#problem-title').innerText()).includes('better than it looks online'))
 await p.locator('.faq summary').first().click()
 check('FAQ answers open', await p.locator('.faq details').first().evaluate((d) => d.open))
