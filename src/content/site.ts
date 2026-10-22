@@ -498,10 +498,10 @@ export const projects: Project[] = [
   {
     slug: 'barbershop-promo',
     title: 'Barbershop promo',
-    client: 'A Brampton barbershop',
+    client: 'DoubleRFades',
     role: 'Shoot, edit, colour',
-    summary: 'High-energy social promo: cinematic cuts synced to the music. Ron now calls me his go-to shooter.',
-    quote: { text: 'This is acc hard, no cap.', by: 'Ron, the barber' },
+    summary: 'High-energy social promo: cinematic cuts synced to the music. Now the go-to shooter for DoubleRFades.',
+    quote: { text: 'This is acc hard, no cap.', by: 'DoubleRFades' },
     kind: 'Brand video',
     preview: '/assets/previews/barbershop-promo-r2.mp4',
     status: 'live',
@@ -514,7 +514,7 @@ export const projects: Project[] = [
   {
     slug: 'barbershop-braids',
     title: 'Braids promo',
-    client: 'A Brampton barbershop',
+    client: 'Kay Kombs',
     role: 'Shoot, edit, colour',
     summary: 'A cut, a line-up and fresh braids, start to finish, for the same shop.',
     kind: 'Brand video',
