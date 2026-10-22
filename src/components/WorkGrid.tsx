@@ -20,10 +20,11 @@ const shownFilters = filters.filter((f) => projects.some((p) => matches(p, f.id)
 
 export function WorkCard({ p, featured = false, i = 0 }: { p: Project; featured?: boolean; i?: number }) {
   return (
-    <li className="work-card" data-featured={featured} data-reveal style={{ '--i': i % 3 } as CSSProperties}>
+    <li className="work-card" data-featured={featured} data-reveal={i > 0 || undefined} style={{ '--i': i % 3 } as CSSProperties}>
       <Link to={`/work/${p.slug}`} className="work-link" data-cursor="View">
         <div className="work-media">
-          <img src={p.image} alt="" loading="lazy" width="800" height="500" />
+          {/* the first card is the page's largest paint: load it now and show it without waiting for the reveal */}
+          <img src={p.image} alt="" loading={i === 0 ? 'eager' : 'lazy'} fetchPriority={i === 0 ? 'high' : undefined} width="800" height="500" />
           <span className={`status status-${p.status}`}>{p.status === 'live' ? 'Live' : 'In progress'}</span>
           {p.video && (
             <span className="play-badge" aria-hidden="true">

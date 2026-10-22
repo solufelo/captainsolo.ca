@@ -109,7 +109,7 @@ export function ContactSection({ defaultService, isPage = false }: { defaultServ
   return (
     <section id="contact" className="section section-alt contact" aria-labelledby="contact-title">
       <div className="wrap contact-grid">
-        <div data-reveal>
+        <div>
           <p className="kicker">Say hi</p>
           <Title id="contact-title" className="section-title">
             Got a project?

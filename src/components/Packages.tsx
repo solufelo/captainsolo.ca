@@ -8,6 +8,7 @@ export function Packages() {
   return (
     <section id="packages" className="packages" aria-label="Packages">
       <div className="wrap">
+        <h2 className="sr-only">How it works</h2>
         <ol className="process" aria-label="How it works">
           {process.map((p, i) => (
             <li key={p.step}>
@@ -18,6 +19,7 @@ export function Packages() {
           ))}
         </ol>
 
+        <h2 className="sr-only">Packages</h2>
         <ul className="package-grid">
           {brandPackages.map((p) => (
             <li key={p.id} className="package" data-featured={p.featured ?? false}>

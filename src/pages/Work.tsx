@@ -123,7 +123,7 @@ export function Work() {
       <section className="case-media" data-layout={project.layout} aria-label="The work">
         {project.video ? (
           <figure className="case-video">
-            <video src={project.video} poster={project.image} controls playsInline preload="metadata" />
+            <video src={project.video} poster={project.image} controls playsInline preload="none" />
           </figure>
         ) : (
           gallery.map((src, n) => {

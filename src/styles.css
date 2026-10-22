@@ -84,6 +84,18 @@ textarea {
   outline-offset: 3px;
   border-radius: 4px;
 }
+/* Inside the project cards (they clip overflow), and white over the moving reel. */
+.work-link:focus-visible {
+  outline-offset: -3px;
+}
+.hero :focus-visible,
+.site-header[data-over-hero='true'] :focus-visible {
+  outline-color: #fff;
+}
+::placeholder {
+  color: var(--muted);
+}
+
 ::selection {
   background: var(--accent);
   color: var(--on-accent);
@@ -141,7 +153,7 @@ p {
   font: 600 0.75rem/1.2 var(--body);
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--accent-2);
   margin: 0 0 14px;
 }
 .section-title {
@@ -230,8 +242,8 @@ p {
 .icon-btn {
   display: grid;
   place-items: center;
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   border: 1px solid var(--line);
   background: var(--card);
@@ -800,7 +812,7 @@ p {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  min-height: 40px;
+  min-height: 44px;
   padding: 0 16px;
   border-radius: 999px;
   border: 1px solid var(--line);
@@ -1745,8 +1757,8 @@ p {
   z-index: 3;
   right: calc(var(--gutter) + clamp(14px, 1.6vw, 22px));
   top: calc(var(--vf-inset) + clamp(48px, 4vw, 60px));
-  width: 34px;
-  height: 34px;
+  width: 44px;
+  height: 44px;
   display: grid;
   place-items: center;
   border: 0;
@@ -1910,7 +1922,7 @@ p {
 .orb-lg {
   --size: clamp(148px, 14vw, 196px);
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
   font-size: 1.05rem;
 }
 .orb-lg::before {
@@ -2974,8 +2986,8 @@ html:not(.intro) .hero .viewfinder video {
 }
 .motion-note-x {
   flex: none;
-  width: 32px;
-  height: 32px;
+  width: 44px;
+  height: 44px;
   border: 0;
   border-radius: 50%;
   background: transparent;

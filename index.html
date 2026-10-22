@@ -25,6 +25,15 @@
         // the greeting intro (Curtain.tsx): first page of a visit only
         var calm = matchMedia('(prefers-reduced-motion: reduce)').matches && !document.documentElement.classList.contains('motion-on')
         if (!sessionStorage.getItem('intro-seen') && !calm) document.documentElement.classList.add('intro')
+        // Slow phones: if the greeting hasn't started within 2.5 s, lift the cover anyway (Curtain.tsx then skips it).
+        setTimeout(function () {
+          var r = document.documentElement
+          if (!r.classList.contains('intro') || r.dataset.greeting) return
+          r.classList.remove('intro')
+          try {
+            sessionStorage.setItem('intro-seen', '1')
+          } catch (e) {}
+        }, 2500)
       } catch (e) {}
       try {
         var t = localStorage.getItem('theme')

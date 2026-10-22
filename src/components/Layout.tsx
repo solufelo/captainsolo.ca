@@ -143,6 +143,10 @@ function Header() {
   // On the home page the header floats over the showreel until you scroll past it.
   const [overHero, setOverHero] = useState(pathname === '/')
   useEffect(() => setOpen(false), [pathname, hash])
+  // The phone menu's links sit before its toggle in the DOM: opening it moves focus to the first one.
+  useEffect(() => {
+    if (open) document.querySelector<HTMLElement>('#main-nav a')?.focus()
+  }, [open])
   useEffect(() => {
     if (pathname !== '/') return setOverHero(false)
     const onScroll = () => setOverHero(scrollY < innerHeight - 120)

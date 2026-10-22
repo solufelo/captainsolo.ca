@@ -36,6 +36,7 @@ export function FloatingMenu() {
         className="float-menu-btn"
         data-magnetic
         data-shown={shown || open}
+        inert={!(shown || open)}
         data-open={open}
         aria-expanded={open}
         aria-controls="side-menu"

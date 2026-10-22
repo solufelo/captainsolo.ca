@@ -24,6 +24,7 @@ export function Curtain() {
   useEffect(() => {
     const root = document.documentElement
     if (!root.classList.contains('intro')) return
+    root.dataset.greeting = '1' // started: index.html's 2.5 s cap leaves it alone
     let i = 0
     setWord(GREETINGS[0])
     setState('cover')
