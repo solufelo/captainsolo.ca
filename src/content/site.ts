@@ -23,7 +23,7 @@ export const socials = [
   { label: 'Instagram', href: 'https://www.instagram.com/caaptainsolo/' },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/solomon-olufeo-854360241/' },
   { label: 'GitHub', href: 'https://github.com/solufelo' },
-  { label: 'YouTube', href: 'https://www.youtube.com/@captainsolo' },
+  { label: 'YouTube', href: 'https://www.youtube.com/@caaptainsolo5663' },
 ]
 
 
@@ -83,7 +83,7 @@ export const projects: Project[] = [
     slug: 'tec',
     title: 'TEC',
     client: '10k Moss',
-    role: 'Shot and edited',
+    role: 'Edit',
     summary: 'A built teal set, hard coloured light and a fire title.',
     kind: 'Music video',
     preview: '/assets/previews/tec-r2.mp4',
@@ -95,12 +95,13 @@ export const projects: Project[] = [
     poster: '/assets/work/tec-poster-r2.webp',
     gallery: ['/assets/work/tec-1-q.webp', '/assets/work/tec-2-q.webp', '/assets/work/tec-3-r2.webp', '/assets/work/tec-4-r2.webp'],
     layout: 'grid',
+    demo: { label: 'Watch on YouTube', href: 'https://www.youtube.com/watch?v=uIts3LeNtbs' },
   },
   {
     slug: 'july-6',
     title: 'July 6',
     client: 'Dela',
-    role: 'Director',
+    role: 'Directed and edited',
     summary: 'Black-and-white street portraits around Spadina and Chinatown.',
     kind: 'Music video',
     preview: '/assets/previews/july-6-r2.mp4',
@@ -112,6 +113,7 @@ export const projects: Project[] = [
     poster: '/assets/work/july-6-poster.webp',
     gallery: ['/assets/work/july-6-1.webp', '/assets/work/july-6-2.webp', '/assets/work/july-6-3.webp', '/assets/work/july-6-4.webp'],
     layout: 'grid',
+    demo: { label: 'Watch on YouTube', href: 'https://www.youtube.com/watch?v=N5jcnlP1PLU' },
   },
   {
     slug: 'primary-lotus',
@@ -132,7 +134,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'kenoh-ray-ray',
-    title: 'Ray Ray',
+    title: 'Official ft. RayRay',
     client: 'Kenoh',
     role: 'Directed, shot and edited',
     summary: 'A packed private room, cut between clean 4K and camcorder tape.',
@@ -146,6 +148,7 @@ export const projects: Project[] = [
     poster: '/assets/work/kenoh-ray-ray-poster.webp',
     gallery: ['/assets/work/kenoh-ray-ray-1.webp', '/assets/work/kenoh-ray-ray-2.webp', '/assets/work/kenoh-ray-ray-3.webp', '/assets/work/kenoh-ray-ray-4.webp'],
     layout: 'grid',
+    demo: { label: 'Watch on YouTube', href: 'https://www.youtube.com/watch?v=hWXnXhGhBYg' },
   },
   {
     slug: 'kenoh-reroute',
@@ -163,6 +166,7 @@ export const projects: Project[] = [
     poster: '/assets/work/kenoh-reroute-poster.webp',
     gallery: ['/assets/work/kenoh-reroute-1.webp', '/assets/work/kenoh-reroute-2.webp', '/assets/work/kenoh-reroute-3.webp', '/assets/work/kenoh-reroute-4.webp'],
     layout: 'grid',
+    demo: { label: 'Watch on YouTube', href: 'https://www.youtube.com/watch?v=EW3lemJXpzE' },
   },
   {
     slug: 'kenoh-mexico',
@@ -197,6 +201,7 @@ export const projects: Project[] = [
     poster: '/assets/work/kenoh-fanned-out-poster.webp',
     gallery: ['/assets/work/kenoh-fanned-out-1.webp', '/assets/work/kenoh-fanned-out-2.webp', '/assets/work/kenoh-fanned-out-3.webp', '/assets/work/kenoh-fanned-out-4.webp'],
     layout: 'grid',
+    demo: { label: 'Watch on YouTube', href: 'https://www.youtube.com/watch?v=apHpz-q5Z_8' },
   },
   {
     slug: 'straight-drop',
