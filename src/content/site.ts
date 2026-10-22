@@ -364,6 +364,9 @@ export const projects: Project[] = [
     clips: [
       { src: '/assets/videos/laurier-sizzle-v7.mp4', poster: '/assets/work/laurier-sizzle-v7-poster.webp', title: 'Game-day sizzle' },
       { src: '/assets/videos/laurier-graphics-demo-v2.mp4', poster: '/assets/work/laurier-graphics-demo-v2-poster.webp', title: 'Live-stream graphics demo' },
+      { src: '/assets/videos/laurier-stingers.mp4', poster: '/assets/work/laurier-stingers-poster.webp', title: 'Game-day stingers' },
+      { src: '/assets/videos/laurier-crowd-prompts.mp4', poster: '/assets/work/laurier-crowd-prompts-poster.webp', title: 'Videoboard crowd prompts' },
+      { src: '/assets/videos/laurier-senior-day-bumpers.mp4', poster: '/assets/work/laurier-senior-day-bumpers-poster.webp', title: 'Senior Day bumpers' },
       { src: '/assets/videos/laurier-helmet-shuffle-m.mp4', poster: '/assets/work/laurier-helmet-shuffle-m-poster.webp', title: 'Helmet Shuffle jumbotron game' },
       { src: '/assets/videos/laurier-senior-day-tribute-m.mp4', poster: '/assets/work/laurier-senior-day-tribute-m-poster.webp', title: 'Senior Day tribute' },
     ],
