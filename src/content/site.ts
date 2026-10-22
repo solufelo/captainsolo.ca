@@ -642,12 +642,13 @@ export const projects: Project[] = [
     sound: 'No dialogue',
   },
   {
-    slug: 'savyan-salon',
-    title: 'Savyan Shades',
-    client: 'Savyan Shades Beauty Salon',
+    // the salon's own spelling (sevynnshades.ca); /work/savyan-salon 301s here (public/_redirects), files keep the old name
+    slug: 'sevynn-salon',
+    title: 'Sevynn Shades',
+    client: 'Sevynn Shades Beauty Salon',
     role: 'Shot and edited',
     summary: 'Promo reel for a beauty salon: nails, braids and a bright pink studio.',
-    quote: { text: 'Thank you so much! It’s exactly how I imagined!!', by: 'Savyan Shades Beauty Salon' },
+    quote: { text: 'Thank you so much! It’s exactly how I imagined!!', by: 'Sevynn Shades Beauty Salon' },
     kind: 'Brand video',
     preview: '/assets/previews/savyan-salon-r2.mp4',
     status: 'live',
@@ -698,7 +699,7 @@ export const pains = [
   'One person for the site, another for the shoot, and none of it matches.',
 ]
 
-export const clients = ['Laurier Golden Hawks', 'KOLDHEARTED', 'SOLVRA', 'Savyan Shades', 'Moksha Canada', 'Vair Studios', 'UTM', 'TGK', '10k Moss', 'Dela', 'J.V', 'Kenoh', 'J Finesse']
+export const clients = ['Laurier Golden Hawks', 'KOLDHEARTED', 'SOLVRA', 'Sevynn Shades', 'Moksha Canada', 'Vair Studios', 'UTM', 'TGK', '10k Moss', 'Dela', 'J.V', 'Kenoh', 'J Finesse']
 
 export const offers = [
   { title: 'Websites', line: 'A fast site that brings in bookings, and that you can update yourself.' },

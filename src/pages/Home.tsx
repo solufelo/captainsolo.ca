@@ -12,7 +12,7 @@ const featured = ['barbershop-promo', 'koldhearted-lookbook', 'solvra', 'vair-dr
   (s) => getProject(s) as Project,
 )
 // Vertical reels: the format barbershops, salons and promoters actually post.
-const reels = ['barbershop-promo', 'barbershop-braids', 'savyan-salon', 'club-event', 'laurier-basketball'].map((s) => getProject(s) as Project)
+const reels = ['barbershop-promo', 'barbershop-braids', 'sevynn-salon', 'club-event', 'laurier-basketball'].map((s) => getProject(s) as Project)
 // Stills slide past between the work and the services: photos on top, design underneath (gallery loops stay on their case page).
 const stills = (...slugs: string[]) => slugs.flatMap((s) => getProject(s)?.gallery ?? []).filter((s) => !s.endsWith('.mp4'))
 const stripRows: [string[], string[]] = [
