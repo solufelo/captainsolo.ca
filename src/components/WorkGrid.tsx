@@ -1,6 +1,6 @@
 import { useState, type CSSProperties } from 'react'
 import { Link } from 'react-router'
-import { projects, type Project } from '../content/site'
+import { phoneSrcSet, projects, type Project } from '../content/site'
 
 const filters = [
   { id: 'all', label: 'All' },
@@ -24,7 +24,16 @@ export function WorkCard({ p, featured = false, i = 0 }: { p: Project; featured?
       <Link to={`/work/${p.slug}`} className="work-link" data-cursor="View">
         <div className="work-media">
           {/* the first card is the page's largest paint: load it now and show it without waiting for the reveal */}
-          <img src={p.image} alt="" loading={i === 0 ? 'eager' : 'lazy'} fetchPriority={i === 0 ? 'high' : undefined} width="800" height="500" />
+          <img
+            src={p.image}
+            srcSet={phoneSrcSet(p.image)}
+            sizes={featured ? '(max-width: 760px) 100vw, 800px' : '(max-width: 760px) 100vw, 400px'}
+            alt=""
+            loading={i === 0 ? 'eager' : 'lazy'}
+            fetchPriority={i === 0 ? 'high' : undefined}
+            width="800"
+            height="500"
+          />
           <span className={`status status-${p.status}`}>{p.status === 'live' ? 'Live' : 'In progress'}</span>
           {p.video && (
             <span className="play-badge" aria-hidden="true">

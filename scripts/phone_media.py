@@ -5,10 +5,11 @@ on a page that points at a missing file)
 - Loops (a project's `loop` and any .mp4 in a gallery) -> <name>-phone.mp4, fitted inside 960x960 at x264 CRF 26 capped
   at 2 Mbps (a 1.2 Mbps cap starved the busiest footage: VMAF 89 on CANWE). Work.tsx serves it to screens up to 760 px
   wide; the 1080p Laurier opener alone was 7.6 MB on a phone (now 1.1 MB).
-- Gallery stills wider than 1200 px -> <name>-phone.webp, 1200 px wide (Work.tsx offers it in srcset). Stills of the
+- Gallery stills and project card images wider than 1200 px -> <name>-phone.webp, 1200 px wide (offered in srcset; the
+  cards are all 1600 px, sized for the double-width featured card on a retina desktop). Stills of the
   projects the home strip draws from (its stills('...') calls in Home.tsx) taller than 760 px -> <name>-strip.webp,
   760 px tall: the strip shows them at most 380 px tall.
-- src/content/imageSizes.json: [width, height] of every gallery still, so pages hold its space before it loads.
+- src/content/imageSizes.json: [width, height] of each of those images, so pages hold its space before it loads.
 Outputs newer than their source are kept.
 """
 import json
@@ -58,7 +59,8 @@ for p in sorted(set(loops) | {g for g in gallery if g.endswith('.mp4')}):
     print(f'{dst.name}: {src.stat().st_size / 1e6:.1f} -> {dst.stat().st_size / 1e6:.1f} MB', flush=True)
 
 sizes = {}
-for p in sorted({g for g in gallery if g.endswith('.webp')}):
+cards = re.findall(r"image: '(/assets/projects/[^']+\.webp)'", site)
+for p in sorted({g for g in gallery if g.endswith('.webp')} | set(cards)):
     src = PUB / p.lstrip('/')
     with Image.open(src) as im:
         w, h = sizes[p] = im.size
@@ -75,4 +77,4 @@ for p in sorted({g for g in gallery if g.endswith('.webp')}):
 
 (ROOT / 'src/content/imageSizes.json').write_text(
     '{\n' + ',\n'.join(f'  {json.dumps(p)}: [{w}, {h}]' for p, (w, h) in sizes.items()) + '\n}\n', encoding='utf-8')
-print(len(sizes), 'gallery stills sized')
+print(len(sizes), 'images sized')

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router'
-import type { Project } from '../content/site'
+import { phoneSrcSet, type Project } from '../content/site'
 
 /**
  * Big-type work rows. With a mouse, hovering a row floats a preview next to the pointer: every project sits in one
@@ -68,7 +68,7 @@ export function WorkList({ items }: { items: Project[] }) {
                 setActive(p)
               }}
             >
-              <img className="work-row-thumb" src={p.image} alt="" width="800" height="500" loading="lazy" />
+              <img className="work-row-thumb" src={p.image} srcSet={phoneSrcSet(p.image)} sizes="100vw" alt="" width="800" height="500" loading="lazy" />
               <h3>{p.title}</h3>
               <span className="work-row-kind">{p.kind}</span>
             </Link>

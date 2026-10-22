@@ -656,8 +656,16 @@ export const projects: Project[] = [
 
 export const getProject = (slug: string) => projects.find((p) => p.slug === slug)
 
-/** [width, height] of a gallery still (scripts/phone_media.py), so pages hold its space before it loads. */
+/** [width, height] of a gallery still or card image (scripts/phone_media.py), so pages hold its space before it loads. */
 export const sizeOf = (src: string) => (imageSizes as Record<string, number[]>)[src] as [number, number] | undefined
+
+// scripts/phone_media.py writes <name>-phone.webp, this wide, beside every gallery still and card image wider than it
+const PHONE_W = 1200
+/** srcset that lets phones (and small slots) take the 1200 px copy; undefined when the image has none. */
+export function phoneSrcSet(src: string) {
+  const w = sizeOf(src)?.[0] ?? 0
+  return w > PHONE_W ? `${src.replace(/\.webp$/, '-phone.webp')} ${PHONE_W}w, ${src} ${w}w` : undefined
+}
 
 // Music videos that credit Solomon in their YouTube description but have no case study here. Each role is
 // the description's own wording (Portfolio-Archive/_triage/web-credits).

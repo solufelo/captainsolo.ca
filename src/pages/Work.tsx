@@ -1,15 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router'
-import { bookCall, getProject, projects, sizeOf } from '../content/site'
+import { bookCall, getProject, phoneSrcSet, projects, sizeOf } from '../content/site'
 import { Orb } from '../components/Orb'
 import { NotFound } from './NotFound'
 import { reducedMotion } from '../motion'
 
 const external = (href: string) => !href.startsWith('/')
-// Phones get the lighter copies scripts/phone_media.py writes: <name>-phone.mp4 beside every loop, and <name>-phone.webp
-// (PHONE_W wide) beside every gallery still wider than that. <source media> picks before anything downloads.
+// Phones get the lighter cut scripts/phone_media.py writes beside every loop; <source media> picks before anything downloads.
 const PHONE = '(max-width: 760px)'
-const PHONE_W = 1200
 const phoneCut = (src: string) => src.replace(/\.mp4$/, '-phone.mp4')
 // How wide each gallery layout shows a still (.case-media in styles.css), so srcset can pick the phone copy.
 const shownAt = { screens: '100vw', grid: '(max-width: 700px) 100vw, 50vw', dense: '(max-width: 760px) 50vw, 25vw' }
@@ -146,13 +144,12 @@ export function Work() {
             if (src.endsWith('.mp4')) return <GalleryLoop key={src} src={src} label={alt} />
             // screens without a known size are 16:10
             const [w, h] = sizeOf(src) ?? (project.layout ? [] : [1440, 900])
-            const phone = (w ?? 0) > PHONE_W && src.replace(/\.webp$/, '-phone.webp')
             return (
               <img
                 key={src}
                 src={src}
-                srcSet={phone ? `${phone} ${PHONE_W}w, ${src} ${w}w` : undefined}
-                sizes={phone ? shownAt[project.layout ?? 'screens'] : undefined}
+                srcSet={phoneSrcSet(src)}
+                sizes={shownAt[project.layout ?? 'screens']}
                 width={w}
                 height={h}
                 alt={alt}
@@ -168,7 +165,7 @@ export function Work() {
         <Link to={`/work/${next.slug}`} data-cursor="Next">
           <span className="label">Next</span>
           <span className="case-next-title">{next.title}</span>
-          <img src={next.image} alt="" width="800" height="500" loading="lazy" />
+          <img src={next.image} srcSet={phoneSrcSet(next.image)} sizes="(max-width: 760px) 100vw, 260px" alt="" width="800" height="500" loading="lazy" />
         </Link>
         <Orb to="/work">All work</Orb>
       </nav>
