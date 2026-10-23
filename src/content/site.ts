@@ -58,7 +58,8 @@ export type Project = {
   gallery?: string[]
   /** 'grid' lays pieces out in columns instead of one wide stack; 'dense' uses four narrow columns (vertical frames, cover walls). */
   layout?: 'grid' | 'dense'
-  /** Silent loop shown big at the top of the case study; `poster` is its first frame. */
+  /** Silent loop shown big at the top of the case study; `poster` is its first frame (or, with `video`, the 9:16 frame
+   *  shown before play). */
   loop?: string
   poster?: string
   demo?: { label: string; href: string }
@@ -593,6 +594,7 @@ export const projects: Project[] = [
     tags: ['Premiere Pro', 'Sony A6100'],
     image: '/assets/projects/barbershop-promo-r2-c.webp',
     video: '/assets/videos/barbershop-promo-q.mp4',
+    poster: '/assets/work/barbershop-promo-video-poster.webp',
     sound: 'Music with vocals, no dialogue',
     demo: { label: 'Watch on Instagram', href: 'https://www.instagram.com/reel/CsCKDtUJGo2/' },
   },
@@ -609,6 +611,7 @@ export const projects: Project[] = [
     tags: ['Brand video', 'Barbershop', 'Braids'],
     image: '/assets/projects/barbershop-braids-r2-c.webp',
     video: '/assets/videos/barbershop-braids.mp4',
+    poster: '/assets/work/barbershop-braids-video-poster.webp',
     sound: 'Music with vocals, no dialogue',
   },
   {
@@ -624,6 +627,7 @@ export const projects: Project[] = [
     tags: ['Multi-cam', 'Gimbal', 'Live coverage'],
     image: '/assets/projects/club-event-r2-c.webp',
     video: '/assets/videos/club-event-nye.mp4',
+    poster: '/assets/work/club-event-video-poster.webp',
     sound: 'Music with vocals, no dialogue',
   },
   {
@@ -639,6 +643,7 @@ export const projects: Project[] = [
     tags: ['Sports video', 'Telephoto', 'Motion graphics'],
     image: '/assets/projects/laurier-basketball-r2-c.webp',
     video: '/assets/videos/laurier-basketball.mp4',
+    poster: '/assets/work/laurier-basketball-video-poster.webp',
     sound: 'No dialogue',
   },
   {

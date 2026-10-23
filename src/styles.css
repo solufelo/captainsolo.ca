@@ -480,6 +480,7 @@ p {
   font-size: clamp(1.05rem, 1.7vw, 1.45rem);
   line-height: 1.3;
   text-align: right;
+  text-shadow: 0 1px 2px rgb(5 7 13 / 0.55), 0 2px 18px rgb(5 7 13 / 0.65); /* readable over the brightest clips */
 }
 .hero-name {
   position: absolute;
@@ -546,8 +547,6 @@ p {
 }
 .vf-corner.tl { top: var(--vf-inset); left: var(--gutter); border-top-width: 3px; border-left-width: 3px; }
 .vf-corner.tr { top: var(--vf-inset); right: var(--gutter); border-top-width: 3px; border-right-width: 3px; }
-.vf-corner.br { bottom: 2.5vh; right: var(--gutter); border-bottom-width: 3px; border-right-width: 3px; }
-.vf-corner.bl { bottom: 2.5vh; left: var(--gutter); border-bottom-width: 3px; border-left-width: 3px; }
 .vf-cross {
   position: absolute;
   z-index: 2;
@@ -1035,11 +1034,8 @@ p {
   padding: 3px 10px;
   border-radius: 999px;
   background: var(--accent-soft);
-  color: var(--accent);
-  font-weight: 600;
-}
-[data-theme='dark'] .cat {
   color: var(--accent-2);
+  font-weight: 600;
 }
 .post-excerpt {
   margin: 0;
@@ -1096,6 +1092,27 @@ p {
   justify-content: center;
   gap: 56px;
   align-items: start;
+}
+/* The post's title lines up with its text column: beside the table of contents on wide screens, the full
+   column on narrow ones (it used to sit in its own narrower box and line up with nothing). */
+.post > .page-head.narrow {
+  max-width: calc(1056px + 2 * var(--gutter));
+  padding-left: calc(var(--gutter) + 296px);
+}
+.post:not(:has(.toc)) > .page-head.narrow {
+  max-width: calc(760px + 2 * var(--gutter));
+  padding-left: var(--gutter);
+}
+@media (max-width: 960px) {
+  .post > .page-head.narrow {
+    max-width: 1200px;
+    padding-left: var(--gutter);
+  }
+}
+/* A page that ends on a grey section runs it straight into the footer, without a band of page colour between. */
+.page:has(> :last-child:is(.section-alt, .page-contact .contact)),
+.page-contact {
+  padding-bottom: 0;
 }
 .post-layout:not(:has(.toc)) {
   grid-template-columns: minmax(0, 760px);
@@ -1191,6 +1208,10 @@ p {
 .prose ul,
 .prose ol {
   padding-left: 1.3em;
+}
+/* price ranges in post tables stay on one line ($500–$2,000) */
+.prose .nowrap {
+  white-space: nowrap;
 }
 .prose li + li {
   margin-top: 0.4em;
@@ -1670,7 +1691,7 @@ p {
 .work-link {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  flex: 1; /* fills the card: the double-height featured card's image grows instead of leaving a blank */
   color: inherit;
   text-decoration: none;
 }
@@ -1682,6 +1703,9 @@ p {
   aspect-ratio: auto;
   flex: 1;
   min-height: 280px;
+}
+.work-card[data-featured='true'] .work-body {
+  flex: none;
 }
 .work-card[data-featured='true'] .work-media > img {
   object-position: center top; /* keep the thumbnail's label in frame on the wide card */
@@ -1967,6 +1991,9 @@ p {
   color: var(--muted);
   margin: 0 0 22px;
 }
+.label.wrap {
+  margin-inline: auto;
+}
 .pill-link {
   display: inline-flex;
   align-items: center;
@@ -2168,6 +2195,7 @@ p {
     display: block;
     grid-column: 1 / -1;
     width: 100%;
+    height: auto; /* else the height="500" attribute beats aspect-ratio */
     aspect-ratio: 16 / 10;
     object-fit: cover;
     border-radius: 8px;
@@ -2484,15 +2512,22 @@ p {
   margin-inline: auto;
 }
 .case-media[data-layout='dense'] {
-  display: block;
-  columns: 4 180px;
-  column-gap: clamp(10px, 1.4vw, 20px);
+  --gap: clamp(10px, 1.4vw, 20px);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--gap);
   max-width: 1400px;
   margin-inline: auto;
 }
+/* rows of four, two on phones; every piece in one gallery shares a shape, so rows line up and a short last row centres */
 .case-media[data-layout='dense'] img {
-  break-inside: avoid;
-  margin-bottom: clamp(10px, 1.4vw, 20px);
+  width: calc((100% - 3 * var(--gap)) / 4);
+}
+@media (max-width: 600px) {
+  .case-media[data-layout='dense'] img {
+    width: calc((100% - var(--gap)) / 2);
+  }
 }
 .case-loop {
   max-width: 1400px;
@@ -2512,6 +2547,14 @@ p {
 .case-media[data-layout='grid'] > video {
   break-inside: avoid;
   margin-bottom: clamp(14px, 2vw, 28px);
+}
+@media (min-width: 720px) {
+  .case-media[data-layout='grid'] > :last-child:nth-child(odd) {
+    column-span: all;
+    display: block;
+    width: calc(50% - clamp(14px, 2vw, 28px) / 2);
+    margin-inline: auto;
+  }
 }
 .case-clips {
   display: grid;
@@ -2582,6 +2625,7 @@ p {
   grid-row: 1 / 3;
   grid-column: 2;
   width: 100%;
+  height: auto; /* else the height="500" attribute beats aspect-ratio */
   aspect-ratio: 16 / 10;
   object-fit: cover;
   border-radius: 6px;
@@ -2600,6 +2644,7 @@ p {
   }
   .case-next > a:first-child {
     grid-template-columns: 1fr;
+    align-self: stretch;
   }
   .case-next img {
     grid-row: auto;
@@ -2983,7 +3028,7 @@ html:not(.intro) .hero .viewfinder video {
   .deck li img {
     grid-column: 3;
     grid-row: 2;
-    height: 100%;
+    align-self: stretch;
     min-height: 240px;
     aspect-ratio: auto;
     margin-top: clamp(22px, 4vw, 48px);

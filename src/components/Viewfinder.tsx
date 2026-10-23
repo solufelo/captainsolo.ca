@@ -105,8 +105,6 @@ export function Viewfinder() {
       </video>
       <span className="vf-corner tl" aria-hidden="true" />
       <span className="vf-corner tr" aria-hidden="true" />
-      <span className="vf-corner br" aria-hidden="true" />
-      <span className="vf-corner bl" aria-hidden="true" />
       {!held && <span className="vf-cross" aria-hidden="true" />}
       {held && !rolling && (
         <button type="button" className="vf-play" onClick={toggle}>

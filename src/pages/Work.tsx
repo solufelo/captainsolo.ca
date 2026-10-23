@@ -98,7 +98,8 @@ export function Work() {
           </div>
           <div>
             <dt>Built with</dt>
-            <dd>{project.tags.join(' · ')}</dd>
+            {/* non-breaking spaces keep "Sony A6100" or "New York" on one line on a phone */}
+            <dd>{project.tags.map((t) => t.replaceAll(' ', '\u00a0')).join(' · ')}</dd>
           </div>
           {(demo || source) && (
             <div>
@@ -106,12 +107,12 @@ export function Work() {
               <dd className="case-links">
                 {demo && (
                   <a href={demo.href} {...(external(demo.href) && { target: '_blank', rel: 'noopener noreferrer' })}>
-                    {demo.label} ↗
+                    {demo.label}&nbsp;↗
                   </a>
                 )}
                 {source && (
                   <a href={source} target="_blank" rel="noopener noreferrer">
-                    Source ↗
+                    Source&nbsp;↗
                   </a>
                 )}
               </dd>
@@ -144,7 +145,7 @@ export function Work() {
       <section className="case-media" data-layout={project.layout} aria-label="The work">
         {project.video ? (
           <figure className="case-video">
-            <video src={project.video} poster={project.image} controls playsInline preload="none" aria-label={`${project.title}, full video`} />
+            <video src={project.video} poster={project.poster ?? project.image} controls playsInline preload="none" aria-label={`${project.title}, full video`} />
             {project.sound && <figcaption className="case-sound">{project.sound}</figcaption>}
           </figure>
         ) : (
