@@ -56,6 +56,20 @@ const fixed: Record<string, Omit<Meta, 'path'>> = {
     description: 'Websites, web apps, brand video and sports reels by Solomon Olufelo, Brampton.',
     image: '/og/work.jpg',
   },
+  '/services/music-videos': {
+    title: 'Music Video Director in Brampton & the GTA | Solomon Olufelo',
+    description: 'Music videos directed, shot and edited for Kenoh, TGK, Dela, Yung Koba, JFinesse and FujiWill. Based in Brampton, shooting across the GTA.',
+    image: '/og/music-videos.jpg',
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      name: 'Music video production',
+      serviceType: 'Music video production',
+      url: `${site.url}/services/music-videos`,
+      provider: { '@type': 'ProfessionalService', '@id': business['@id'], name: site.name, url: site.url },
+      areaServed: business.areaServed,
+    },
+  },
   '/services': {
     title: 'Video, Photo & Web Services in Brampton | Solomon Olufelo',
     description: 'Shoot, Shoot + site and Full brand packages, plus monthly site care and content shoots. Quoted after a short call.',

@@ -249,6 +249,7 @@ function Footer() {
         <nav aria-label="Site">
           <p className="label">More</p>
           <ul>
+            <li><Link to="/services/music-videos">Music videos</Link></li>
             <li><Link to="/blog">Blog</Link></li>
             <li><Link to="/voice-tags">Voice tags</Link></li>
             <li><Link to="/privacy-policy">Privacy</Link></li>

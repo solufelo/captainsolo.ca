@@ -5,6 +5,7 @@ import { Home } from './pages/Home'
 import { BlogIndex } from './pages/BlogIndex'
 import { WorkIndex } from './pages/WorkIndex'
 import { ServicesPage } from './pages/ServicesPage'
+import { MusicVideos } from './pages/MusicVideos'
 import { Book } from './pages/Book'
 import { VoiceTags } from './pages/VoiceTags'
 import { ContactPage } from './pages/ContactPage'
@@ -67,6 +68,7 @@ export function App() {
             }
           />
           <Route path="services" element={<ServicesPage />} />
+          <Route path="services/music-videos" element={<MusicVideos />} />
           <Route path="book" element={<Book />} />
           <Route path="voice-tags" element={<VoiceTags />} />
           <Route

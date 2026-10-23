@@ -82,8 +82,9 @@ p = await newPage()
 await p.goto(BASE + '/', { waitUntil: 'load' })
 check('one hero (no duplicate render)', (await p.locator('.hero').count()) === 1)
 check('home lists 8 projects', (await p.locator('.work-row').count()) === 8)
-// 400 plus room for one real client quote under the reels (counted here with the reduced-motion note showing)
-check('home stays short (under 410 words)', (await p.evaluate(() => document.body.innerText.split(/\s+/).filter(Boolean).length)) < 410)
+// 400 plus room for one real client quote under the reels (counted here with the reduced-motion note showing),
+// plus 2 for the footer's "Music videos" link
+check('home stays short (under 412 words)', (await p.evaluate(() => document.body.innerText.split(/\s+/).filter(Boolean).length)) < 412)
 check('home leads with the client problem', (await p.locator('#problem-title').innerText()).includes('better than it looks online'))
 await p.locator('.faq summary').first().click()
 check('FAQ answers open', await p.locator('.faq details').first().evaluate((d) => d.open))

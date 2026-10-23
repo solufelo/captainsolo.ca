@@ -127,6 +127,11 @@ export function Work() {
             </div>
           )}
         </dl>
+        {project.kind === 'Music video' && (
+          <Link to="/services/music-videos" className="arrow-link">
+            Need a music video? See how I work
+          </Link>
+        )}
       </header>
 
       {project.quote && (

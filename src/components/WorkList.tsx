@@ -9,7 +9,8 @@ import { reducedMotion } from '../motion'
  * The hovered project plays its silent loop on top of its card. On touch screens each row shows its thumbnail instead.
  * Reduced motion: the still card sits under the pointer, with no trailing, tilt or video.
  */
-export function WorkList({ items }: { items: Project[] }) {
+/** `byClient`: the right-hand column names the client, for lists that are all one kind (the music videos page). */
+export function WorkList({ items, byClient = false }: { items: Project[]; byClient?: boolean }) {
   const [active, setActive] = useState<Project | null>(null)
   // The strip mounts on first hover, so the home page doesn't load every card up front.
   const [armed, setArmed] = useState(false)
@@ -73,7 +74,7 @@ export function WorkList({ items }: { items: Project[] }) {
             >
               <img className="work-row-thumb" src={p.image} srcSet={phoneSrcSet(p.image)} sizes="100vw" alt="" width="800" height="500" loading="lazy" />
               <h3>{p.title}</h3>
-              <span className="work-row-kind">{p.kind}</span>
+              <span className="work-row-kind">{byClient ? p.client : p.kind}</span>
             </Link>
           </li>
         ))}
