@@ -17,12 +17,27 @@ const shownAt = { screens: '100vw', grid: '(max-width: 700px) 100vw, 50vw', dens
 /** The silent loop at the top of a video case study: plays on its own unless the visitor prefers reduced motion. */
 function Loop({ src, poster, label }: { src: string; poster: string; label: string }) {
   const ref = useRef<HTMLVideoElement>(null)
+  // The poster's size holds the box before the poster or video arrives (scripts/phone_media.py records it).
+  const [w, h] = sizeOf(poster) ?? [16, 9]
   useEffect(() => {
     if (!reducedMotion()) ref.current?.play().catch(() => {})
   }, [src])
   return (
     <figure className="case-loop">
-      <video ref={ref} key={src} poster={poster} muted loop playsInline controls preload="metadata" aria-label={label}>
+      <video
+        ref={ref}
+        key={src}
+        poster={poster}
+        width={w}
+        height={h}
+        style={{ width: `min(100%, calc(86vh * ${w} / ${h}))` }}
+        muted
+        loop
+        playsInline
+        controls
+        preload="metadata"
+        aria-label={label}
+      >
         <source media={PHONE} src={phoneCut(src)} type="video/mp4" />
         <source src={src} type="video/mp4" />
       </video>

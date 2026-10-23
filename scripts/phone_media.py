@@ -75,6 +75,11 @@ for p in sorted({g for g in gallery if g.endswith('.webp')} | set(cards)):
             (small.convert('RGBA') if alpha else small).save(dst, 'WEBP', quality=82, method=6, **extra)
             print(f'{dst.name}: {src.stat().st_size // 1024} -> {dst.stat().st_size // 1024} KB', flush=True)
 
+# Video posters too: the case page sizes its top loop from its poster, so the box is held before anything loads.
+for p in sorted(set(re.findall(r"poster: '(/assets/[^']+\.webp)'", site)) - set(sizes)):
+    with Image.open(PUB / p.lstrip('/')) as im:
+        sizes[p] = im.size
+
 (ROOT / 'src/content/imageSizes.json').write_text(
     '{\n' + ',\n'.join(f'  {json.dumps(p)}: [{w}, {h}]' for p, (w, h) in sizes.items()) + '\n}\n', encoding='utf-8')
 print(len(sizes), 'images sized')

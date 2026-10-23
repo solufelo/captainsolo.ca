@@ -2713,9 +2713,7 @@ p {
 }
 .case-loop video {
   display: block;
-  width: auto;
-  max-width: 100%;
-  max-height: 86vh;
+  height: auto; /* width comes from Work.tsx: the poster's shape, at most the screen's height */
   margin-inline: auto;
   border-radius: 6px;
   background: #000;
