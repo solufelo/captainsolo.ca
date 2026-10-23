@@ -73,10 +73,12 @@ export function Hero() {
         <p className="hero-role">
           Videographer &<br />
           web developer
+          <br />
+          for local businesses and artists
         </p>
       </div>
       <h1 id="hero-title" className="hero-name">
-        <span className="sr-only">{site.name}, videographer and web developer</span>
+        <span className="sr-only">{site.name}, videographer and web developer in Brampton</span>
         <Marquee text={`${site.name} —`} />
       </h1>
     </section>

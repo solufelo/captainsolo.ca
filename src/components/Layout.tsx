@@ -157,7 +157,11 @@ function Header() {
   }, [pathname])
   useEffect(() => {
     if (!open) return
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false)
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return
+      setOpen(false)
+      document.querySelector<HTMLElement>('.menu-btn')?.focus()
+    }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   }, [open])
@@ -222,7 +226,8 @@ function Footer() {
         <dl>
           <div>
             <dt>Version</dt>
-            <dd>{new Date().getFullYear()} Edition</dd>
+            {/* the prerendered year stays until the next build, instead of a hydration error every January */}
+            <dd suppressHydrationWarning>{new Date().getFullYear()} Edition</dd>
           </div>
           <div>
             <dt>Location</dt>

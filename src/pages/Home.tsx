@@ -105,12 +105,15 @@ export function Home() {
 
       <section id="work" className="wrap home-work" aria-labelledby="work-title">
         <h2 id="work-title" className="label">
-          Results
+          Work
         </h2>
         <WorkList items={featured} />
         <div className="more-row">
           <Link to="/work" className="pill-link" data-magnetic="0.25">
             All work <sup>{projects.length}</sup>
+          </Link>
+          <Link to={bookCall} className="pill-link" data-magnetic="0.25">
+            Book a call
           </Link>
         </div>
       </section>

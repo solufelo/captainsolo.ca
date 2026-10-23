@@ -48,12 +48,20 @@ function GalleryLoop({ src, label }: { src: string; label: string }) {
   )
 }
 
-/** "Want this for your business?" pinned to the bottom once the case header scrolls away; gone again when the footer CTA shows. */
+/** "Want something like this?" pinned to the bottom once the case header scrolls away; out of the way while a video's
+ *  controls pass under it, and gone again when the footer CTA shows. */
 function BookBar() {
   const [shown, setShown] = useState(false)
   useEffect(() => {
     let footerIn = false
-    const update = () => setShown(scrollY > 480 && !footerIn)
+    // A video's controls run along its bottom edge: hide while that edge crosses the bar's band at the foot of the screen.
+    const videos = [...document.querySelectorAll('.case video, .case .yt')]
+    const overControls = () =>
+      videos.some((v) => {
+        const { bottom } = v.getBoundingClientRect()
+        return bottom > innerHeight - 112 && bottom < innerHeight + 50
+      })
+    const update = () => setShown(scrollY > 480 && !footerIn && !overControls())
     const footer = document.querySelector('.site-footer')
     const io = new IntersectionObserver(([e]) => ((footerIn = e.isIntersecting), update()))
     if (footer) io.observe(footer)
@@ -65,7 +73,7 @@ function BookBar() {
   }, [])
   return (
     <aside className="book-bar" data-shown={shown} inert={!shown} aria-label="Book a call">
-      <p>Want this for your business?</p>
+      <p>Want something like this?</p>
       <Link to={bookCall} className="btn btn-sm">
         Book a call
       </Link>
@@ -97,7 +105,7 @@ export function Work() {
             <dd>{project.client}</dd>
           </div>
           <div>
-            <dt>Built with</dt>
+            <dt>{project.categories.includes('code') ? 'Built with' : 'Details'}</dt>
             {/* non-breaking spaces keep "Sony A6100" or "New York" on one line on a phone */}
             <dd>{project.tags.map((t) => t.replaceAll(' ', '\u00a0')).join(' · ')}</dd>
           </div>

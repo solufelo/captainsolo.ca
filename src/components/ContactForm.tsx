@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react'
-import { useLocation } from 'react-router'
-import { contactServices, site, socials } from '../content/site'
+import { Link, useLocation } from 'react-router'
+import { bookCall, contactServices, site, socials } from '../content/site'
 import { CopyEmail } from './CopyEmail'
 
 type Status = { kind: 'idle' | 'sending' | 'sent' } | { kind: 'error'; message: string }
@@ -114,7 +114,9 @@ export function ContactSection({ defaultService, isPage = false }: { defaultServ
           <Title id="contact-title" className="section-title">
             Got a project?
           </Title>
-          <p className="lead">The fastest way is email. One tap copies it.</p>
+          <p className="lead">
+            Email me or use the form. I reply within 1–2 business days. Rather talk? <Link to={bookCall}>Book a free call</Link>.
+          </p>
           <CopyEmail />
           <dl className="contact-facts">
             <div>

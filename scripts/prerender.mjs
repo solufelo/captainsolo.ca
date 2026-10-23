@@ -23,12 +23,13 @@ function checkAssets(html) {
 async function page(path, outFile) {
   const meta = metaFor(path)
   const url = SITE + (meta.path === '/' ? '/' : meta.path)
+  const notFound = path === '/404'
   const head = [
     `<meta property="og:type" content="${meta.type ?? 'website'}" />`,
     `<meta property="og:site_name" content="Solomon Olufelo" />`,
     `<meta property="og:title" content="${esc(meta.title)}" />`,
     `<meta property="og:description" content="${esc(meta.description)}" />`,
-    `<meta property="og:url" content="${url}" />`,
+    notFound ? '' : `<meta property="og:url" content="${url}" />`,
     // ?v= makes apps that cached the old card fetch the new one
     `<meta property="og:image" content="${SITE}${meta.image ?? '/og-image.jpg?v=3'}" />`,
     `<meta property="og:image:width" content="1200" />`,
@@ -40,7 +41,7 @@ async function page(path, outFile) {
   const html = template
     .replace(/<title>[\s\S]*?<\/title>/, `<title>${esc(meta.title)}</title>`)
     .replace('<meta name="description" content="" />', `<meta name="description" content="${esc(meta.description)}" />`)
-    .replace('<link rel="canonical" href="https://captainsolo.ca/" />', `<link rel="canonical" href="${url}" />`)
+    .replace('<link rel="canonical" href="https://captainsolo.ca/" />', notFound ? '<meta name="robots" content="noindex" />' : `<link rel="canonical" href="${url}" />`)
     .replace('<!--head-->', head)
     .replace('<!--app-->', () => app) // a function, so a `$&` or `$'` in a post isn't read as a replacement pattern
   if (!html.includes('id="root"><') || html.includes('<!--app-->')) throw new Error(`prerender produced no markup for ${path}`)
@@ -58,10 +59,9 @@ for (const path of prerenderPaths) {
 await page('/404', join(dist, '404.html'))
 if (missing.size) throw new Error(`pages point at missing files (run scripts/phone_media.py or scripts/og_cards.mjs?):\n  ${[...missing].join('\n  ')}`)
 
-const today = new Date().toISOString().slice(0, 10)
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${prerenderPaths.map((p) => `  <url><loc>${SITE}${p === '/' ? '/' : p}</loc><lastmod>${today}</lastmod></url>`).join('\n')}
+${prerenderPaths.map((p) => `  <url><loc>${SITE}${p === '/' ? '/' : p}</loc></url>`).join('\n')}
 </urlset>
 `
 writeFileSync(join(dist, 'sitemap.xml'), sitemap)

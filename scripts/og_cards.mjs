@@ -1,4 +1,4 @@
-// Share cards for the case studies: public/og/<slug>.jpg, 1200x630, the og:image of /work/<slug> (src/meta.ts).
+// Share cards for the case studies and the main pages: public/og/<slug>.jpg, 1200x630, the og:image in src/meta.ts.
 // Run: node scripts/og_cards.mjs [slug ...]   (again after adding a project or changing its title or image; the build
 // fails on a case page whose card is missing). Renders in installed Chrome, which can also seek the H.264 clips.
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
@@ -41,6 +41,24 @@ const still = {
 }
 // Where to centre the crop of a card image that does read.
 const pos = { 'fujiwill-fall-in-love-with-me': '0% 50%', 'kenoh-reroute': '0% 50%' }
+
+// The main pages' cards (public/og/<slug>.jpg, set as `image` in src/meta.ts), each on a real still; home keeps /og-image.jpg.
+const pages = [
+  { slug: 'work', kind: 'Work', title: 'Video, web & 3D', client: 'Music videos, brand promos, websites and apps', still: { src: '/assets/work/laurier-clash-hero.webp' } },
+  {
+    slug: 'services',
+    kind: 'Services',
+    title: 'Photo, video & websites',
+    client: 'Shoot, Shoot + site and Full brand, for businesses in Brampton and the GTA',
+    still: { src: '/assets/videos/barbershop-promo-q.mp4', t: 53.6, pos: '50% 25%' },
+  },
+  { slug: 'about', kind: 'About', title: 'Credits & résumé', client: 'Videographer, web developer and music producer', still: { src: '/assets/work/laurier-broadcast-v2.webp' } },
+  { slug: 'book', kind: 'Book a call', title: '30 minutes', client: 'A free call about your website, photos or video', still: { src: '/assets/work/call-booking.webp' } },
+  { slug: 'contact', kind: 'Contact', title: 'Let’s talk', client: 'work@captainsolo.ca · replies within 1–2 business days', still: { src: '/assets/work/savyan-salon-v2-2-cc.webp', pos: '50% 30%' } },
+  { slug: 'blog', kind: 'Blog', title: 'Notes & guides', client: 'Web dev, video, music and local business tips', still: { src: '/assets/work/ten-fold-2-cc.webp' } },
+  { slug: 'voice-tags', kind: 'Voice tags', title: 'Producer tags', client: 'Custom tags and DJ drops, delivered in 24 hours', still: { src: '/assets/work/plaques-2.webp', pos: '50% 30%' } },
+].map((p) => ({ ...p, image: p.still.src }))
+for (const p of pages) if (projects.some((q) => q.slug === p.slug)) throw new Error(`og/${p.slug}.jpg would be both a page card and a case card`)
 
 // The Cut, exactly as src/components/Mark.tsx draws it.
 const markSrc = readFileSync(join(root, 'src/components/Mark.tsx'), 'utf8')
@@ -87,7 +105,7 @@ html, body { margin: 0; background: #0b0d14; }
 `
 
 function html(p) {
-  const s = still[p.slug]
+  const s = still[p.slug] ?? p.still
   const at = `style="object-position: ${s?.pos ?? pos[p.slug] ?? '50% 50%'}"`
   const media = s?.t != null
     ? `<video src="${file('public' + s.src)}" muted preload="auto" ${at} data-t="${s.t}"></video>`
@@ -129,7 +147,7 @@ async function fit() {
 }
 
 const only = process.argv.slice(2)
-const todo = only.length ? projects.filter((p) => only.includes(p.slug)) : projects
+const todo = only.length ? [...projects, ...pages].filter((p) => only.includes(p.slug)) : [...projects, ...pages]
 for (const p of todo) for (const k of ['title', 'kind', 'client', 'image']) if (!p[k]) throw new Error(`${p.slug}: no ${k} found in site.ts`)
 if (!todo.length) throw new Error(`no projects match ${only.join(' ')}`)
 

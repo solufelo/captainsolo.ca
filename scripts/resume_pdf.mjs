@@ -31,17 +31,18 @@ ul { margin: 3px 0 0; padding-left: 14px; }
 li + li { margin-top: 2px; }
 .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0 28px; }
 .plain { list-style: none; padding: 0; }
+a { color: inherit; text-decoration: none; }
 .foot { margin-top: 14px; padding-top: 8px; border-top: 1px solid #c9ceda; color: #4a5266; font-size: 8.6pt; }
 </style></head><body>
 <h1>Solomon Olufelo</h1>
 <p class="role">Videographer · Web developer · Music producer</p>
-<p class="contact">Brampton, ON · work@captainsolo.ca · captainsolo.ca</p>
+<p class="contact">Brampton, ON · <a href="mailto:work@captainsolo.ca">work@captainsolo.ca</a> · <a href="https://captainsolo.ca">captainsolo.ca</a> · <a href="https://github.com/solufelo">github.com/solufelo</a></p>
 <p class="summary">${esc(summary)}</p>
 <h2>Experience</h2>
 ${experience
   .map(
     (j) => `<div class="job"><div class="job-head"><span><strong>${esc(j.role)}</strong> <span class="org">· ${esc(j.org)}, ${esc(j.place)}</span></span><span class="when">${esc(j.when)}</span></div>
-<ul>${j.points.map((p) => `<li>${esc(p)}</li>`).join('')}</ul></div>`,
+<ul>${j.points.map((p) => `<li>${esc(p.replace('this site', 'captainsolo.ca'))}</li>`).join('')}</ul></div>`, // the About page's "this site" means nothing on paper
   )
   .join('')}
 <div class="cols">
@@ -49,7 +50,7 @@ ${experience
 <h2>Awards</h2><ul class="plain">${awards.map((a) => `<li>${esc(a.name)} <span class="when">· ${esc(a.when)}</span></li>`).join('')}</ul></div>
 <div><h2>Tools</h2><ul class="plain">${tools.map((t) => `<li><strong>${esc(t.area)}:</strong> ${t.items.map(esc).join(', ')}</li>`).join('')}</ul></div>
 </div>
-<p class="foot">Work and every credit, with links: captainsolo.ca/work and captainsolo.ca/about</p>
+<p class="foot">Work and every credit, with links: <a href="https://captainsolo.ca/work">captainsolo.ca/work</a> and <a href="https://captainsolo.ca/about">captainsolo.ca/about</a></p>
 </body></html>`
 
 const browser = await chromium.launch()

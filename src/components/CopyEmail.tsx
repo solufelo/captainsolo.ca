@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { site } from '../content/site'
 
-/** One-tap email: copies the address, falls back to mailto where the clipboard is blocked. */
+/** One-tap email: copies the address on desktop, opens the mail app on phones (and wherever the clipboard is blocked). */
 export function CopyEmail({ className = 'btn', compact = false }: { className?: string; compact?: boolean }) {
   const [copied, setCopied] = useState(false)
   useEffect(() => {
@@ -11,6 +11,7 @@ export function CopyEmail({ className = 'btn', compact = false }: { className?: 
   }, [copied])
 
   const copy = async (e: React.MouseEvent) => {
+    if (matchMedia('(pointer: coarse)').matches) return // a phone: the mail app is the quicker path
     try {
       await navigator.clipboard.writeText(site.email)
       e.preventDefault()

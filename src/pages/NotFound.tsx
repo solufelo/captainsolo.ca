@@ -10,8 +10,8 @@ export function NotFound() {
         <Link to="/" className="btn">
           Back home
         </Link>
-        <Link to="/blog" className="btn btn-ghost">
-          Read the blog
+        <Link to="/work" className="btn btn-ghost">
+          See the work
         </Link>
       </div>
     </div>

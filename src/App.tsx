@@ -80,7 +80,15 @@ export function App() {
           <Route path="contact" element={<ContactPage />} />
           <Route path="privacy-policy" element={<Legal page="privacy-policy" />} />
           <Route path="terms-of-service" element={<Legal page="terms-of-service" />} />
-          <Route path="*" element={<NotFound />} />
+          {/* Suspense here too: unknown /work/* and /blog/* URLs prerender inside the lazy routes' boundary, so the 404 must hydrate with one. */}
+          <Route
+            path="*"
+            element={
+              <Suspense>
+                <NotFound />
+              </Suspense>
+            }
+          />
         </Route>
       </Routes>
     </>

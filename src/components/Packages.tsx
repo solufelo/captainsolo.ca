@@ -38,8 +38,12 @@ export function Packages() {
             </li>
           ))}
         </ul>
+        <p className="muted package-artists">
+          Artist? I direct, shoot and edit music videos and design the cover art.{' '}
+          <Link to={contactFor('Music video', 'Music video')}>Ask about a music video</Link>
+        </p>
 
-        <h3 className="group-label after-launch">After launch</h3>
+        <h2 className="group-label after-launch">After launch</h2>
         <div className="care-grid">
           {retainers.map((r) => (
             <div key={r.name} className="care">

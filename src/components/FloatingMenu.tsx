@@ -1,4 +1,4 @@
-import { useEffect, useState, type CSSProperties } from 'react'
+import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { Link, useLocation } from 'react-router'
 import { bookCall, site, socials } from '../content/site'
 
@@ -15,6 +15,7 @@ const links = [
 export function FloatingMenu() {
   const [shown, setShown] = useState(false)
   const [open, setOpen] = useState(false)
+  const btn = useRef<HTMLButtonElement>(null)
   const { pathname } = useLocation()
   useEffect(() => setOpen(false), [pathname])
   useEffect(() => {
@@ -25,14 +26,27 @@ export function FloatingMenu() {
   }, [])
   useEffect(() => {
     if (!open) return
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false)
+    // The panel covers the page: hold it still and keep Tab inside the menu until it closes (Lenis pauses on overflow).
+    const behind = document.querySelectorAll<HTMLElement>('#main, .site-header, .site-footer')
+    document.documentElement.style.overflow = 'hidden'
+    behind.forEach((el) => (el.inert = true))
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return
+      setOpen(false)
+      btn.current?.focus()
+    }
     addEventListener('keydown', onKey)
-    return () => removeEventListener('keydown', onKey)
+    return () => {
+      removeEventListener('keydown', onKey)
+      document.documentElement.style.overflow = ''
+      behind.forEach((el) => (el.inert = false))
+    }
   }, [open])
 
   return (
     <>
       <button
+        ref={btn}
         type="button"
         className="float-menu-btn"
         data-magnetic

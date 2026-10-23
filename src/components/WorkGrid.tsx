@@ -34,7 +34,8 @@ export function WorkCard({ p, featured = false, i = 0 }: { p: Project; featured?
             width="800"
             height="500"
           />
-          <span className={`status status-${p.status}`}>{p.status === 'live' ? 'Live' : 'In progress'}</span>
+          {/* "Live" read as a website status on music videos and shoots; only work in progress is flagged */}
+          {p.status === 'wip' && <span className="status status-wip">In progress</span>}
           {p.video && (
             <span className="play-badge" aria-hidden="true">
               <svg viewBox="0 0 24 24">

@@ -54,30 +54,36 @@ const fixed: Record<string, Omit<Meta, 'path'>> = {
   '/work': {
     title: `Work | Websites, Apps & Video by ${site.name}`,
     description: 'Websites, web apps, brand video and sports reels by Solomon Olufelo, Brampton.',
+    image: '/og/work.jpg',
   },
   '/services': {
-    title: 'Services | Websites, Photo & Video for GTA Businesses | Solomon Olufelo',
+    title: 'Video, Photo & Web Services in Brampton | Solomon Olufelo',
     description: 'Shoot, Shoot + site and Full brand packages, plus monthly site care and content shoots. Quoted after a short call.',
+    image: '/og/services.jpg',
   },
   ...(site.cal && {
-    '/book': { title: 'Book a call | Solomon Olufelo', description: 'Pick a time for a free 30-minute call about your website, photos or video.' },
+    '/book': { title: 'Book a call | Solomon Olufelo', description: 'Pick a time for a free 30-minute call about your website, photos or video.', image: '/og/book.jpg' },
   }),
   '/blog': {
-    title: 'Blog | Web Dev, Videography, AI Tools & Music Production | Solomon Olufelo',
+    title: 'Blog: Web, Video, AI & Music Guides | Solomon Olufelo',
     description: 'Guides on web development, videography, music production, study tools and local business tips for Brampton and the GTA.',
+    image: '/og/blog.jpg',
   },
   '/voice-tags': {
     title: 'Voice Tags & Producer Tags | 24-Hour Delivery | Solomon Olufelo',
     description: 'Custom voice tags, producer tags and DJ drops. Listen to real samples, pick a style, and order a single tag with 24-hour delivery.',
+    image: '/og/voice-tags.jpg',
   },
   '/about': {
     title: 'About | Credits, Experience & Résumé | Solomon Olufelo',
     description: 'Every credit and the résumé: video for Laurier Athletics and GTA artists and businesses, websites and web apps, and music produced as Solufelo.',
+    image: '/og/about.jpg',
     jsonLd: { '@context': 'https://schema.org', '@type': 'ProfilePage', mainEntity: creator },
   },
   '/contact': {
-    title: 'Contact | Web Development & Videography in Brampton | Solomon Olufelo',
+    title: 'Contact | Web & Video in Brampton | Solomon Olufelo',
     description: 'Tell me about your website, app, video or voice-tag project. I reply within 1–2 business days.',
+    image: '/og/contact.jpg',
   },
   '/privacy-policy': { title: 'Privacy Policy | Solomon Olufelo', description: 'What this site collects and how it’s used.' },
   '/terms-of-service': { title: 'Terms of Service | Solomon Olufelo', description: 'Terms for Solomon Olufelo’s services.' },
@@ -91,9 +97,10 @@ export function metaFor(path: string): Meta {
     const image = `/og/${project.slug}.jpg` // scripts/og_cards.mjs
     const video = project.demo?.href.match(/^https:\/\/www\.youtube\.com\/watch\?v=([\w-]{11})$/)?.[1]
     const uploadDate = video && uploaded[video]
+    const full = `${project.title} — ${project.client} | ${site.name}`
     return {
-      title: `${project.title} — ${project.client} | ${site.name}`,
-      description: `${project.role}. ${project.summary}`,
+      title: full.length > 60 ? `${project.title} | ${site.name}` : full, // longer ones get cut in results, name first to go
+      description: `${project.summary} ${project.role} by ${site.name}.`,
       path: clean,
       image,
       jsonLd: {
@@ -121,6 +128,8 @@ export function metaFor(path: string): Meta {
         headline: post.title,
         description: post.description,
         datePublished: post.date,
+        dateModified: post.date,
+        image: `${site.url}/og-image.jpg`,
         author: { '@type': 'Person', name: site.name, url: site.url },
         mainEntityOfPage: site.url + clean,
       },

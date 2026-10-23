@@ -22,6 +22,7 @@ export function BlogIndex() {
             </button>
           ))}
         </div>
+        <h2 className="sr-only">Articles</h2>
         <ul className="post-grid">
           {shown.map((p) => (
             <li key={p.slug}>

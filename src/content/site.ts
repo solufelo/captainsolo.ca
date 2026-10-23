@@ -788,5 +788,5 @@ export const process = [
   },
 ]
 
-export const contactServices = ['Brand package', 'Photo / video shoot', 'Website', 'Web app / full-stack build', 'Voice tag', 'Collaboration / other']
+export const contactServices = ['Brand package', 'Photo / video shoot', 'Music video', 'Website', 'Web app / full-stack build', 'Voice tag', 'Collaboration / other']
 export const budgets = ['Under $1,000', '$1,000 – $2,500', '$2,500 – $5,000', '$5,000+', 'Not sure yet']

@@ -25,9 +25,9 @@
         if (localStorage.getItem('motion') === 'on') document.documentElement.classList.add('motion-on')
       } catch (e) {}
       try {
-        // the greeting intro (Curtain.tsx): first page of a visit only
+        // the greeting intro (Curtain.tsx): first visit, home page only. A case study or post opened from search starts at once.
         var calm = matchMedia('(prefers-reduced-motion: reduce)').matches && !document.documentElement.classList.contains('motion-on')
-        if (!sessionStorage.getItem('intro-seen') && !calm) document.documentElement.classList.add('intro')
+        if (!sessionStorage.getItem('intro-seen') && !calm && location.pathname === '/') document.documentElement.classList.add('intro')
         // Slow phones: if the greeting hasn't started within 2.5 s, lift the cover anyway (Curtain.tsx then skips it).
         setTimeout(function () {
           var r = document.documentElement
