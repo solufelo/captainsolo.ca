@@ -63,6 +63,16 @@ function GalleryLoop({ src, label }: { src: string; label: string }) {
   )
 }
 
+/** The service page a case study points to, with the line that links it. */
+const serviceFor = (p: { kind: string; categories: string[] }) =>
+  p.kind === 'Music video'
+    ? (['music-videos', 'Need a music video? See how I work'] as const)
+    : p.categories.includes('code')
+      ? (['websites', 'Need a website? See how I build them'] as const)
+      : p.categories.includes('video')
+        ? (['video', 'Need video for your business? See how I work'] as const)
+        : undefined
+
 /** "Want something like this?" pinned to the bottom once the case header scrolls away; out of the way while a video's
  *  controls pass under it, and gone again when the footer CTA shows. */
 function BookBar() {
@@ -142,9 +152,9 @@ export function Work() {
             </div>
           )}
         </dl>
-        {project.kind === 'Music video' && (
-          <Link to="/services/music-videos" className="arrow-link">
-            Need a music video? See how I work
+        {serviceFor(project) && (
+          <Link to={`/services/${serviceFor(project)![0]}`} className="arrow-link">
+            {serviceFor(project)![1]}
           </Link>
         )}
       </header>

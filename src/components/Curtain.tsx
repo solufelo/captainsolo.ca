@@ -4,7 +4,7 @@ import { reducedMotion } from '../motion'
 
 // "Welcome" in the languages of the people I work with, ending in Yoruba.
 const GREETINGS = ['Hello', 'Bonjour', 'Hola', 'Ciao', 'Olá', 'Hallo', 'Ẹ kú àbọ̀']
-const LABELS: Record<string, string> = { '/': 'Home', '/work': 'Work', '/services': 'Services', '/services/music-videos': 'Music videos', '/book': 'Book a call', '/contact': 'Contact', '/blog': 'Blog', '/voice-tags': 'Voice tags' }
+const LABELS: Record<string, string> = { '/': 'Home', '/work': 'Work', '/services': 'Services', '/services/music-videos': 'Music videos', '/services/video': 'Video', '/services/websites': 'Websites', '/book': 'Book a call', '/contact': 'Contact', '/blog': 'Blog', '/voice-tags': 'Voice tags' }
 const labelFor = (path: string) => LABELS[path] ?? (path.startsWith('/work/') ? 'Work' : path.startsWith('/blog/') ? 'Blog' : '')
 const reduced = () => reducedMotion()
 const useIso = typeof window === 'undefined' ? useEffect : useLayoutEffect

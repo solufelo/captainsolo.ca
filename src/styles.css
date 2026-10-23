@@ -813,6 +813,16 @@ p {
   text-transform: uppercase;
   color: var(--muted);
 }
+.service-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+.service-includes {
+  margin-top: clamp(28px, 4vw, 44px);
+  max-width: 640px;
+}
 .package-artists {
   margin: 24px 0 0;
 }

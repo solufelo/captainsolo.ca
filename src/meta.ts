@@ -35,6 +35,17 @@ const business = {
   sameAs: creator.sameAs,
 }
 
+// A service page's search data: what it is, and that the business above provides it in the same ten cities.
+const service = (name: string, path: string) => ({
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name,
+  serviceType: name,
+  url: `${site.url}${path}`,
+  provider: { '@type': 'ProfessionalService', '@id': business['@id'], name: site.name, url: site.url },
+  areaServed: business.areaServed,
+})
+
 // Upload dates of the case studies' YouTube videos, as their channels show them (Portfolio-Archive/_triage/web-credits/
 // credits.json, matched by URL). A video without one here gets CreativeWork data: never a guessed date.
 const uploaded: Record<string, string> = {
@@ -60,15 +71,20 @@ const fixed: Record<string, Omit<Meta, 'path'>> = {
     title: 'Music Video Director in Brampton & the GTA | Solomon Olufelo',
     description: 'Music videos directed, shot and edited for Kenoh, TGK, Dela, Yung Koba, JFinesse and FujiWill. Based in Brampton, shooting across the GTA.',
     image: '/og/music-videos.jpg',
-    jsonLd: {
-      '@context': 'https://schema.org',
-      '@type': 'Service',
-      name: 'Music video production',
-      serviceType: 'Music video production',
-      url: `${site.url}/services/music-videos`,
-      provider: { '@type': 'ProfessionalService', '@id': business['@id'], name: site.name, url: site.url },
-      areaServed: business.areaServed,
-    },
+    jsonLd: service('Music video production', '/services/music-videos'),
+  },
+  // These two replace January 2025 blog posts (public/_redirects): same search intent, only claims the work backs.
+  '/services/video': {
+    title: 'Brampton Videographer for Brands & Events | Solomon Olufelo',
+    description: 'Promos, event coverage and social reels for Brampton and GTA businesses: barbershops, salons, clothing labels and club nights. Quoted after a short call.',
+    image: '/og/video.jpg',
+    jsonLd: service('Video production', '/services/video'),
+  },
+  '/services/websites': {
+    title: 'Web Design & Development in Brampton | Solomon Olufelo',
+    description: 'Websites and web apps designed, built and kept current for Brampton and GTA businesses, with a live demo of every build and monthly site care.',
+    image: '/og/websites.jpg',
+    jsonLd: service('Web design and development', '/services/websites'),
   },
   '/services': {
     title: 'Video, Photo & Web Services in Brampton | Solomon Olufelo',

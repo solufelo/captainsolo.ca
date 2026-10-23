@@ -53,6 +53,8 @@ const pages = [
     still: { src: '/assets/videos/barbershop-promo-q.mp4', t: 53.6, pos: '50% 25%' },
   },
   { slug: 'music-videos', kind: 'Music videos', title: 'Directed, shot & edited', client: 'Music videos for Brampton and GTA artists', still: { src: '/assets/work/kenoh-mexico-4.webp', pos: '75% 50%' } },
+  { slug: 'video', kind: 'Video', title: 'Brand & event video', client: 'Promos and reels for GTA businesses', still: { src: '/assets/videos/barbershop-braids.mp4', t: 53, pos: '50% 30%' } },
+  { slug: 'websites', kind: 'Websites', title: 'Built & kept current', client: 'Websites and web apps for GTA businesses', screen: true, still: { src: '/assets/work/suburbia-home-2x.webp' } },
   { slug: 'about', kind: 'About', title: 'Credits & résumé', client: 'Videographer, web developer and music producer', still: { src: '/assets/work/laurier-broadcast-v2.webp' } },
   { slug: 'book', kind: 'Book a call', title: '30 minutes', client: 'A free call about your website, photos or video', still: { src: '/assets/work/call-booking.webp' } },
   { slug: 'contact', kind: 'Contact', title: 'Let’s talk', client: 'work@captainsolo.ca · replies within 1–2 business days', still: { src: '/assets/work/savyan-salon-v2-2-cc.webp', pos: '50% 30%' } },

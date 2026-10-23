@@ -264,6 +264,12 @@ const err = (await p.locator('.form-error').count()) ? await p.locator('.form-er
 check('contact form: valid submit shows "Message sent"', await p.locator('.form-done').isVisible(), err)
 await p.close()
 
+// The two January 2025 Brampton posts became service pages: their URLs must keep sending visitors there
+for (const [from, to] of [['/blog/videography-brampton', '/services/video'], ['/blog/web-developer-brampton', '/services/websites']]) {
+  const res = await fetch(BASE + from, { redirect: 'manual' })
+  check(`${from} 301s to ${to}`, res.status === 301 && new URL(res.headers.get('location') || '', BASE).pathname === to, `${res.status} ${res.headers.get('location')}`)
+}
+
 const post = (body, headers = {}) =>
   fetch(BASE + '/api/contact', {
     method: 'POST',
