@@ -453,9 +453,9 @@ export const projects: Project[] = [
   {
     slug: 'solvra',
     title: 'SOLVRA',
-    client: 'SOLVRA skincare',
+    client: 'Concept brand',
     role: '3D product visuals',
-    summary: '3D product visuals for a skincare line: stills and a short product film.',
+    summary: '3D product visuals for a concept skincare line: stills and a short product film.',
     kind: '3D product visuals',
     preview: '/assets/previews/solvra-r2.mp4',
     status: 'live',
@@ -704,7 +704,7 @@ export const pains = [
   'One person for the site, another for the shoot, and none of it matches.',
 ]
 
-export const clients = ['Laurier Golden Hawks', 'KOLDHEARTED', 'SOLVRA', 'Sevynn Shades', 'Moksha Canada', 'Vair Studios', 'UpTop Movement', 'TGK', '10k Moss', 'Dela', 'J.V', 'Kenoh', 'JFinesse']
+export const clients = ['Laurier Golden Hawks', 'KOLDHEARTED', 'Sevynn Shades', 'Moksha Canada', 'Vair Studios', 'UpTop Movement', 'TGK', '10k Moss', 'Dela', 'J.V', 'Kenoh', 'JFinesse']
 
 export const offers = [
   { title: 'Websites', line: 'A fast site that brings in bookings, and that you can update yourself.' },
