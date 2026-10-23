@@ -22,7 +22,7 @@ export const site = {
 
 export const socials = [
   { label: 'Instagram', href: 'https://www.instagram.com/caaptainsolo/' },
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/solomon-olufeo-854360241/' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/solomonolufelo/' }, // his profile's own public URL (2026-10-23)
   { label: 'GitHub', href: 'https://github.com/solufelo' },
   { label: 'YouTube', href: 'https://www.youtube.com/@caaptainsolo5663' },
 ]
