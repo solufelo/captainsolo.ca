@@ -78,7 +78,7 @@ export function VoiceTags() {
       <header className="page-head wrap vt-hero">
         <p className="kicker">Voice tags · producer tags · DJ drops</p>
         <h1 className="page-title">Make your beats instantly recognizable</h1>
-        <p className="lead">Custom tags recorded, mixed and mastered in 24 hours. Wet and dry versions, full commercial rights.</p>
+        <p className="lead">Single tags recorded, mixed and mastered in 24 hours; the Brand Pack in 48. Wet and dry versions, full commercial rights.</p>
         <div className="hero-ctas">
           <a className="btn" href={site.airgigs.tag} target="_blank" rel="noopener noreferrer">
             Order on AirGigs
@@ -144,7 +144,7 @@ export function VoiceTags() {
         <ul className="price-grid">
           {packages.map((p) => (
             <li key={p.name} className="price" data-popular={p.popular ?? false}>
-              {p.popular && <p className="price-flag">Most popular</p>}
+              {p.popular && <p className="price-flag">Most complete</p>}
               <h3>{p.name}</h3>
               <p className="price-amount">
                 ${p.price}

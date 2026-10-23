@@ -18,7 +18,7 @@ export const samples = [
 ].map((s) => ({ ...s, src: dir + encodeURIComponent(s.file) }))
 
 export const perks = [
-  { title: 'Fast delivery', body: 'Custom tags delivered in 24 hours or less. Rush delivery is available for urgent projects.' },
+  { title: 'Fast delivery', body: 'A single tag in 24 hours, the Brand Pack in 48. Rush delivery is available for urgent projects.' },
   { title: 'Multiple voice styles', body: 'Aggressive trap, smooth Metro-style, clean versatile, playful or radio. A female voice is available as a labelled AI option.' },
   { title: 'Studio quality', body: 'Recorded on professional gear, mixed, mastered and ready to drop into your beats.' },
   { title: 'Wet + dry versions', body: 'A dry stem for your own mix, plus a wet version fully produced with FX.' },
@@ -30,7 +30,7 @@ export const styles = [
   { name: 'Aggressive / Trap', body: 'High-energy, chesty, powerful delivery.', bestFor: 'Trap, drill, hard-hitting beats', energy: '9–10', example: '“[NAME] made this heat!”' },
   { name: 'Smooth / Metro-style', body: 'Confident, breathy, laid-back.', bestFor: 'R&B, melodic hip-hop, chill beats', energy: '6–7', example: '“You know it’s [NAME]…”' },
   { name: 'Clean / Versatile', body: 'Professional, neutral energy that works across genres.', bestFor: 'Any genre, YouTube beats', energy: '7–8', example: '“[NAME] on the beat”' },
-  { name: 'Seductive / R&B (AI female voice)', body: 'Smooth, breathy, intimate. Produced with an AI voice, mixed by me.', bestFor: 'R&B, soul, late-night productions', energy: '5–6', example: '“It’s Natasha… you know the vibe”' },
+  { name: 'Seductive / R&B (AI female voice)', body: 'Smooth, breathy, intimate. Produced with an AI voice, mixed by me.', bestFor: 'R&B, soul, late-night productions', energy: '5–6', example: '“It’s [NAME]… you know the vibe”' },
   { name: 'Playful / Pi’erre-style', body: 'Staccato, bouncy, energetic. Fun and hype.', bestFor: 'Playful trap, bouncy beats', energy: '9–10', example: '“[NAME]! Let’s go!”' },
   { name: 'Radio / DJ drop', body: 'Professional announcer voice.', bestFor: 'DJ sets, mixtapes, radio', energy: '7–8', example: '“DJ [NAME] in the mix”' },
 ]

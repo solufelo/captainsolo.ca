@@ -2,10 +2,10 @@ import { getProject, projects, site } from './content/site'
 import { getPost, posts } from './content/posts'
 import legal from './content/legal.json'
 
-export type Meta = { title: string; description: string; path: string; type?: 'website' | 'article'; jsonLd?: object }
+/** `image`: the page's share card (og:image), a path under public/; pages without one use /og-image.jpg. */
+export type Meta = { title: string; description: string; path: string; type?: 'website' | 'article'; image?: string; jsonLd?: object }
 
-const person = {
-  '@context': 'https://schema.org',
+const creator = {
   '@type': 'Person',
   name: site.name,
   alternateName: site.alias,
@@ -15,15 +15,29 @@ const person = {
   address: { '@type': 'PostalAddress', addressLocality: 'Brampton', addressRegion: 'ON', addressCountry: 'CA' },
 }
 
+// Upload dates of the case studies' YouTube videos, as their channels show them (Portfolio-Archive/_triage/web-credits/
+// credits.json, matched by URL). A video without one here gets CreativeWork data: never a guessed date.
+const uploaded: Record<string, string> = {
+  uIts3LeNtbs: '2024-10-31',
+  N5jcnlP1PLU: '2023-08-17',
+  hWXnXhGhBYg: '2026-01-21',
+  EW3lemJXpzE: '2026-03-27',
+  'apHpz-q5Z_8': '2025-09-25',
+  CLlMd5SBxTs: '2026-08-24',
+  YM3hKK1O7_g: '2024-04-06',
+  'fkc-Vnrbr5Y': '2023-10-29',
+  '8MDTS1aIbPQ': '2024-10-19',
+}
+
 const fixed: Record<string, Omit<Meta, 'path'>> = {
-  '/': { title: `${site.name} — Videographer & Web Developer, Brampton`, description: site.description, jsonLd: person },
+  '/': { title: `${site.name} — Videographer & Web Developer, Brampton`, description: site.description, jsonLd: { '@context': 'https://schema.org', ...creator } },
   '/work': {
     title: `Work | Websites, Apps & Video by ${site.name}`,
     description: 'Websites, web apps, brand video and sports reels by Solomon Olufelo, Brampton.',
   },
   '/services': {
     title: 'Services | Websites, Photo & Video for GTA Businesses | Solomon Olufelo',
-    description: 'Shoot, Shoot + Site and Full brand packages, plus monthly site care and content shoots. Quoted after a short call.',
+    description: 'Shoot, Shoot + site and Full brand packages, plus monthly site care and content shoots. Quoted after a short call.',
   },
   ...(site.cal && {
     '/book': { title: 'Book a call | Solomon Olufelo', description: 'Pick a time for a free 30-minute call about your website, photos or video.' },
@@ -34,7 +48,7 @@ const fixed: Record<string, Omit<Meta, 'path'>> = {
   },
   '/voice-tags': {
     title: 'Voice Tags & Producer Tags | 24-Hour Delivery | Solomon Olufelo',
-    description: 'Custom voice tags, producer tags and DJ drops. Listen to real samples, pick a style, and order with 24-hour delivery.',
+    description: 'Custom voice tags, producer tags and DJ drops. Listen to real samples, pick a style, and order a single tag with 24-hour delivery.',
   },
   '/contact': {
     title: 'Contact | Web Development & Videography in Brampton | Solomon Olufelo',
@@ -49,10 +63,24 @@ export function metaFor(path: string): Meta {
   if (fixed[clean]) return { ...fixed[clean], path: clean }
   const project = clean.startsWith('/work/') ? getProject(clean.slice(6)) : undefined
   if (project) {
+    const image = `/og/${project.slug}.jpg` // scripts/og_cards.mjs
+    const video = project.demo?.href.match(/^https:\/\/www\.youtube\.com\/watch\?v=([\w-]{11})$/)?.[1]
+    const uploadDate = video && uploaded[video]
     return {
       title: `${project.title} — ${project.client} | ${site.name}`,
       description: `${project.role}. ${project.summary}`,
       path: clean,
+      image,
+      jsonLd: {
+        '@context': 'https://schema.org',
+        '@type': uploadDate ? 'VideoObject' : 'CreativeWork',
+        name: project.title,
+        description: project.summary,
+        creator,
+        image: site.url + image,
+        url: site.url + clean,
+        ...(uploadDate && { thumbnailUrl: site.url + image, embedUrl: `https://www.youtube.com/embed/${video}`, uploadDate }),
+      },
     }
   }
   const post = clean.startsWith('/blog/') ? getPost(clean.slice(6)) : undefined

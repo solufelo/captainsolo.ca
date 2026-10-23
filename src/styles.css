@@ -2806,6 +2806,7 @@ html.intro .curtain,
   position: relative;
   z-index: 3;
   height: 0;
+  overflow-x: clip; /* the bow is 120% wide; without this every page scrolled sideways (39 px on a phone) */
 }
 .footer-curve div {
   position: absolute;
@@ -3317,4 +3318,124 @@ html.has-cursor .cursor-ripple {
 :is(.btn, .pill-link, .icon-btn)[data-magnetic]:hover {
   transition-duration: 0.25s, 0.55s, 0.15s, 0.15s, 0.3s, 0.2s;
   transition-timing-function: var(--ease-out), var(--spring), ease, ease, ease, ease;
+}
+
+/* ---------- Case pages: the full video, played here (YouTube.tsx) ---------- */
+/* Poster and a round play button until pressed; only then does YouTube's player load. */
+.case-yt {
+  max-width: 1400px;
+  margin: clamp(40px, 6vw, 88px) auto;
+  padding-inline: clamp(8px, 2vw, 28px);
+}
+/* never taller than the screen, like the loop above it */
+.case-yt > * {
+  max-width: calc(86vh * 16 / 9);
+  margin-inline: auto;
+}
+.yt {
+  position: relative;
+  aspect-ratio: 16 / 9;
+}
+.yt > * {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: 6px;
+  background: #05070d;
+}
+.yt-facade {
+  display: grid;
+  place-items: center;
+  padding: 0;
+  overflow: hidden;
+  color: #fff;
+  cursor: pointer;
+}
+.yt-facade img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: scale 0.9s var(--ease-out);
+}
+/* the viewfinder's smoke, so the pill reads over the brightest poster */
+.yt-facade::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgb(5 7 13 / 0.72), rgb(5 7 13 / 0.12) 50%, rgb(5 7 13 / 0.2));
+}
+.yt-play {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: clamp(64px, 9vw, 120px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--accent);
+  color: var(--on-accent);
+  box-shadow: 0 18px 44px -14px rgb(5 7 13 / 0.75);
+  transition: scale 0.55s var(--spring), color 0.3s ease;
+}
+/* white rises through the disc on hover, as on the big orb buttons */
+.yt-play::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: #fff;
+  transform: translateY(101%);
+  transition: transform 0.45s cubic-bezier(0.2, 0.9, 0.2, 1);
+}
+.yt-play svg {
+  width: 38%;
+  fill: currentColor;
+  translate: 6% 0; /* the triangle's weight sits left of its box */
+}
+/* the viewfinder's clip pill */
+.yt-pill {
+  position: absolute;
+  z-index: 1;
+  left: clamp(12px, 2vw, 24px);
+  bottom: clamp(12px, 2vw, 24px);
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgb(5 8 20 / 0.6);
+  backdrop-filter: blur(6px);
+  font: 500 0.74rem/1 var(--mono);
+  letter-spacing: 0.08em;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.yt-facade:is(:hover, :focus-visible) .yt-play {
+  scale: 1.1;
+  color: #0b1020;
+}
+.yt-facade:is(:hover, :focus-visible) .yt-play::before {
+  transform: none;
+}
+.yt-facade:is(:hover, :focus-visible) .yt-pill {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+.yt-facade:is(:hover, :focus-visible) img {
+  scale: 1.04;
+}
+.yt-facade:active .yt-play {
+  scale: 0.94;
+  transition-duration: 0.12s;
+}
+.yt-facade:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 4px;
+}
+/* Reduced motion: hover and focus still change colour; nothing grows. */
+@media (prefers-reduced-motion: reduce) {
+  html:not(.motion-on) .yt-facade :is(img, .yt-play) {
+    scale: none;
+  }
 }

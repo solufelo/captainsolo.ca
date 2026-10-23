@@ -96,7 +96,7 @@ export function Viewfinder() {
         preload="auto"
         onPlaying={() => setRolling(true)}
         onPause={() => setRolling(false)}
-        aria-label="Showreel: barbershop promo, club night and university basketball, shot and edited by Solomon"
+        aria-label="Showreel: brand promos, music videos, 3D product work and Laurier sports, by Solomon Olufelo"
       >
         <source media={TALL} src={reel.tall.webm} type="video/webm" />
         <source media={TALL} src={reel.tall.mp4} type="video/mp4" />

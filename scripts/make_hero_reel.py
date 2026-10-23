@@ -60,7 +60,7 @@ MOMENTS = [
     ('laurier-basketball', 20.70, 'Laurier basketball', 54, 0.28, None),  # drive, layup, the ball drops through the net
     ('tec', 52.76, '10k Moss – TEC', 54, None, 0.4),  # money rain in the built teal loading-bay set; the artist sits left of centre
     ('laurier-opener', 3.00, 'Laurier game day', 54, None, 0.35),  # glossy 3D Golden Hawks helmet in purple smoke; keeps the hawk
-    ('kenoh-mexico', 129.50, 'JV & Kenoh – Mexico', 54, None, (1.0, 0.75)),  # wide two-shot; the phone cut follows the red cap
+    ('kenoh-mexico', 129.50, 'J.V & Kenoh – Mexico', 54, None, (1.0, 0.75)),  # wide two-shot; the phone cut follows the red cap
     ('vair-drop', 19.55, 'Vair Studios', 54, None, 0.85),  # two drop hoodies walk off up the teal stairs; the phone keeps one VAIR back
     ('moksha-festival', 37.06, 'Moksha festival', 54, None, 0.4),  # performer, glow-stick crowd, stage and CO2
     ('kenoh-fanned-out', 121.92, 'Kenoh – Fanned Out', 54, None, 0.45),  # hood up at the Escalade door, golden hour

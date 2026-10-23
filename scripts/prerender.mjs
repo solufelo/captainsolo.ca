@@ -29,7 +29,8 @@ async function page(path, outFile) {
     `<meta property="og:title" content="${esc(meta.title)}" />`,
     `<meta property="og:description" content="${esc(meta.description)}" />`,
     `<meta property="og:url" content="${url}" />`,
-    `<meta property="og:image" content="${SITE}/og-image.jpg?v=3" />`, // ?v= makes apps that cached the old card fetch the new one
+    // ?v= makes apps that cached the old card fetch the new one
+    `<meta property="og:image" content="${SITE}${meta.image ?? '/og-image.jpg?v=3'}" />`,
     `<meta property="og:image:width" content="1200" />`,
     `<meta property="og:image:height" content="630" />`,
     `<meta name="twitter:card" content="summary_large_image" />`,
@@ -44,6 +45,7 @@ async function page(path, outFile) {
     .replace('<!--app-->', () => app) // a function, so a `$&` or `$'` in a post isn't read as a replacement pattern
   if (!html.includes('id="root"><') || html.includes('<!--app-->')) throw new Error(`prerender produced no markup for ${path}`)
   checkAssets(html)
+  if (meta.image && !existsSync(join(dist, meta.image))) missing.add(meta.image)
   mkdirSync(dirname(outFile), { recursive: true })
   writeFileSync(outFile, html)
 }
@@ -54,7 +56,7 @@ for (const path of prerenderPaths) {
   await page(path, path === '/' ? join(dist, 'index.html') : join(dist, path.slice(1) + '.html'))
 }
 await page('/404', join(dist, '404.html'))
-if (missing.size) throw new Error(`pages point at missing files (run scripts/phone_media.py?):\n  ${[...missing].join('\n  ')}`)
+if (missing.size) throw new Error(`pages point at missing files (run scripts/phone_media.py or scripts/og_cards.mjs?):\n  ${[...missing].join('\n  ')}`)
 
 const today = new Date().toISOString().slice(0, 10)
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>

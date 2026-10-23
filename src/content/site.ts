@@ -70,7 +70,7 @@ export const projects: Project[] = [
     slug: 'ten-fold',
     title: 'Ten Fold',
     client: 'TGK',
-    role: 'Edit',
+    role: 'Edited',
     summary: 'Music video filmed between Paris and a Greek island, finished in a film-gate look.',
     kind: 'Music video',
     preview: '/assets/previews/ten-fold-r2.mp4',
@@ -87,7 +87,7 @@ export const projects: Project[] = [
     slug: 'tec',
     title: 'TEC',
     client: '10k Moss',
-    role: 'Edit',
+    role: 'Edited',
     summary: 'A built teal set, hard coloured light and a fire title.',
     kind: 'Music video',
     preview: '/assets/previews/tec-r2.mp4',
@@ -175,7 +175,7 @@ export const projects: Project[] = [
   {
     slug: 'kenoh-mexico',
     title: 'Mexico',
-    client: 'JV and Kenoh',
+    client: 'J.V and Kenoh',
     role: 'Directed, shot and edited',
     summary: 'A kitchen session in a full camcorder look.',
     kind: 'Music video',
@@ -228,7 +228,7 @@ export const projects: Project[] = [
   {
     slug: 'j-finesse-topic',
     title: 'Topic',
-    client: 'J. Finesse',
+    client: 'JFinesse',
     role: 'Directed, shot and edited',
     summary: 'A vinyl wall, a pink room and a graffiti mural, finished in a film-gate look.',
     kind: 'Music video',
@@ -283,7 +283,7 @@ export const projects: Project[] = [
     slug: 'straight-drop',
     title: 'Straight Drop',
     client: '10k Moss',
-    role: 'Edit',
+    role: 'Edited',
     summary: 'New York streets and a packed show, cut to the beat.',
     kind: 'Music video',
     preview: '/assets/previews/straight-drop.mp4',
@@ -395,9 +395,9 @@ export const projects: Project[] = [
   {
     slug: 'godways-ministry',
     title: 'Godways Ministry',
-    client: 'Godways International Ministry, Toronto',
+    client: 'Godways International Ministry (pitch demo)',
     role: 'Design, front end, API, CMS',
-    summary: 'Client pitch demo: the ministry’s real copy and brand, a sermon library, events, and a CMS for staff.',
+    summary: 'Client pitch demo: the ministry’s real copy and brand, a sermon library, events and a CMS for staff.',
     kind: 'Website',
     preview: '/assets/previews/godways-ministry-r2.mp4',
     status: 'live',
@@ -413,7 +413,7 @@ export const projects: Project[] = [
     title: 'captainsolo.ca',
     client: 'Personal project',
     role: 'Design, build, video, hosting',
-    summary: 'This site. Rebuilt October 2026: prerendered React pages, a showreel in a camera viewfinder, and a contact form on Cloudflare Workers.',
+    summary: 'This site. Rebuilt October 2026: prerendered React pages, a showreel in a camera viewfinder and a contact form on Cloudflare Workers.',
     kind: 'This site',
     preview: '/assets/previews/captainsolo-ca-r2.mp4',
     status: 'live',
@@ -486,7 +486,7 @@ export const projects: Project[] = [
   {
     slug: 'cover-art',
     title: 'Cover art',
-    client: 'Kenoh, J Finesse, TGK, JV and others',
+    client: 'Kenoh, JFinesse, TGK, J.V and others',
     role: 'Design, photography',
     summary: 'Single and album covers for GTA artists, from the shoot to the type.',
     kind: 'Cover art',
@@ -497,7 +497,7 @@ export const projects: Project[] = [
     image: '/assets/projects/cover-art-r2-c.webp',
     loop: '/assets/videos/writing-my-story-loop.mp4',
     poster: '/assets/work/writing-my-story-poster-cc.webp',
-    gallery: ['/assets/work/cover-misdirection-m.webp', '/assets/work/cover-get-together.webp', '/assets/work/cover-no-manners.webp', '/assets/work/cover-livin-lies.webp', '/assets/work/cover-how-we-do.webp', '/assets/work/cover-aint-sad-m.webp', '/assets/work/cover-mexico-m.webp', '/assets/work/cover-rubber-band-man.webp', '/assets/work/cover-where-i-live.webp', '/assets/work/cover-jfinesse-chrome.webp', '/assets/work/cover-break-the-bank.webp', '/assets/work/cover-childs-play.webp', '/assets/work/cover-gift-n-curse.webp', '/assets/work/cover-cold-summer.webp', '/assets/work/cover-cold-summer-back.webp', '/assets/work/cover-fairy-remix-m.webp', '/assets/work/cover-i-miss-you.webp'],
+    gallery: ['/assets/work/cover-misdirection-m.webp', '/assets/work/cover-get-together.webp', '/assets/work/cover-no-manners.webp', '/assets/work/cover-livin-lies.webp', '/assets/work/cover-how-we-do.webp', '/assets/work/cover-aint-sad-m.webp', '/assets/work/cover-mexico-m.webp', '/assets/work/cover-rubber-band-man.webp', '/assets/work/cover-where-i-live.webp', '/assets/work/cover-jfinesse-chrome.webp', '/assets/work/cover-break-the-bank.webp', '/assets/work/cover-childs-play-w.webp', '/assets/work/cover-gift-n-curse-w.webp', '/assets/work/cover-cold-summer.webp', '/assets/work/cover-cold-summer-back.webp', '/assets/work/cover-fairy-remix-m.webp', '/assets/work/cover-i-miss-you.webp'],
     layout: 'dense',
   },
   {
@@ -517,10 +517,10 @@ export const projects: Project[] = [
   },
   {
     slug: 'platinum-plaques',
-    title: 'Platinum plaques',
-    client: 'UTM, artist management',
+    title: 'Gold plaque',
+    client: 'UpTop Movement (UTM), artist management',
     role: 'Photography',
-    summary: 'Plaque shoot for an artist-management label: the awards, the details and the artist with them.',
+    summary: 'Plaque shoot for an artist-management label: the award, the details and the artist with it.',
     kind: 'Product photography',
     preview: '/assets/previews/platinum-plaques-r2.mp4',
     status: 'live',
@@ -547,9 +547,9 @@ export const projects: Project[] = [
   },
   {
     slug: 'moksha-festival',
-    title: 'Festival of Diversity',
+    title: 'Toronto Diversity Festival',
     client: 'Moksha Canada',
-    role: 'Edit',
+    role: 'Edited',
     summary: 'Festival promo at Nathan Phillips Square: performers, crowd and kinetic titles.',
     kind: 'Event promo',
     preview: '/assets/previews/moksha-festival-r2.mp4',
@@ -583,8 +583,8 @@ export const projects: Project[] = [
     slug: 'barbershop-promo',
     title: 'Barbershop promo',
     client: 'DoubleRFades',
-    role: 'Shoot, edit, colour',
-    summary: 'High-energy social promo: cinematic cuts synced to the music. Now the go-to shooter for DoubleRFades.',
+    role: 'Shot, edited and colour-graded',
+    summary: 'High-energy social promo: cinematic cuts synced to the music. The barber now calls me his go-to shooter.',
     quote: { text: 'This is acc hard, no cap.', by: 'DoubleRFades' },
     kind: 'Brand video',
     preview: '/assets/previews/barbershop-promo-r2.mp4',
@@ -600,7 +600,7 @@ export const projects: Project[] = [
     slug: 'barbershop-braids',
     title: 'Braids promo',
     client: 'Kay Kombs',
-    role: 'Shoot, edit, colour',
+    role: 'Shot, edited and colour-graded',
     summary: 'A cut, a line-up and fresh braids, start to finish, for the same shop.',
     kind: 'Brand video',
     preview: '/assets/previews/barbershop-braids-r2.mp4',
@@ -615,7 +615,7 @@ export const projects: Project[] = [
     slug: 'club-event',
     title: 'Club event coverage',
     client: 'Event promoter',
-    role: 'Multi-cam shoot, edit',
+    role: 'Shot multi-cam and edited',
     summary: 'Event energy captured with fast, beat-synced editing.',
     kind: 'Event video',
     preview: '/assets/previews/club-event-r2.mp4',
@@ -630,7 +630,7 @@ export const projects: Project[] = [
     slug: 'laurier-basketball',
     title: 'Laurier basketball',
     client: 'Laurier Golden Hawks Athletics',
-    role: 'Shoot, edit',
+    role: 'Shot and edited',
     summary: 'Men’s and women’s highlights from Laurier vs Lakehead, with the hawk animated into the cuts.',
     kind: 'Sports video',
     preview: '/assets/previews/laurier-basketball-r2.mp4',
@@ -678,8 +678,8 @@ export function phoneSrcSet(src: string) {
 // Music videos that credit Solomon in their YouTube description but have no case study here. Each role is
 // the description's own wording (Portfolio-Archive/_triage/web-credits).
 export const credits = [
-  { title: 'REALTALK', artist: 'Yung Koba ft. TGK', role: 'Directed, shot and edited', year: 2024, href: 'https://www.youtube.com/watch?v=7P7KWg8B4js' },
-  { title: 'Change 4 Nun', artist: 'Katozai', role: 'Edit', year: 2024, href: 'https://www.youtube.com/watch?v=ouDl0GwS4cU' },
+  { title: 'REALTALK', artist: 'Yung Koba ft. TGK', role: 'Co-directed, shot and edited', year: 2024, href: 'https://www.youtube.com/watch?v=7P7KWg8B4js' },
+  { title: 'Change 4 Nun', artist: 'Katozai', role: 'Edited', year: 2024, href: 'https://www.youtube.com/watch?v=ouDl0GwS4cU' },
   { title: 'All I Know', artist: 'HighrollerDJay', role: 'VFX', year: 2024, href: 'https://www.youtube.com/watch?v=WJUTy3tlDsM' },
   { title: 'Back At It', artist: 'XXAVI', role: 'VFX', year: 2024, href: 'https://www.youtube.com/watch?v=0v0VPMu9aBI' },
   { title: 'At The Wheel', artist: '10k Moss', role: 'VFX', year: 2024, href: 'https://www.youtube.com/watch?v=6NmtoXAm5fU' },
@@ -687,8 +687,8 @@ export const credits = [
   { title: 'PROVEWRONG', artist: 'Apostoli & Kid Kwazii', role: 'Directed and shot', year: 2023, href: 'https://www.youtube.com/watch?v=-gKAWZMgCjQ' },
   { title: 'UNION', artist: 'BSF N3LLY', role: 'Shot and edited', year: 2023, href: 'https://www.youtube.com/watch?v=HQ0WanNDMCs' },
   { title: 'WEEZY BABY', artist: 'BSF N3LLY', role: 'Shot and edited', year: 2023, href: 'https://www.youtube.com/watch?v=vT0ABFcd0Kw' },
-  { title: 'Perfect Timing', artist: 'Lil Recco', role: 'Edit', year: 2023, href: 'https://www.youtube.com/watch?v=8nF_hjOGBdo' },
-  { title: 'Life of A GoGetter', artist: 'TGK', role: 'Edit', year: 2022, href: 'https://www.youtube.com/watch?v=pp94sT10wkU' },
+  { title: 'Perfect Timing', artist: 'Lil Recco', role: 'Edited', year: 2023, href: 'https://www.youtube.com/watch?v=8nF_hjOGBdo' },
+  { title: 'Life of A GoGetter', artist: 'TGK', role: 'Edited', year: 2022, href: 'https://www.youtube.com/watch?v=pp94sT10wkU' },
 ]
 
 
@@ -699,17 +699,17 @@ export const pains = [
   'One person for the site, another for the shoot, and none of it matches.',
 ]
 
-export const clients = ['Laurier Golden Hawks', 'KOLDHEARTED', 'SOLVRA', 'Sevynn Shades', 'Moksha Canada', 'Vair Studios', 'UTM', 'TGK', '10k Moss', 'Dela', 'J.V', 'Kenoh', 'J Finesse']
+export const clients = ['Laurier Golden Hawks', 'KOLDHEARTED', 'SOLVRA', 'Sevynn Shades', 'Moksha Canada', 'Vair Studios', 'UpTop Movement', 'TGK', '10k Moss', 'Dela', 'J.V', 'Kenoh', 'JFinesse']
 
 export const offers = [
   { title: 'Websites', line: 'A fast site that brings in bookings, and that you can update yourself.' },
   { title: 'Photo & video', line: 'Shoots at your place that make people stop scrolling and walk in.' },
-  { title: 'Care plan', line: 'Hosting, edits and fresh content every month, so it never goes stale.' },
+  { title: 'Site care', line: 'Hosting, edits and fixes every month, so it never goes stale.' },
 ]
 
 export const faqs = [
   { q: 'What does it cost?', a: 'Every project is quoted after a short call, so you only pay for what you need.' },
-  { q: 'Do I need to be technical?', a: 'No. You get a site you can edit yourself and a walkthrough at launch.' },
+  { q: 'Do I need to be technical?', a: 'No. You get a walkthrough at launch, and site care covers edits.' },
   { q: 'Can you shoot at my location?', a: 'Yes: your shop, studio or event, anywhere in the GTA.' },
   { q: 'What happens after launch?', a: 'Site care covers hosting, updates and fixes for one monthly fee. Add content shoots whenever you want fresh material.' },
   { q: 'Do you only work with businesses?', a: 'Mostly local businesses, plus music videos and cover art for artists.' },
@@ -726,11 +726,11 @@ export const brandPackages: BrandPackage[] = [
     id: 'Shoot',
     name: 'Shoot',
     tagline: 'Fresh photos and short-form video for your socials.',
-    includes: ['Half-day photo + video shoot', 'Edited photo set', '3 short vertical edits for Reels / TikTok', 'Colour graded, platform-ready exports'],
+    includes: ['Half-day photo + video shoot', 'Edited photo set', '3 short vertical edits for Reels / TikTok', 'Colour-graded, platform-ready exports'],
   },
   {
     id: 'Shoot + Site',
-    name: 'Shoot + Site',
+    name: 'Shoot + site',
     tagline: 'Everything in Shoot, plus a site that shows it off.',
     includes: ['Everything in Shoot', 'One-page website built around your shoot', 'Contact or booking form to your inbox', 'Domain, hosting and SSL set up', 'Google Business Profile tune-up'],
   },
@@ -740,7 +740,7 @@ export const brandPackages: BrandPackage[] = [
     featured: true,
     tagline: 'A complete personal or business brand you can run yourself.',
     includes: [
-      'Everything in Shoot + Site',
+      'Everything in Shoot + site',
       'Multi-page site with a CMS so you edit your own text and photos',
       'Customer list: every enquiry and booking saved in one place',
       'Business email on your domain',
@@ -774,9 +774,9 @@ export const process = [
   },
   {
     step: 'Launch and care',
-    body: 'Domain, email and Google set up, then I keep it fresh every month.',
+    body: 'Domain and Google set up, then I keep it current every month.',
     image: '/assets/projects/godways-c.webp',
-    alt: 'The Godways Ministry site on a laptop and a phone',
+    alt: 'The Godways Ministry pitch demo on a laptop and a phone',
   },
 ]
 

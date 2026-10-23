@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router'
 import { bookCall, getProject, phoneSrcSet, projects, sizeOf } from '../content/site'
 import { Orb } from '../components/Orb'
+import { YouTube } from '../components/YouTube'
 import alts from '../content/alts.json'
 import { NotFound } from './NotFound'
 import { reducedMotion } from '../motion'
@@ -78,6 +79,8 @@ export function Work() {
   const next = projects[(projects.indexOf(project) + 1) % projects.length]
   const gallery = project.gallery ?? [project.image]
   const { demo, source } = project
+  // A YouTube watch link also gets the full video played here (the id is its ?v=).
+  const youTube = demo?.href.match(/^https:\/\/www\.youtube\.com\/watch\?v=([\w-]{11})(?:&|$)/)?.[1]
 
   return (
     <article className="case">
@@ -124,6 +127,8 @@ export function Work() {
         </blockquote>
       )}
       {project.loop && <Loop src={project.loop} poster={project.poster ?? project.image} label={`${project.title}, silent loop`} />}
+      {/* keyed, so "Next" to another video shows its poster again instead of autoplaying it */}
+      {youTube && <YouTube key={youTube} id={youTube} title={project.title} poster={project.poster ?? project.image} />}
       {project.clips && (
         <section className="case-clips" aria-label="More clips">
           {project.clips.map((c) => (

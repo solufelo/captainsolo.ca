@@ -111,7 +111,7 @@ check('work filter: All shows 35', (await p.locator('.work-card').count()) === 3
 check(
   'more credits: 11 YouTube links that open in a new tab, each read out in full',
   (await p.locator('a.credit[target="_blank"][href^="https://www.youtube.com/watch?v="]').count()) === 11 &&
-    (await p.getByRole('link', { name: 'REALTALK Yung Koba ft. TGK Directed, shot and edited 2024', exact: true }).count()) === 1,
+    (await p.getByRole('link', { name: 'REALTALK Yung Koba ft. TGK Co-directed, shot and edited 2024', exact: true }).count()) === 1,
 )
 await p.getByRole('button', { name: /^Video/ }).click()
 await p.locator('.work-card a').first().click()
@@ -145,6 +145,17 @@ check('gallery stills carry real descriptions', await p.evaluate(() => {
   const alts = [...document.querySelectorAll('.case-media img')].map((i) => i.alt)
   return alts.length > 10 && alts.every((a) => a.length > 30 && !/, (piece|screen) \d+$/.test(a))
 }))
+await p.close()
+
+// Music-video cases play the full video on the page, and nothing is fetched from YouTube until play is pressed
+p = await newPage()
+const ytRequests = []
+p.on('request', (r) => /(^|\.)(youtube\.com|youtube-nocookie\.com|ytimg\.com)$/.test(new URL(r.url()).hostname) && ytRequests.push(r.url()))
+await p.goto(BASE + '/work/tec', { waitUntil: 'networkidle' })
+const beforePlay = [...ytRequests]
+await p.getByRole('button', { name: 'Play the full video' }).click()
+const player = await p.locator('iframe[src^="https://www.youtube-nocookie.com/embed/uIts3LeNtbs?"]').waitFor({ timeout: 5000 }).then(() => true, () => false)
+check('YouTube: nothing fetched before play, then the youtube-nocookie player', beforePlay.length === 0 && player, `before play: ${beforePlay.join(' ')} player=${player}`)
 await p.close()
 
 // Old printed links to /#packages land on /services; a package button prefills the contact form
