@@ -1,4 +1,4 @@
-import { getProject, projects, site } from './content/site'
+import { getProject, projects, site, socials } from './content/site'
 import { getPost, posts } from './content/posts'
 import legal from './content/legal.json'
 
@@ -7,12 +7,32 @@ export type Meta = { title: string; description: string; path: string; type?: 'w
 
 const creator = {
   '@type': 'Person',
+  '@id': `${site.url}/#person`,
   name: site.name,
   alternateName: site.alias,
   url: site.url,
   email: `mailto:${site.email}`,
-  jobTitle: 'Full-stack developer & videographer',
+  jobTitle: 'Videographer, web developer and music producer',
   address: { '@type': 'PostalAddress', addressLocality: 'Brampton', addressRegion: 'ON', addressCountry: 'CA' },
+  sameAs: socials.map((s) => s.href),
+}
+
+// The business behind the Google Business Profile: same name, site and service areas, so search ties them together.
+const business = {
+  '@type': 'ProfessionalService',
+  '@id': `${site.url}/#business`,
+  name: site.name,
+  url: site.url,
+  image: `${site.url}/og-image.jpg`,
+  email: site.email,
+  description: site.description,
+  address: creator.address,
+  areaServed: ['Brampton', 'Mississauga', 'Toronto', 'Caledon', 'Vaughan', 'Oakville', 'Milton', 'Halton Hills', 'Kitchener', 'Waterloo'].map(
+    (name) => ({ '@type': 'City', name }),
+  ),
+  knowsAbout: ['Videography', 'Video production', 'Photography', 'Web design', 'Web development'],
+  founder: { '@id': creator['@id'] },
+  sameAs: creator.sameAs,
 }
 
 // Upload dates of the case studies' YouTube videos, as their channels show them (Portfolio-Archive/_triage/web-credits/
@@ -30,7 +50,7 @@ const uploaded: Record<string, string> = {
 }
 
 const fixed: Record<string, Omit<Meta, 'path'>> = {
-  '/': { title: `${site.name} — Videographer & Web Developer, Brampton`, description: site.description, jsonLd: { '@context': 'https://schema.org', ...creator } },
+  '/': { title: `${site.name} — Videographer & Web Developer, Brampton`, description: site.description, jsonLd: { '@context': 'https://schema.org', '@graph': [creator, business] } },
   '/work': {
     title: `Work | Websites, Apps & Video by ${site.name}`,
     description: 'Websites, web apps, brand video and sports reels by Solomon Olufelo, Brampton.',

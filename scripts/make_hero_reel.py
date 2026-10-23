@@ -120,16 +120,14 @@ def encode(tall):
     subprocess.run([*base, '-c:v', 'libx264', '-preset', 'slow', '-crf', '29', '-maxrate', '1.7M', '-bufsize', '3.4M', *TAGS,
                     '-movflags', '+faststart', str(mp4)], check=True)
     webm = str(VID / f'hero-reel{tag}.webm')
-    if tall:
-        # Phones: two passes keep the one-pass picture (VMAF 97.3 on the phone model, worst frame better) at 2.0 MB instead of
-        # 2.7 MB, the biggest download on a phone's first visit (2026-10-22 audit; 540x960 at 600k scored 89.7).
-        vp9 = ['-c:v', 'libvpx-vp9', '-b:v', '900k', '-crf', '42', '-row-mt', '1', '-auto-alt-ref', '1', '-lag-in-frames', '25', *TAGS]
-        with tempfile.TemporaryDirectory() as tmp:
-            log = str(Path(tmp) / 'vp9')
-            subprocess.run([*base, *vp9, '-pass', '1', '-passlogfile', log, '-f', 'null', '-'], check=True)
-            subprocess.run([*base, *vp9, '-pass', '2', '-passlogfile', log, webm], check=True)
-    else:
-        subprocess.run([*base, '-c:v', 'libvpx-vp9', '-b:v', '1.5M', '-crf', '42', '-row-mt', '1', *TAGS, webm], check=True)
+    # Two passes keep the one-pass picture at a lower bitrate, with a better worst frame (2026-10-22 audit). Phones: VMAF 97.3
+    # on the phone model at 2.0 MB instead of 2.7 MB, the biggest download on a first visit (540x960 at 600k scored 89.7).
+    # Desktop: 83.9 vs 84.0 on the default model, worst frame 39.7 vs 30.1, at 2.9 MB instead of 3.6 MB (1.5M one pass).
+    vp9 = ['-c:v', 'libvpx-vp9', '-b:v', '900k' if tall else '1.1M', '-crf', '42', '-row-mt', '1', '-auto-alt-ref', '1', '-lag-in-frames', '25', *TAGS]
+    with tempfile.TemporaryDirectory() as tmp:
+        log = str(Path(tmp) / 'vp9')
+        subprocess.run([*base, *vp9, '-pass', '1', '-passlogfile', log, '-f', 'null', '-'], check=True)
+        subprocess.run([*base, *vp9, '-pass', '2', '-passlogfile', log, webm], check=True)
     subprocess.run(['ffmpeg', '-v', 'error', '-y', '-ss', '0.4', '-i', str(mp4), '-frames:v', '1', '-vf',
                     'scale=in_color_matrix=bt709:in_range=tv,format=bgra', '-c:v', 'libwebp', '-quality', '80',
                     str(VID / f'hero-reel{tag}-poster.webp')], check=True)
