@@ -1751,6 +1751,119 @@ p {
   }
 }
 
+/* ---------- About: stats, experience, the credits index, tools (About.tsx) ---------- */
+.about-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+.about-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px clamp(32px, 6vw, 72px);
+  margin: clamp(36px, 5vw, 56px) 0 0;
+}
+.about-stats div {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 6px;
+}
+.about-stats dt {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.about-stats dd {
+  margin: 0;
+  font: 600 clamp(2.2rem, 4.5vw, 3.4rem) / 1 var(--display);
+}
+.xp {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+}
+.xp > li {
+  display: grid;
+  grid-template-columns: minmax(0, 180px) minmax(0, 1fr);
+  gap: 8px clamp(24px, 4vw, 48px);
+  padding: clamp(22px, 3vw, 32px) 0;
+  border-bottom: 1px solid var(--line);
+}
+.xp-when {
+  margin: 0;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.xp h3 {
+  font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+  text-transform: uppercase;
+}
+.xp-org {
+  margin: 6px 0 12px;
+  color: var(--ink-2);
+  font-weight: 500;
+}
+.xp ul {
+  margin: 0;
+  padding-left: 1.1em;
+  color: var(--ink-2);
+  max-width: 68ch;
+}
+.xp ul li + li {
+  margin-top: 6px;
+}
+.about-facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: 28px clamp(24px, 4vw, 48px);
+  margin-top: clamp(32px, 4vw, 44px);
+}
+.about-facts h3,
+.tools h3 {
+  margin-bottom: 12px;
+  font-size: 1.15rem;
+  text-transform: uppercase;
+}
+.about-facts ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 8px;
+  color: var(--ink-2);
+}
+.credit-group + .credit-group {
+  margin-top: clamp(44px, 6vw, 72px);
+}
+.credit-group h3 {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 14px;
+  font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+  text-transform: uppercase;
+}
+.credit-group h3 span {
+  font: 500 0.85rem var(--body);
+  color: var(--muted);
+}
+.credit-note {
+  margin: -4px 0 16px;
+  max-width: 72ch;
+  color: var(--ink-2);
+}
+.tools {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 28px clamp(24px, 4vw, 48px);
+}
+@media (max-width: 720px) {
+  .xp > li {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ---------- Work: more credits (music videos on other channels) ---------- */
 .credits {
   margin-top: clamp(72px, 11vw, 140px);

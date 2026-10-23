@@ -158,6 +158,15 @@ const player = await p.locator('iframe[src^="https://www.youtube-nocookie.com/em
 check('YouTube: nothing fetched before play, then the youtube-nocookie player', beforePlay.length === 0 && player, `before play: ${beforePlay.join(' ')} player=${player}`)
 await p.close()
 
+// About: experience, every credit grouped by discipline, and the résumé PDF
+p = await newPage()
+await p.goto(BASE + '/about', { waitUntil: 'load' })
+check('about shows experience and grouped credits, and links a PDF résumé', await p.evaluate(async () => {
+  const res = await fetch('/solomon-olufelo-resume.pdf', { method: 'HEAD' })
+  return document.querySelectorAll('.xp > li').length === 3 && document.querySelectorAll('.credit-group').length >= 6 && res.ok && (res.headers.get('content-type') || '').includes('pdf')
+}))
+await p.close()
+
 // Old printed links to /#packages land on /services; a package button prefills the contact form
 p = await newPage()
 await p.goto(BASE + '/#packages', { waitUntil: 'load' })

@@ -1,12 +1,12 @@
 {
  "clipSeconds": 1.8,
- "webm": "/assets/videos/hero-reel-72cf6bbf.webm",
- "mp4": "/assets/videos/hero-reel-72cf6bbf.mp4",
- "poster": "/assets/videos/hero-reel-72cf6bbf-poster.webp",
+ "webm": "/assets/videos/hero-reel-628e5f79.webm",
+ "mp4": "/assets/videos/hero-reel-628e5f79.mp4",
+ "poster": "/assets/videos/hero-reel-628e5f79-poster.webp",
  "tall": {
-  "webm": "/assets/videos/hero-reel-72cf6bbf-tall.webm",
-  "mp4": "/assets/videos/hero-reel-72cf6bbf-tall.mp4",
-  "poster": "/assets/videos/hero-reel-72cf6bbf-tall-poster.webp"
+  "webm": "/assets/videos/hero-reel-628e5f79-tall.webm",
+  "mp4": "/assets/videos/hero-reel-628e5f79-tall.mp4",
+  "poster": "/assets/videos/hero-reel-628e5f79-tall-poster.webp"
  },
  "clips": [
   {
@@ -41,21 +41,31 @@
   },
   {
    "start": 10.5,
+   "slug": "tgk-im-an-artist",
+   "label": "TGK – I’m An Artist"
+  },
+  {
+   "start": 12.3,
    "slug": "kenoh-mexico",
    "label": "J.V & Kenoh – Mexico"
   },
   {
-   "start": 12.3,
+   "start": 14.1,
+   "slug": "yung-koba-canwe",
+   "label": "Yung Koba – CANWE?"
+  },
+  {
+   "start": 15.9,
    "slug": "vair-drop",
    "label": "Vair Studios"
   },
   {
-   "start": 14.1,
-   "slug": "moksha-festival",
-   "label": "Moksha festival"
+   "start": 17.7,
+   "slug": "fujiwill-fall-in-love-with-me",
+   "label": "FujiWill – Fall In Love With Me"
   },
   {
-   "start": 15.9,
+   "start": 19.5,
    "slug": "kenoh-fanned-out",
    "label": "Kenoh – Fanned Out"
   }

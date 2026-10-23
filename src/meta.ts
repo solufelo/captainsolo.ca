@@ -50,6 +50,11 @@ const fixed: Record<string, Omit<Meta, 'path'>> = {
     title: 'Voice Tags & Producer Tags | 24-Hour Delivery | Solomon Olufelo',
     description: 'Custom voice tags, producer tags and DJ drops. Listen to real samples, pick a style, and order a single tag with 24-hour delivery.',
   },
+  '/about': {
+    title: 'About | Credits, Experience & Résumé | Solomon Olufelo',
+    description: 'Every credit and the résumé: video for Laurier Athletics and GTA artists and businesses, websites and web apps, and music produced as Solufelo.',
+    jsonLd: { '@context': 'https://schema.org', '@type': 'ProfilePage', mainEntity: creator },
+  },
   '/contact': {
     title: 'Contact | Web Development & Videography in Brampton | Solomon Olufelo',
     description: 'Tell me about your website, app, video or voice-tag project. I reply within 1–2 business days.',

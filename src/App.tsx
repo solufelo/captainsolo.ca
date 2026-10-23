@@ -16,6 +16,7 @@ import { metaFor } from './meta'
 // don't download them. The prerendered HTML shows meanwhile.
 const BlogPost = lazy(() => import('./pages/BlogPost').then((m) => ({ default: m.BlogPost })))
 const Work = lazy(() => import('./pages/Work').then((m) => ({ default: m.Work })))
+const About = lazy(() => import('./pages/About').then((m) => ({ default: m.About })))
 
 /** Keeps <title>/description current on client-side navigation and handles #hash scrolling. */
 function RouteEffects() {
@@ -68,6 +69,14 @@ export function App() {
           <Route path="services" element={<ServicesPage />} />
           <Route path="book" element={<Book />} />
           <Route path="voice-tags" element={<VoiceTags />} />
+          <Route
+            path="about"
+            element={
+              <Suspense>
+                <About />
+              </Suspense>
+            }
+          />
           <Route path="contact" element={<ContactPage />} />
           <Route path="privacy-policy" element={<Legal page="privacy-policy" />} />
           <Route path="terms-of-service" element={<Legal page="terms-of-service" />} />

@@ -17,6 +17,9 @@ Sources are the masters in Downloads, Portfolio-Archive and Z: on Solomon's PC.
   red/blue lift from swscale's default chroma rounding.
 - The poster goes YUV -> RGB with the BT.709 matrix before WebP (WebP decodes with BT.601).
 Round 2 (2026-10-21): cut A, picked blind by three judges over the old cut and an alternative.
+2026-10-22: his own directed work in, from the YouTube uploads (three review agents scored every candidate against
+this cut; most of his older uploads carry a burned-in CAPTAINSOLO logo or lyric subtitles, so they stayed out):
+TGK's neon grid, CANWE?'s green canopy and FujiWill's pink guitar. Moksha (edit only) came out.
 """
 import hashlib
 import json
@@ -43,8 +46,11 @@ SRC = {
     'laurier-opener': AIR + '01_LaurierVsCarleton_Cinematic_Opener_ProRes422HQ.mov',  # aired Oct 17
     'kenoh-mexico': VE + 'jv_kenoh_mexico.mp4',
     'vair-drop': PA + 'logo work + desc_/vair studios 1.mp4',
-    'moksha-festival': DL + 'Video/moksha promo v4.mp4',
     'kenoh-fanned-out': DL + 'KENOH - FANNED OUT final.mp4',
+    # 1080p YouTube uploads (yt-dlp, video only): no cleaner masters on this PC
+    'tgk-im-an-artist': PA + '_triage/hero-credits/dl/fkc-Vnrbr5Y.mp4',
+    'yung-koba-canwe': PA + '_triage/hero-credits/dl/8MDTS1aIbPQ.mp4',
+    'fujiwill-fall-in-love-with-me': PA + '_triage/hero-credits/dl/CLlMd5SBxTs.mp4',
 }
 SLUG = {'laurier-opener': 'laurier-gameday'}  # source key -> site.ts slug, where they differ
 TAGS = ['-colorspace', 'bt709', '-color_primaries', 'bt709', '-color_trc', 'bt709', '-color_range', 'tv']
@@ -60,9 +66,11 @@ MOMENTS = [
     ('laurier-basketball', 20.70, 'Laurier basketball', 54, 0.28, None),  # drive, layup, the ball drops through the net
     ('tec', 52.76, '10k Moss – TEC', 54, None, 0.4),  # money rain in the built teal loading-bay set; the artist sits left of centre
     ('laurier-opener', 3.00, 'Laurier game day', 54, None, 0.35),  # glossy 3D Golden Hawks helmet in purple smoke; keeps the hawk
+    ('tgk-im-an-artist', 74.337, 'TGK – I’m An Artist', 54, None, 0.5),  # cross-legged on the cyan neon grid under stacked CRTs
     ('kenoh-mexico', 129.50, 'J.V & Kenoh – Mexico', 54, None, (1.0, 0.75)),  # wide two-shot; the phone cut follows the red cap
+    ('yung-koba-canwe', 66.482, 'Yung Koba – CANWE?', 54, None, (0.62, 1.0)),  # low angle up into a green canopy; first clean frame after the flash
     ('vair-drop', 19.55, 'Vair Studios', 54, None, 0.85),  # two drop hoodies walk off up the teal stairs; the phone keeps one VAIR back
-    ('moksha-festival', 37.06, 'Moksha festival', 54, None, 0.4),  # performer, glow-stick crowd, stage and CO2
+    ('fujiwill-fall-in-love-with-me', 112.524, 'FujiWill – Fall In Love With Me', 54, None, (0.28, 0.58)),  # pink guitar, low angle, skyline
     ('kenoh-fanned-out', 121.92, 'Kenoh – Fanned Out', 54, None, 0.45),  # hood up at the Escalade door, golden hour
 ]
 
