@@ -6,6 +6,9 @@ import { reducedMotion } from '../motion'
 // Upright screens (phones, tablets held tall) get the 9:16 cut; <source media> picks before anything downloads.
 // The same query swaps the poster in CSS (styles.css), since a video's poster attribute can't vary by screen.
 const TALL = '(max-aspect-ratio: 3/4)'
+// Wide screens past 1300 px would stretch the 720p cut 1.25-1.5x: they get the 1080p one (webm only; without VP9 the
+// browser falls through to the 720p mp4).
+const BIG = '(min-width: 1300px)'
 const posters = { '--poster': `url(${reel.poster})`, '--poster-tall': `url(${reel.tall.poster})` } as CSSProperties
 const pad = (n: number) => String(Math.floor(n)).padStart(2, '0')
 // Which clip is on screen at second s (clips are in start order).
@@ -100,6 +103,7 @@ export function Viewfinder() {
       >
         <source media={TALL} src={reel.tall.webm} type="video/webm" />
         <source media={TALL} src={reel.tall.mp4} type="video/mp4" />
+        <source media={BIG} src={reel.hd.webm} type="video/webm" />
         <source src={reel.webm} type="video/webm" />
         <source src={reel.mp4} type="video/mp4" />
       </video>

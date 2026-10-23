@@ -33,6 +33,7 @@ VID = ROOT / 'public/assets/videos'
 FPS = 30
 CLIP = 1.8  # nominal seconds per moment (54 frames)
 W, H = 1280, 720
+HD = (1920, 1080)  # big screens (Viewfinder.tsx: min-width 1300px), webm only
 DL = 'C:/Users/Administrator/Downloads/'
 VE = 'Z:/Creative Projects & Footage/Video_Exports/'
 PA = 'C:/Users/Administrator/Portfolio-Archive/'
@@ -89,11 +90,11 @@ def color_in(src):
     return ('bt601' if tags.get('color_space') in ('bt470bg', 'smpte170m') else 'bt709'), ('pc' if tags.get('color_range') == 'pc' else 'tv')
 
 
-def chain(i, key, yoff, frames, xs, tall):
-    """Input i -> exactly `frames` frames at 30 fps, BT.709 limited: 1280x720, or 720x1280 for the phone cut."""
+def chain(i, key, yoff, frames, xs, tall, size=None):
+    """Input i -> exactly `frames` frames at 30 fps, BT.709 limited: 1280x720 (or `size`), or 720x1280 for the phone cut."""
     src = SRC[key]
     w, h = probe(src)
-    ow, oh = (H, W) if tall else (W, H)
+    ow, oh = size or ((H, W) if tall else (W, H))
     pre = ''
     if not tall and w / h < 16 / 9 and yoff is not None:  # tall master: take a full-width 16:9 band at the moment's height
         bh = round(w * 9 / 16 / 2) * 2
@@ -107,27 +108,35 @@ def chain(i, key, yoff, frames, xs, tall):
             f':in_range={r}:out_range=tv,crop={ow}:{oh},setsar=1,fps={FPS},trim=end_frame={frames},setpts=PTS-STARTPTS,format=yuv420p[v{i}]')
 
 
-def encode(tall):
-    """Write VID/hero-reel{-tall}.{mp4,webm} and its poster; the mp4 must hold exactly the moments' frames."""
-    tag = '-tall' if tall else ''
+def encode(tall, hd=False):
+    """Write VID/hero-reel{-tall,-hd}.webm, plus the mp4 and poster for the 720p cuts; each must hold exactly the moments' frames."""
+    tag = '-tall' if tall else '-hd' if hd else ''
     inputs, chains = [], []
     for i, (key, t, _, frames, yoff, xs) in enumerate(MOMENTS):
         inputs += ['-ss', f'{t:.3f}', '-t', f'{frames / FPS + 0.5:.3f}', '-i', SRC[key]]
-        chains.append(chain(i, key, yoff, frames, xs, tall))
+        chains.append(chain(i, key, yoff, frames, xs, tall, HD if hd else None))
     graph = ';'.join(chains) + ';' + ''.join(f'[v{i}]' for i in range(len(MOMENTS))) + f'concat=n={len(MOMENTS)}:v=1:a=0[out]'
     base = ['ffmpeg', '-v', 'error', '-y', *inputs, '-filter_complex', graph, '-map', '[out]', '-an']
     mp4 = VID / f'hero-reel{tag}.mp4'
-    subprocess.run([*base, '-c:v', 'libx264', '-preset', 'slow', '-crf', '29', '-maxrate', '1.7M', '-bufsize', '3.4M', *TAGS,
-                    '-movflags', '+faststart', str(mp4)], check=True)
+    if not hd:  # a browser without VP9 falls through to the 720p mp4, so the 1080p cut needs no mp4 of its own
+        subprocess.run([*base, '-c:v', 'libx264', '-preset', 'slow', '-crf', '29', '-maxrate', '1.7M', '-bufsize', '3.4M', *TAGS,
+                        '-movflags', '+faststart', str(mp4)], check=True)
     webm = str(VID / f'hero-reel{tag}.webm')
     # Two passes keep the one-pass picture at a lower bitrate, with a better worst frame (2026-10-22 audit). Phones: VMAF 97.3
     # on the phone model at 2.0 MB instead of 2.7 MB, the biggest download on a first visit (540x960 at 600k scored 89.7).
     # Desktop: 83.9 vs 84.0 on the default model, worst frame 39.7 vs 30.1, at 2.9 MB instead of 3.6 MB (1.5M one pass).
-    vp9 = ['-c:v', 'libvpx-vp9', '-b:v', '900k' if tall else '1.1M', '-crf', '42', '-row-mt', '1', '-auto-alt-ref', '1', '-lag-in-frames', '25', *TAGS]
+    # Big screens (2026-10-23): against a 1080p reference the 720p cut, upscaled as a 1920 screen shows it, scores 73.5;
+    # 1080p at 2.4M scores 86.8 (6.4 MB), at 1.8M 82.2 (4.8 MB).
+    vp9 = ['-c:v', 'libvpx-vp9', '-b:v', '900k' if tall else '2.4M' if hd else '1.1M', '-crf', '42', '-row-mt', '1', '-auto-alt-ref', '1', '-lag-in-frames', '25', *TAGS]
     with tempfile.TemporaryDirectory() as tmp:
         log = str(Path(tmp) / 'vp9')
         subprocess.run([*base, *vp9, '-pass', '1', '-passlogfile', log, '-f', 'null', '-'], check=True)
         subprocess.run([*base, *vp9, '-pass', '2', '-passlogfile', log, webm], check=True)
+    if hd:
+        n = int(subprocess.run(['ffprobe', '-v', 'error', '-count_frames', '-select_streams', 'v:0', '-show_entries',
+                                'stream=nb_read_frames', '-of', 'csv=p=0', webm], capture_output=True, text=True).stdout)
+        assert n == sum(m[3] for m in MOMENTS), f'{webm}: {n} frames: clip start times would drift'
+        return
     subprocess.run(['ffmpeg', '-v', 'error', '-y', '-ss', '0.4', '-i', str(mp4), '-frames:v', '1', '-vf',
                     'scale=in_color_matrix=bt709:in_range=tv,format=bgra', '-c:v', 'libwebp', '-quality', '80',
                     str(VID / f'hero-reel{tag}-poster.webp')], check=True)
@@ -139,15 +148,19 @@ def encode(tall):
 
 encode(tall=False)
 encode(tall=True)
+encode(tall=False, hd=True)
 
 # content-hash all four cuts (the names are cached for a year, so a re-encoded phone cut needs a new one); drop older cuts
-digest = hashlib.sha1(b''.join((VID / f'hero-reel{t}.{e}').read_bytes() for t in ('', '-tall') for e in ('mp4', 'webm'))).hexdigest()[:8]
+CUTS = {'': ('webm', 'mp4', 'poster'), '-tall': ('webm', 'mp4', 'poster'), '-hd': ('webm',)}
+FILE = {'webm': 'hero-reel{}.webm', 'mp4': 'hero-reel{}.mp4', 'poster': 'hero-reel{}-poster.webp'}
+digest = hashlib.sha1(b''.join((VID / FILE[k].format(t)).read_bytes() for t, kinds in CUTS.items() for k in kinds if k != 'poster')).hexdigest()[:8]
 for old in VID.glob('hero-reel-*'):
-    if re.fullmatch(r'hero-reel-[0-9a-f]{8}(-tall)?(-poster)?\.(mp4|webm|webp)', old.name):
+    if re.fullmatch(r'hero-reel-[0-9a-f]{8}(-tall|-hd)?(-poster)?\.(mp4|webm|webp)', old.name):
         old.unlink()
-names = {'': {}, '-tall': {}}
-for tag in names:
-    for kind, src in [('webm', f'hero-reel{tag}.webm'), ('mp4', f'hero-reel{tag}.mp4'), ('poster', f'hero-reel{tag}-poster.webp')]:
+names = {tag: {} for tag in CUTS}
+for tag, kinds in CUTS.items():
+    for kind in kinds:
+        src = FILE[kind].format(tag)
         dst = src.replace('hero-reel', f'hero-reel-{digest}', 1)
         (VID / src).rename(VID / dst)
         names[tag][kind] = f'/assets/videos/{dst}'
@@ -156,7 +169,7 @@ clips, frame = [], 0
 for key, _, label, frames, _, _ in MOMENTS:
     clips.append({'start': round(frame / FPS, 2), 'slug': SLUG.get(key, key), 'label': label})
     frame += frames
-reel = {'clipSeconds': CLIP, **names[''], 'tall': names['-tall'], 'clips': clips}
+reel = {'clipSeconds': CLIP, **names[''], 'tall': names['-tall'], 'hd': names['-hd'], 'clips': clips}
 (ROOT / 'src/content/heroReel.json').write_text(json.dumps(reel, ensure_ascii=False, indent=1), encoding='utf-8')
-for path in [*names[''].values(), *names['-tall'].values()]:
+for path in [p for cut in names.values() for p in cut.values()]:
     print(path, f'{(ROOT / "public" / path.lstrip("/")).stat().st_size / 1e6:.2f} MB')
