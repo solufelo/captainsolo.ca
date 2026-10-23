@@ -25,6 +25,9 @@ export function Packages() {
             <li key={p.id} className="package" data-featured={p.featured ?? false}>
               {p.featured && <p className="price-flag">Most complete</p>}
               <h3>{p.name}</h3>
+              <p className="package-from">
+                From <strong>{p.from}</strong>
+              </p>
               <p className="package-tagline">{p.tagline}</p>
               <ul>
                 {p.includes.map((x) => (

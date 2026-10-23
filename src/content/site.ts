@@ -716,7 +716,7 @@ export const offers = [
 ]
 
 export const faqs = [
-  { q: 'What does it cost?', a: 'Every project is quoted after a short call, so you only pay for what you need.' },
+  { q: 'What does it cost?', a: 'A shoot starts at $600, a shoot with a website at $2,000 and the full brand at $3,500. Every project is quoted after a short call, so you only pay for what you need.' },
   { q: 'Do I need to be technical?', a: 'No. You get a walkthrough at launch, and site care covers edits.' },
   { q: 'Can you shoot at my location?', a: 'Yes: your shop, studio or event, anywhere in the GTA.' },
   { q: 'What happens after launch?', a: 'Site care covers hosting, updates and fixes for one monthly fee. Add content shoots whenever you want fresh material.' },
@@ -726,25 +726,29 @@ export const faqs = [
 /** Where every "Book a call" button goes: the booking calendar, or the contact form with the request written. */
 export const bookCall = site.cal ? '/book' : '/contact?call=1'
 
-export type BrandPackage = { id: string; name: string; tagline: string; includes: string[]; featured?: boolean }
+export type BrandPackage = { id: string; name: string; tagline: string; includes: string[]; from: string; featured?: boolean }
 
-// No prices on purpose: every package is quoted after a short call. Edit freely.
+// Starting prices (his pick 2026-10-23, near what Brampton and KW competitors publish); every project is still quoted
+// after a short call. The FAQ, /services, the service pages and the search data all read them from here.
 export const brandPackages: BrandPackage[] = [
   {
     id: 'Shoot',
     name: 'Shoot',
+    from: '$600',
     tagline: 'Fresh photos and short-form video for your socials.',
     includes: ['Half-day photo + video shoot', 'Edited photo set', '3 short vertical edits for Reels / TikTok', 'Colour-graded, platform-ready exports'],
   },
   {
     id: 'Shoot + Site',
     name: 'Shoot + site',
+    from: '$2,000',
     tagline: 'Everything in Shoot, plus a site that shows it off.',
     includes: ['Everything in Shoot', 'One-page website built around your shoot', 'Contact or booking form to your inbox', 'Domain, hosting and SSL set up', 'Google Business Profile tune-up'],
   },
   {
     id: 'Full brand',
     name: 'Full brand',
+    from: '$3,500',
     featured: true,
     tagline: 'A complete personal or business brand you can run yourself.',
     includes: [

@@ -1,4 +1,4 @@
-import { getProject, projects, site, socials } from './content/site'
+import { brandPackages, getProject, projects, site, socials } from './content/site'
 import { getPost, posts } from './content/posts'
 import legal from './content/legal.json'
 
@@ -31,6 +31,7 @@ const business = {
     (name) => ({ '@type': 'City', name }),
   ),
   knowsAbout: ['Videography', 'Video production', 'Photography', 'Web design', 'Web development'],
+  priceRange: `From ${brandPackages[0].from}`,
   founder: { '@id': creator['@id'] },
   sameAs: creator.sameAs,
 }
@@ -76,7 +77,7 @@ const fixed: Record<string, Omit<Meta, 'path'>> = {
   // These two replace January 2025 blog posts (public/_redirects): same search intent, only claims the work backs.
   '/services/video': {
     title: 'Brampton Videographer for Brands & Events | Solomon Olufelo',
-    description: 'Promos, event coverage and social reels for Brampton and GTA businesses: barbershops, salons, clothing labels and club nights. Quoted after a short call.',
+    description: `Promos, event coverage and social reels for Brampton and GTA businesses: barbershops, salons, clothing labels and club nights. Shoots from ${brandPackages[0].from}.`,
     image: '/og/video.jpg',
     jsonLd: service('Video production', '/services/video'),
   },
@@ -88,7 +89,7 @@ const fixed: Record<string, Omit<Meta, 'path'>> = {
   },
   '/services': {
     title: 'Video, Photo & Web Services in Brampton | Solomon Olufelo',
-    description: 'Shoot, Shoot + site and Full brand packages, plus monthly site care and content shoots. Quoted after a short call.',
+    description: `${brandPackages.map((p) => `${p.name} from ${p.from}`).join(', ')}, plus monthly site care and content shoots.`,
     image: '/og/services.jpg',
   },
   ...(site.cal && {

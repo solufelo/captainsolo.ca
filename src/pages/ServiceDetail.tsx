@@ -66,7 +66,11 @@ const details: Record<string, Detail> = {
       { title: 'Edit and deliver', body: 'Colour-graded edits, vertical for Reels and TikTok, wide for your site.' },
     ],
     includes: { title: 'A shoot includes', items: brandPackages[0].includes },
-    note: <>Every project is quoted after a short call. Kit: {kit('Camera and post')}.</>,
+    note: (
+      <>
+        A shoot starts at {brandPackages[0].from}, and every project is quoted after a short call. Kit: {kit('Camera and post')}.
+      </>
+    ),
     ask: { label: 'Ask about a shoot', service: 'Photo / video shoot' },
   },
   websites: {
@@ -93,7 +97,8 @@ const details: Record<string, Detail> = {
     },
     note: (
       <>
-        Every project is quoted after a short call; packages are on <Link to="/services">Services</Link>. Built with {kit('Web')}.
+        A shoot with a website starts at {brandPackages[1].from} and the full brand at {brandPackages[2].from}; every project is quoted after a
+        short call, and the packages are on <Link to="/services">Services</Link>. Built with {kit('Web')}.
       </>
     ),
     ask: { label: 'Ask about a website', service: 'Website' },

@@ -806,6 +806,15 @@ p {
   color: var(--accent);
   font-weight: 700;
 }
+.package-from {
+  margin: 2px 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.package-from strong {
+  font: 600 1.75rem / 1 var(--display);
+  color: var(--ink);
+}
 .package-quote {
   margin: auto 0 14px;
   font-size: 0.8rem;
