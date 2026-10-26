@@ -2677,6 +2677,15 @@ p {
 .case-meta dd {
   margin: 0;
 }
+.case-story {
+  max-width: 68ch;
+  margin: clamp(28px, 4vw, 44px) 0 0;
+  padding-left: 1.1em;
+  color: var(--ink-2);
+}
+.case-story li + li {
+  margin-top: 10px;
+}
 .case-links {
   display: grid;
 }

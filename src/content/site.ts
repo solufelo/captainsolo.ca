@@ -52,6 +52,8 @@ export type Project = {
   clips?: { src: string; poster: string; title: string; sound: string }[]
   /** The client's own words, shown on the case study (real quotes only, as they said them). */
   quote?: { text: string; by: string }
+  /** What was delivered, one line each, shown under the case header. */
+  story?: string[]
   /** Short silent loop shown when the work-list row is hovered. */
   preview?: string
   /** Real screens for the case-study page; falls back to `image`. */
@@ -436,20 +438,29 @@ export const projects: Project[] = [
     preview: '/assets/previews/laurier-gameday-r2.mp4',
     status: 'live',
     categories: ['design', 'motion'],
-    tags: ['Blender', 'After Effects', 'Photoshop', 'Broadcast'],
+    tags: ['Blender', 'After Effects', 'Photoshop', 'Python', 'Broadcast'],
     image: '/assets/projects/laurier-gameday-r2-c.webp',
     loop: '/assets/videos/laurier-cinematic-opener.mp4',
     poster: '/assets/work/laurier-cinematic-opener-poster.webp',
     clips: [
       { src: '/assets/videos/laurier-sizzle-v7.mp4', poster: '/assets/work/laurier-sizzle-v7-poster.webp', title: 'Game-day sizzle', sound: 'No dialogue' },
-      { src: '/assets/videos/laurier-graphics-demo-v2.mp4', poster: '/assets/work/laurier-graphics-demo-v2-poster.webp', title: 'Live-stream graphics demo', sound: 'No sound' },
+      { src: '/assets/videos/laurier-graphics-demo-v3.mp4', poster: '/assets/work/laurier-graphics-demo-v3-poster.webp', title: 'Live-stream graphics demo', sound: 'No sound' },
       { src: '/assets/videos/laurier-stingers.mp4', poster: '/assets/work/laurier-stingers-poster.webp', title: 'Game-day stingers', sound: 'No sound' },
       { src: '/assets/videos/laurier-crowd-prompts.mp4', poster: '/assets/work/laurier-crowd-prompts-poster.webp', title: 'Videoboard crowd prompts', sound: 'No sound' },
       { src: '/assets/videos/laurier-senior-day-bumpers.mp4', poster: '/assets/work/laurier-senior-day-bumpers-poster.webp', title: 'Senior Day bumpers', sound: 'No dialogue' },
       { src: '/assets/videos/laurier-helmet-shuffle-m.mp4', poster: '/assets/work/laurier-helmet-shuffle-m-poster.webp', title: 'Helmet Shuffle jumbotron game', sound: 'No dialogue' },
       { src: '/assets/videos/laurier-senior-day-tribute-m.mp4', poster: '/assets/work/laurier-senior-day-tribute-m-poster.webp', title: 'Senior Day tribute', sound: 'No dialogue' },
     ],
-    gallery: ['/assets/work/laurier-clash-hero.webp', '/assets/work/laurier-senior-day-v2.webp', '/assets/work/laurier-helmets-duo.webp', '/assets/work/laurier-countdown-1-m.webp', '/assets/work/laurier-clash-close.webp', '/assets/work/laurier-countdown-2-m.webp', '/assets/work/laurier-media-day.webp', '/assets/work/laurier-countdown-3-m.webp', '/assets/work/laurier-endzone-v2.webp', '/assets/videos/laurier-bhm-loop.mp4', '/assets/work/laurier-helmets-heritage.webp', '/assets/work/laurier-crest-m.webp', '/assets/work/laurier-broadcast-v2.webp'],
+    gallery: ['/assets/work/laurier-clash-hero.webp', '/assets/work/laurier-senior-day-v2.webp', '/assets/work/laurier-helmets-duo.webp', '/assets/work/laurier-countdown-1-m.webp', '/assets/work/laurier-clash-close.webp', '/assets/work/laurier-countdown-2-m.webp', '/assets/work/laurier-media-day.webp', '/assets/work/laurier-countdown-3-m.webp', '/assets/work/laurier-endzone-v2.webp', '/assets/videos/laurier-bhm-loop.mp4', '/assets/work/laurier-helmets-heritage.webp', '/assets/work/laurier-crest-m.webp', '/assets/work/laurier-broadcast-v3.webp'],
+    // From the delivery folders on D: (Oct 17 package, season package, stream graphics). No player names: his rule.
+    story: [
+      'Senior Day vs Carleton, Oct 17: a cinematic 3D opener, the Helmet Shuffle videoboard game in three outcomes, and Senior Day bumpers and a tribute. All delivered as ProRes 422 HQ masters with H.264 previews.',
+      'Live stream: a scorebug, down-and-distance and red-zone bars, and roster lower thirds for the official 2026 roster: 371 graphics for 110 players.',
+      'Social: countdown posters, matchup scenes and 4K 3D helmet stills.',
+      'Season look: a brand gradient map (a LUT) that brings every graphic onto Laurier Purple #4B2882 and Gold #FDB913, checked before and after on the videoboard and the stream.',
+      'Pipeline tools: an open-source Blender add-on that bakes a whole Helmet Shuffle routine in under 0.2 s, and scripts that check every logo in the 3D hero renders.',
+    ],
+    source: 'https://github.com/solufelo/golden-hawks-helmet-shuffle',
     layout: 'grid',
   },
   {

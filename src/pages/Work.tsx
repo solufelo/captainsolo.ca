@@ -152,6 +152,13 @@ export function Work() {
             </div>
           )}
         </dl>
+        {project.story && (
+          <ul className="case-story">
+            {project.story.map((s) => (
+              <li key={s}>{s}</li>
+            ))}
+          </ul>
+        )}
         {serviceFor(project) && (
           <Link to={`/services/${serviceFor(project)![0]}`} className="arrow-link">
             {serviceFor(project)![1]}
