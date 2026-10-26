@@ -458,7 +458,7 @@ export const projects: Project[] = [
       'Live stream: a scorebug, down-and-distance and red-zone bars, and roster lower thirds for the official 2026 roster: 371 graphics for 110 players.',
       'Social: countdown posters, matchup scenes and 4K 3D helmet stills.',
       'Season look: a brand gradient map (a LUT) that brings every graphic onto Laurier Purple #4B2882 and Gold #FDB913, checked before and after on the videoboard and the stream.',
-      'Pipeline tools: an open-source Blender add-on that bakes a whole Helmet Shuffle routine in under 0.2 s, and scripts that check every logo in the 3D hero renders.',
+      'Pipeline tools: an open-source Blender add-on that bakes a whole Helmet Shuffle routine in under a quarter of a second, and scripts that check every logo in the 3D hero renders.',
     ],
     source: 'https://github.com/solufelo/golden-hawks-helmet-shuffle',
     layout: 'grid',
